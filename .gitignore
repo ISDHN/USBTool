@@ -17,27 +17,11 @@
 mono_crash.*
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
 [Ll]og/
 [Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
-# Uncomment if you have tasks that create the project's static files in wwwroot
-#wwwroot/
-
-# Visual Studio 2017 auto generated files
-Generated\ Files/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -70,25 +54,12 @@ StyleCopReport.xml
 *_h.h
 *.ilk
 *.meta
-*.obj
-*.iobj
-*.pch
-*.pdb
-*.ipdb
 *.pgc
 *.pgd
 *.rsp
 *.sbr
-*.tlb
 *.tli
-*.tlh
 *.tmp
-*.tmp_proj
-*_wpftmp.csproj
-*.log
-*.vspscc
-*.vssscc
-.builds
 *.pidb
 *.svclog
 *.scc
@@ -169,8 +140,7 @@ DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
 
-# Click-Once directory
-publish/
+
 
 # Publish Web Output
 *.[Pp]ublish.xml
@@ -185,8 +155,6 @@ publish/
 # in these scripts will be unencrypted
 PublishScripts/
 
-# NuGet Packages
-*.nupkg
 # NuGet Symbol Packages
 *.snupkg
 # The packages folder can be ignored because of Package Restore
@@ -319,11 +287,6 @@ __pycache__/
 # Telerik's JustMock configuration file
 *.jmconfig
 
-# BizTalk build output
-*.btp.cs
-*.btm.cs
-*.odx.cs
-*.xsd.cs
 
 # OpenCover UI analysis results
 OpenCover/

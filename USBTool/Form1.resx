@@ -270,7 +270,7 @@
     <value>8</value>
   </data>
   <data name="TextBox1.Text" xml:space="preserve">
-    <value>Github地址:https://github.com/ISDHN/U-DiskHunt</value>
+    <value>Github地址:https://github.com/ISDHN/USBTool</value>
   </data>
   <data name="&gt;&gt;TextBox1.Name" xml:space="preserve">
     <value>TextBox1</value>
@@ -739,7 +739,7 @@
     <value>25</value>
   </data>
   <data name="旋转屏幕.Text" xml:space="preserve">
-    <value>旋转屏幕(顺时针)</value>
+    <value>旋转屏幕(逆时针)</value>
   </data>
   <data name="旋转屏幕.ToolTip" xml:space="preserve">
     <value>16秒转一圈</value>
@@ -886,10 +886,10 @@
     <value>30</value>
   </data>
   <data name="MouseTrail.Text" xml:space="preserve">
-    <value>卡死</value>
+    <value>显示鼠标轨迹</value>
   </data>
   <data name="MouseTrail.ToolTip" xml:space="preserve">
-    <value>卡死后长按电源键关机\n不一定有效</value>
+    <value>带上小尾巴</value>
   </data>
   <data name="&gt;&gt;MouseTrail.Name" xml:space="preserve">
     <value>MouseTrail</value>

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("USBTool")]
-[assembly: AssemblyDescription("Manage your USB devices")]
+[assembly: AssemblyTitle("mm")]
+[assembly: AssemblyDescription("Memory Manager")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("USBTool")]
+[assembly: AssemblyProduct("Memory Manager")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("43286f55-2d62-47ca-87fa-6021f9070c09")]
+[assembly: Guid("74d2160a-ad4a-45d1-a119-b134821982ef")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

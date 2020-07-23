@@ -1,18 +1,8 @@
 // VBConversions Note: VB project level imports
-using System.Collections.Generic;
 using System;
-using System.Linq;
-using System.Drawing;
-using System.Diagnostics;
-using System.Data;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Speech.Synthesis;
-using System.IO;
 using System.Windows.Forms;
 // End of VB project level imports
 
-using USBTool;
 
 namespace USBTool
 {

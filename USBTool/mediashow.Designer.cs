@@ -84,6 +84,7 @@ namespace USBTool
 			
 			// 此调用是设计器所必需的。
 			InitializeComponent();
+			mel.MediaOpened += new System.Windows.RoutedEventHandler(mel_MediaOpened);
 			mel.MediaEnded += new System.Windows.RoutedEventHandler(mel_MediaEnded);
 			Host.Child = mel;
 			mel.LoadedBehavior = System.Windows.Controls.MediaState.Manual;
