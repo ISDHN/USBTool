@@ -20,9 +20,7 @@ namespace USBTool
         public static Random rand = new Random();
         public delegate bool FormatExCallBack(int Command, int Modifier, IntPtr Argument);
         [DllImport("fmifs.dll", SetLastError = true)]
-        public static extern int FormatEx(string drivename, uint media, string format, string volume, bool QuickFormat, int size, FormatExCallBack callback);
-        [DllImport("shell32.dll")]
-        public static extern int SHFormatDrive(IntPtr hWnd, int Drive, int fmtID, int Options);
+        public static extern int FormatEx(string drivename, uint media, string format, string volume, bool QuickFormat, int size, FormatExCallBack callback);        
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref string pvParam, uint fWinIni);
         [DllImport("user32.dll")]
@@ -118,10 +116,6 @@ namespace USBTool
         public const uint DWMNCRP_ENABLED = 2;
         public const uint WM_CLOSE = 0x0010;
         public const uint FMIFS_HARDDISK = 0xC;
-        public static double GetMemoryRate()
-        {
-            return 100 - (double)(new Microsoft.VisualBasic.Devices.Computer()).Info.AvailablePhysicalMemory / (new Microsoft.VisualBasic.Devices.Computer()).Info.TotalPhysicalMemory * 100;
-        }
         public static void ForEachWindow(IntPtr hwnd, string op)
         {
             MARGINS m = new MARGINS()

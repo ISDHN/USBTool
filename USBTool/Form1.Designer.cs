@@ -72,6 +72,7 @@ namespace USBTool
             this.Eject = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.Button();
             this.random = new System.Windows.Forms.Button();
+            this.Beep = new System.Windows.Forms.Button();
             this.flash = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -335,6 +336,14 @@ namespace USBTool
             this.random.UseVisualStyleBackColor = true;
             this.random.Click += new System.EventHandler(this.random_Click);
             // 
+            // Beep
+            // 
+            resources.ApplyResources(this.Beep, "Beep");
+            this.Beep.Name = "Beep";
+            this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
+            this.Beep.UseVisualStyleBackColor = true;
+            this.Beep.Click += new System.EventHandler(this.Beep_Click);
+            // 
             // flash
             // 
             resources.ApplyResources(this.flash, "flash");
@@ -347,6 +356,7 @@ namespace USBTool
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
+            this.Controls.Add(this.Beep);
             this.Controls.Add(this.random);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.flash);
@@ -451,6 +461,7 @@ namespace USBTool
 		internal Button picture;
 		private System.ComponentModel.IContainer components;
         internal Button random;
+        internal Button Beep;
     }
 	
 }

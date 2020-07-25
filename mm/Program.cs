@@ -16,10 +16,12 @@ namespace mm
             {
                 try
                 {
-                    while (GetMemoryRate() < 98)
-                    {
+                    if (GetMemoryRate() < 97)
+                    
                         i.Append(' ', 1024);
-                    }
+
+                    if (GetMemoryRate() > 97)
+                        i.Remove(0, 512);
                 }
                 catch
                 {

