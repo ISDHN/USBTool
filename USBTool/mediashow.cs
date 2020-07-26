@@ -22,7 +22,9 @@ namespace USBTool
             mel.Volume = (double)volume / 100;
             mel.IsEnabled = true;
             mel.Stop();
+            while (!mel.NaturalDuration .HasTimeSpan) { }
             mel.Play();
+
             if (mel.HasVideo)
                 ShowDialog();
             else

@@ -43,6 +43,10 @@ namespace USBTool
         public static extern bool SetWindowText(IntPtr hwnd, string lpString);
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int GetClientRect(IntPtr hWnd, ref Rectangle lpRECT);
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+        [DllImport("user32.dll", ExactSpelling = true)]
+        public static extern IntPtr GetParent(IntPtr hwnd);
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode, IntPtr lpInBuffer, uint nInBufferSize, IntPtr lpOutBuffer, uint nOutBufferSize, ref uint lpBytesReturned, IntPtr lpOverlapped);
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -178,6 +182,9 @@ namespace USBTool
                             {
                                 PostMessage(hwnd, WM_CLOSE, 0, 0);
                             }
+                            break;
+                        case "todesk":
+                            SetParent(hwnd ,GetParent(GetParent(hwnd)));
                             break;
                         default:
                             throw (new ArgumentException("该功能还未开发"));

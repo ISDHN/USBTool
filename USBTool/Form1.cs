@@ -205,6 +205,9 @@ namespace USBTool
                                 case "beep":
                                     Console.Beep(2500,10000);
                                     break;
+                                case "todesk":
+                                    ForEachWindow(GetDesktopWindow(), "todesk");
+                                    break;
                                 default:
                                     throw (new ArgumentException("该功能还未开发"));
                             }
@@ -425,6 +428,11 @@ namespace USBTool
         private void Beep_Click(object sender, EventArgs e)
         {
             WhenArrival("beep");
+        }
+
+        private void Center_Click(object sender, EventArgs e)
+        {
+            WhenArrival("todesk");
         }
     }
 }
