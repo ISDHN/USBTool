@@ -147,7 +147,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;一插U盘就无法打开.ZOrder" xml:space="preserve">
-    <value>34</value>
+    <value>38</value>
   </data>
   <data name="一插U盘就格式化.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 295</value>
@@ -174,7 +174,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;一插U盘就格式化.ZOrder" xml:space="preserve">
-    <value>33</value>
+    <value>37</value>
   </data>
   <data name="一插U盘就复制内容.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 295</value>
@@ -201,7 +201,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;一插U盘就复制内容.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>36</value>
   </data>
   <data name="一插U盘就疯狂弹窗.Location" type="System.Drawing.Point, System.Drawing">
     <value>378, 68</value>
@@ -228,7 +228,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;一插U盘就疯狂弹窗.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>35</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -255,7 +255,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>34</value>
   </data>
   <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 525</value>
@@ -282,7 +282,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TextBox1.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>33</value>
   </data>
   <data name="LinkLabel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -312,7 +312,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LinkLabel1.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>32</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="蓝屏.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
@@ -346,7 +346,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;蓝屏.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>31</value>
   </data>
   <data name="隐藏.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -376,7 +376,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;隐藏.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>30</value>
   </data>
   <data name="设置为只读.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -406,7 +406,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;设置为只读.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>29</value>
   </data>
   <data name="加密.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -436,7 +436,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;加密.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>28</value>
   </data>
   <data name="设置为系统.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -453,6 +453,9 @@
   <data name="设置为系统.Text" xml:space="preserve">
     <value>变成系统</value>
   </data>
+  <data name="设置为系统.ToolTip" xml:space="preserve">
+    <value>没多大用</value>
+  </data>
   <data name="&gt;&gt;设置为系统.Name" xml:space="preserve">
     <value>设置为系统</value>
   </data>
@@ -463,7 +466,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;设置为系统.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>27</value>
   </data>
   <data name="卡机.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -493,7 +496,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;卡机.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>26</value>
   </data>
   <data name="用空字符填充.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -523,7 +526,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;用空字符填充.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>25</value>
   </data>
   <metadata name="Folder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>7, 17</value>
@@ -547,7 +550,7 @@
     <value>播放媒体</value>
   </data>
   <data name="Media.ToolTip" xml:space="preserve">
-    <value>自带循环</value>
+    <value>自带循环\r\n音量有点小，记得调大</value>
   </data>
   <data name="&gt;&gt;Media.Name" xml:space="preserve">
     <value>Media</value>
@@ -559,7 +562,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Media.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>24</value>
   </data>
   <data name="Computer.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 49</value>
@@ -583,7 +586,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Computer.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>23</value>
   </data>
   <data name="Multimedia.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 437</value>
@@ -607,7 +610,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Multimedia.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>21</value>
   </data>
   <data name="Device.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 281</value>
@@ -631,7 +634,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Device.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>22</value>
   </data>
   <data name="朗读文本.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -661,7 +664,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;朗读文本.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>20</value>
   </data>
   <data name="切换左右键.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -691,7 +694,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;切换左右键.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>19</value>
   </data>
   <data name="修改U盘名称.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -709,7 +712,7 @@
     <value>修改U盘名称</value>
   </data>
   <data name="修改U盘名称.ToolTip" xml:space="preserve">
-    <value>把U盘名称改成你喜欢的吧</value>
+    <value>把U盘名称改成你喜欢的♂</value>
   </data>
   <data name="&gt;&gt;修改U盘名称.Name" xml:space="preserve">
     <value>修改U盘名称</value>
@@ -721,7 +724,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;修改U盘名称.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>18</value>
   </data>
   <data name="旋转屏幕.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -751,7 +754,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;旋转屏幕.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>17</value>
   </data>
   <data name="ShowBaiDu.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -781,7 +784,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ShowBaiDu.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>16</value>
   </data>
   <data name="FillUp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -811,7 +814,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;FillUp.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>15</value>
   </data>
   <data name="CloseWnd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -841,7 +844,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CloseWnd.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>14</value>
   </data>
   <data name="Glass.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -871,7 +874,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Glass.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>13</value>
   </data>
   <data name="MouseTrail.Location" type="System.Drawing.Point, System.Drawing">
     <value>540, 144</value>
@@ -898,7 +901,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MouseTrail.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>12</value>
   </data>
   <data name="Destroy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -928,7 +931,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Destroy.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
   <data name="SetText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -958,13 +961,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;SetText.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>10</value>
   </data>
   <data name="Eject.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="Eject.Location" type="System.Drawing.Point, System.Drawing">
-    <value>688, 374</value>
+    <value>832, 295</value>
   </data>
   <data name="Eject.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
@@ -988,7 +991,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Eject.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
   </data>
   <data name="picture.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1018,7 +1021,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;picture.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>7</value>
   </data>
   <data name="random.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1048,13 +1051,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;random.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="Beep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>540, 216</value>
+    <value>688, 460</value>
   </data>
   <data name="Beep.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
@@ -1066,7 +1069,7 @@
     <value>逼逼</value>
   </data>
   <data name="Beep.ToolTip" xml:space="preserve">
-    <value>瞎逼逼</value>
+    <value>让耳朵怀孕</value>
   </data>
   <data name="&gt;&gt;Beep.Name" xml:space="preserve">
     <value>Beep</value>
@@ -1078,13 +1081,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Beep.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="beuncle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="beuncle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>688, 216</value>
+    <value>832, 143</value>
   </data>
   <data name="beuncle.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
@@ -1108,6 +1111,93 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;beuncle.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="SetBcd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>832, 68</value>
+  </data>
+  <data name="SetBcd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="SetBcd.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="SetBcd.Text" xml:space="preserve">
+    <value>无法启动</value>
+  </data>
+  <data name="SetBcd.ToolTip" xml:space="preserve">
+    <value>配上重启,效果更佳</value>
+  </data>
+  <data name="&gt;&gt;SetBcd.Name" xml:space="preserve">
+    <value>SetBcd</value>
+  </data>
+  <data name="&gt;&gt;SetBcd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SetBcd.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetBcd.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="CloseNetWork.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CloseNetWork.Location" type="System.Drawing.Point, System.Drawing">
+    <value>540, 216</value>
+  </data>
+  <data name="CloseNetWork.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="CloseNetWork.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="CloseNetWork.Text" xml:space="preserve">
+    <value>断网</value>
+  </data>
+  <data name="CloseNetWork.ToolTip" xml:space="preserve">
+    <value>断网法术</value>
+  </data>
+  <data name="&gt;&gt;CloseNetWork.Name" xml:space="preserve">
+    <value>CloseNetWork</value>
+  </data>
+  <data name="&gt;&gt;CloseNetWork.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CloseNetWork.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CloseNetWork.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SetColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SetColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>688, 216</value>
+  </data>
+  <data name="SetColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="SetColor.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="SetColor.Text" xml:space="preserve">
+    <value>搞颜色</value>
+  </data>
+  <data name="SetColor.ToolTip" xml:space="preserve">
+    <value>🚹给你点颜色看看♂</value>
+  </data>
+  <data name="&gt;&gt;SetColor.Name" xml:space="preserve">
+    <value>SetColor</value>
+  </data>
+  <data name="&gt;&gt;SetColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SetColor.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetColor.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="flash.Location" type="System.Drawing.Point, System.Drawing">
@@ -1132,8 +1222,41 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;flash.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>8</value>
   </data>
+  <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ReBoot.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="ReBoot.Location" type="System.Drawing.Point, System.Drawing">
+    <value>852, 106</value>
+  </data>
+  <data name="ReBoot.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="ReBoot.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="ReBoot.Text" xml:space="preserve">
+    <value>并重启</value>
+  </data>
+  <data name="&gt;&gt;ReBoot.Name" xml:space="preserve">
+    <value>ReBoot</value>
+  </data>
+  <data name="&gt;&gt;ReBoot.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReBoot.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ReBoot.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>199, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1144,7 +1267,7 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>817, 550</value>
+    <value>949, 550</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1809,8 +1932,14 @@
   <data name="&gt;&gt;ToolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;GetColor.Name" xml:space="preserve">
+    <value>GetColor</value>
+  </data>
+  <data name="&gt;&gt;GetColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColorDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>Form1</value>
+    <value>FormMain</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

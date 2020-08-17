@@ -10,7 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 namespace USBTool
 {
-		public partial class Form1 : System.Windows.Forms.Form
+		public partial class FormMain : System.Windows.Forms.Form
 		{
 		
 		//Form 重写 Dispose，以清理组件列表。
@@ -37,7 +37,7 @@ namespace USBTool
 			private void InitializeComponent()
 			{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.一插U盘就无法打开 = new System.Windows.Forms.Button();
             this.一插U盘就格式化 = new System.Windows.Forms.Button();
             this.一插U盘就复制内容 = new System.Windows.Forms.Button();
@@ -74,7 +74,12 @@ namespace USBTool
             this.random = new System.Windows.Forms.Button();
             this.Beep = new System.Windows.Forms.Button();
             this.beuncle = new System.Windows.Forms.Button();
+            this.SetBcd = new System.Windows.Forms.Button();
+            this.CloseNetWork = new System.Windows.Forms.Button();
+            this.SetColor = new System.Windows.Forms.Button();
             this.flash = new System.Windows.Forms.Button();
+            this.ReBoot = new System.Windows.Forms.CheckBox();
+            this.GetColor = new System.Windows.Forms.ColorDialog();
             this.SuspendLayout();
             // 
             // 一插U盘就无法打开
@@ -83,7 +88,7 @@ namespace USBTool
             this.一插U盘就无法打开.Name = "一插U盘就无法打开";
             this.ToolTip1.SetToolTip(this.一插U盘就无法打开, resources.GetString("一插U盘就无法打开.ToolTip"));
             this.一插U盘就无法打开.UseVisualStyleBackColor = true;
-            this.一插U盘就无法打开.Click += new System.EventHandler(this.一插U盘就无法打开_Click);
+            this.一插U盘就无法打开.Click += new System.EventHandler(this.CantOpen_Click);
             // 
             // 一插U盘就格式化
             // 
@@ -91,7 +96,7 @@ namespace USBTool
             this.一插U盘就格式化.Name = "一插U盘就格式化";
             this.ToolTip1.SetToolTip(this.一插U盘就格式化, resources.GetString("一插U盘就格式化.ToolTip"));
             this.一插U盘就格式化.UseVisualStyleBackColor = true;
-            this.一插U盘就格式化.Click += new System.EventHandler(this.一插U盘就格式化_Click);
+            this.一插U盘就格式化.Click += new System.EventHandler(this.Format_Click);
             // 
             // 一插U盘就复制内容
             // 
@@ -99,7 +104,7 @@ namespace USBTool
             this.一插U盘就复制内容.Name = "一插U盘就复制内容";
             this.ToolTip1.SetToolTip(this.一插U盘就复制内容, resources.GetString("一插U盘就复制内容.ToolTip"));
             this.一插U盘就复制内容.UseVisualStyleBackColor = true;
-            this.一插U盘就复制内容.Click += new System.EventHandler(this.一插U盘就复制内容_Click);
+            this.一插U盘就复制内容.Click += new System.EventHandler(this.Copy_Click);
             // 
             // 一插U盘就疯狂弹窗
             // 
@@ -107,7 +112,7 @@ namespace USBTool
             this.一插U盘就疯狂弹窗.Name = "一插U盘就疯狂弹窗";
             this.ToolTip1.SetToolTip(this.一插U盘就疯狂弹窗, resources.GetString("一插U盘就疯狂弹窗.ToolTip"));
             this.一插U盘就疯狂弹窗.UseVisualStyleBackColor = true;
-            this.一插U盘就疯狂弹窗.Click += new System.EventHandler(this.一插U盘就疯狂弹窗_Click);
+            this.一插U盘就疯狂弹窗.Click += new System.EventHandler(this.Message_Click);
             // 
             // Label1
             // 
@@ -137,7 +142,7 @@ namespace USBTool
             this.蓝屏.Name = "蓝屏";
             this.ToolTip1.SetToolTip(this.蓝屏, resources.GetString("蓝屏.ToolTip"));
             this.蓝屏.UseVisualStyleBackColor = false;
-            this.蓝屏.Click += new System.EventHandler(this.蓝屏_Click);
+            this.蓝屏.Click += new System.EventHandler(this.BlueScreen_Click);
             // 
             // 隐藏
             // 
@@ -145,7 +150,7 @@ namespace USBTool
             this.隐藏.Name = "隐藏";
             this.ToolTip1.SetToolTip(this.隐藏, resources.GetString("隐藏.ToolTip"));
             this.隐藏.UseVisualStyleBackColor = true;
-            this.隐藏.Click += new System.EventHandler(this.隐藏_Click);
+            this.隐藏.Click += new System.EventHandler(this.Hide_Click);
             // 
             // 设置为只读
             // 
@@ -153,7 +158,7 @@ namespace USBTool
             this.设置为只读.Name = "设置为只读";
             this.ToolTip1.SetToolTip(this.设置为只读, resources.GetString("设置为只读.ToolTip"));
             this.设置为只读.UseVisualStyleBackColor = true;
-            this.设置为只读.Click += new System.EventHandler(this.设置为只读_Click);
+            this.设置为只读.Click += new System.EventHandler(this.Readonly_Click);
             // 
             // 加密
             // 
@@ -161,14 +166,15 @@ namespace USBTool
             this.加密.Name = "加密";
             this.ToolTip1.SetToolTip(this.加密, resources.GetString("加密.ToolTip"));
             this.加密.UseVisualStyleBackColor = true;
-            this.加密.Click += new System.EventHandler(this.加密_Click);
+            this.加密.Click += new System.EventHandler(this.Encrypt_Click);
             // 
             // 设置为系统
             // 
             resources.ApplyResources(this.设置为系统, "设置为系统");
             this.设置为系统.Name = "设置为系统";
+            this.ToolTip1.SetToolTip(this.设置为系统, resources.GetString("设置为系统.ToolTip"));
             this.设置为系统.UseVisualStyleBackColor = true;
-            this.设置为系统.Click += new System.EventHandler(this.设置为系统_Click);
+            this.设置为系统.Click += new System.EventHandler(this.SystemFile_Click);
             // 
             // 卡机
             // 
@@ -176,7 +182,7 @@ namespace USBTool
             this.卡机.Name = "卡机";
             this.ToolTip1.SetToolTip(this.卡机, resources.GetString("卡机.ToolTip"));
             this.卡机.UseVisualStyleBackColor = true;
-            this.卡机.Click += new System.EventHandler(this.卡机_Click);
+            this.卡机.Click += new System.EventHandler(this.FillMemory_Click);
             // 
             // 用空字符填充
             // 
@@ -184,7 +190,7 @@ namespace USBTool
             this.用空字符填充.Name = "用空字符填充";
             this.ToolTip1.SetToolTip(this.用空字符填充, resources.GetString("用空字符填充.ToolTip"));
             this.用空字符填充.UseVisualStyleBackColor = true;
-            this.用空字符填充.Click += new System.EventHandler(this.用空字符填充_Click);
+            this.用空字符填充.Click += new System.EventHandler(this.FillwithBlank_Click);
             // 
             // Folder
             // 
@@ -196,7 +202,7 @@ namespace USBTool
             this.Media.Name = "Media";
             this.ToolTip1.SetToolTip(this.Media, resources.GetString("Media.ToolTip"));
             this.Media.UseVisualStyleBackColor = true;
-            this.Media.Click += new System.EventHandler(this.播放视频_Click);
+            this.Media.Click += new System.EventHandler(this.PlayMedia_Click);
             // 
             // Computer
             // 
@@ -231,7 +237,7 @@ namespace USBTool
             this.朗读文本.Name = "朗读文本";
             this.ToolTip1.SetToolTip(this.朗读文本, resources.GetString("朗读文本.ToolTip"));
             this.朗读文本.UseVisualStyleBackColor = true;
-            this.朗读文本.Click += new System.EventHandler(this.朗读文本_Click);
+            this.朗读文本.Click += new System.EventHandler(this.ReadText_Click);
             // 
             // 切换左右键
             // 
@@ -239,7 +245,7 @@ namespace USBTool
             this.切换左右键.Name = "切换左右键";
             this.ToolTip1.SetToolTip(this.切换左右键, resources.GetString("切换左右键.ToolTip"));
             this.切换左右键.UseVisualStyleBackColor = true;
-            this.切换左右键.Click += new System.EventHandler(this.切换左右键_Click);
+            this.切换左右键.Click += new System.EventHandler(this.SwapMouseButton_Click);
             // 
             // 修改U盘名称
             // 
@@ -247,7 +253,7 @@ namespace USBTool
             this.修改U盘名称.Name = "修改U盘名称";
             this.ToolTip1.SetToolTip(this.修改U盘名称, resources.GetString("修改U盘名称.ToolTip"));
             this.修改U盘名称.UseVisualStyleBackColor = true;
-            this.修改U盘名称.Click += new System.EventHandler(this.修改U盘名称_Click);
+            this.修改U盘名称.Click += new System.EventHandler(this.ChangeName_Click);
             // 
             // 旋转屏幕
             // 
@@ -255,7 +261,7 @@ namespace USBTool
             this.旋转屏幕.Name = "旋转屏幕";
             this.ToolTip1.SetToolTip(this.旋转屏幕, resources.GetString("旋转屏幕.ToolTip"));
             this.旋转屏幕.UseVisualStyleBackColor = true;
-            this.旋转屏幕.Click += new System.EventHandler(this.旋转屏幕_Click);
+            this.旋转屏幕.Click += new System.EventHandler(this.Rotate_Click);
             // 
             // ShowBaiDu
             // 
@@ -353,6 +359,34 @@ namespace USBTool
             this.beuncle.UseVisualStyleBackColor = true;
             this.beuncle.Click += new System.EventHandler(this.Center_Click);
             // 
+            // SetBcd
+            // 
+            resources.ApplyResources(this.SetBcd, "SetBcd");
+            this.SetBcd.Name = "SetBcd";
+            this.ToolTip1.SetToolTip(this.SetBcd, resources.GetString("SetBcd.ToolTip"));
+            this.SetBcd.UseVisualStyleBackColor = true;
+            this.SetBcd.Click += new System.EventHandler(this.SetBcd_Click);
+            this.SetBcd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SetBcd_MouseDown);
+            this.SetBcd.MouseEnter += new System.EventHandler(this.SetBcd_MouseEnter);
+            this.SetBcd.MouseLeave += new System.EventHandler(this.SetBcd_MouseLeave);
+            this.SetBcd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SetBcd_MouseUp);
+            // 
+            // CloseNetWork
+            // 
+            resources.ApplyResources(this.CloseNetWork, "CloseNetWork");
+            this.CloseNetWork.Name = "CloseNetWork";
+            this.ToolTip1.SetToolTip(this.CloseNetWork, resources.GetString("CloseNetWork.ToolTip"));
+            this.CloseNetWork.UseVisualStyleBackColor = true;
+            this.CloseNetWork.Click += new System.EventHandler(this.CloseNetWork_Click);
+            // 
+            // SetColor
+            // 
+            resources.ApplyResources(this.SetColor, "SetColor");
+            this.SetColor.Name = "SetColor";
+            this.ToolTip1.SetToolTip(this.SetColor, resources.GetString("SetColor.ToolTip"));
+            this.SetColor.UseVisualStyleBackColor = true;
+            this.SetColor.Click += new System.EventHandler(this.SetColor_Click);
+            // 
             // flash
             // 
             resources.ApplyResources(this.flash, "flash");
@@ -360,11 +394,29 @@ namespace USBTool
             this.flash.UseVisualStyleBackColor = true;
             this.flash.Click += new System.EventHandler(this.flash_Click);
             // 
-            // Form1
+            // ReBoot
+            // 
+            resources.ApplyResources(this.ReBoot, "ReBoot");
+            this.ReBoot.BackColor = System.Drawing.Color.PaleGreen;
+            this.ReBoot.ForeColor = System.Drawing.Color.MediumSeaGreen;
+            this.ReBoot.Name = "ReBoot";
+            this.ReBoot.UseVisualStyleBackColor = false;
+            // 
+            // GetColor
+            // 
+            this.GetColor.AnyColor = true;
+            this.GetColor.Color = System.Drawing.Color.Blue;
+            this.GetColor.FullOpen = true;
+            // 
+            // FormMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
+            this.Controls.Add(this.SetColor);
+            this.Controls.Add(this.ReBoot);
+            this.Controls.Add(this.CloseNetWork);
+            this.Controls.Add(this.SetBcd);
             this.Controls.Add(this.beuncle);
             this.Controls.Add(this.Beep);
             this.Controls.Add(this.random);
@@ -403,7 +455,7 @@ namespace USBTool
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Opacity = 0.85D;
             this.TransparencyKey = System.Drawing.Color.Red;
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -425,7 +477,7 @@ namespace USBTool
 		internal Button 设置为系统;
 		internal Button 卡机;
 		internal Button 用空字符填充;
-		public Form1()
+		public FormMain()
 		{
 			// 此调用是设计器所必需的。
 			InitializeComponent();
@@ -473,6 +525,11 @@ namespace USBTool
         internal Button random;
         internal Button Beep;
         internal Button beuncle;
+        internal Button SetBcd;
+        internal Button CloseNetWork;
+        private CheckBox ReBoot;
+        internal Button SetColor;
+        private ColorDialog GetColor;
     }
 	
 }

@@ -18,7 +18,7 @@ namespace mm
                 {
                     if (GetMemoryRate() < 97)
                     
-                        i.Append(' ', 1024);
+                        i.Append(' ', 512);
 
                     if (GetMemoryRate() > 97)
                         i.Remove(0, 512);

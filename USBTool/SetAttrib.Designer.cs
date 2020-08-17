@@ -81,8 +81,7 @@ namespace USBTool
             // Rate
             // 
             this.Rate.Location = new System.Drawing.Point(12, 222);
-            this.Rate.Maximum = 9;
-            this.Rate.Minimum = -9;
+            this.Rate.Minimum = -10;
             this.Rate.Name = "Rate";
             this.Rate.Size = new System.Drawing.Size(232, 45);
             this.Rate.TabIndex = 2;
@@ -92,7 +91,7 @@ namespace USBTool
             // 
             // Yes
             // 
-            this.Yes.Location = new System.Drawing.Point(168, 12);
+            this.Yes.Location = new System.Drawing.Point(169, 12);
             this.Yes.Name = "Yes";
             this.Yes.Size = new System.Drawing.Size(75, 35);
             this.Yes.TabIndex = 3;

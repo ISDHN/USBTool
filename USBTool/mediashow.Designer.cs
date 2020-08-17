@@ -1,4 +1,3 @@
-// VBConversions Note: VB project level imports
 using System.Collections.Generic;
 using System;
 using System.Linq;
@@ -14,7 +13,7 @@ using System.Windows;
 
 namespace USBTool
 {
-		public partial class mediashow : System.Windows.Forms.Form
+		public partial class Mediashow : System.Windows.Forms.Form
 		{
 		
 		//Form 重写 Dispose，以清理组件列表。
@@ -43,52 +42,54 @@ namespace USBTool
 		[System.Diagnostics.DebuggerStepThrough()]
 			private void InitializeComponent()
 			{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mediashow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mediashow));
             this.Host = new System.Windows.Forms.Integration.ElementHost();
-			this.mel = new System.Windows.Controls.MediaElement();
+            this.mel = new System.Windows.Controls.MediaElement();
             this.SuspendLayout();
             // 
             // Host
             // 
+            this.Host.BackColor = System.Drawing.Color.Transparent;
             this.Host.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Host.Location = new System.Drawing.Point(0, 0);
             this.Host.Name = "Host";
             this.Host.Size = new System.Drawing.Size(800, 450);
             this.Host.TabIndex = 0;
             this.Host.Text = "Host";
-            this.Host.Child = null;
+            this.Host.Child = this.mel;
             // 
-            // mediashow
+            // Mediashow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ControlBox = false;
             this.Controls.Add(this.Host);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "mediashow";
+            this.Name = "Mediashow";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
-            this.TransparencyKey = System.Drawing.Color.Black;
-            this.Load += new System.EventHandler(this.mediashow_Load);
+            this.Shown += new System.EventHandler(this.Mediashow_Shown);
             this.ResumeLayout(false);
 
-		}
+			}
 		
 		internal System.Windows.Forms.Integration.ElementHost Host;
-		public mediashow()
+		internal System.Windows.Controls.MediaElement mel;
+		public Mediashow()
 		{
 			
 			// 此调用是设计器所必需的。
 			InitializeComponent();
-			mel.MediaOpened += new System.Windows.RoutedEventHandler(mel_MediaOpened);
 			mel.MediaEnded += new System.Windows.RoutedEventHandler(mel_MediaEnded);
 			Host.Child = mel;
 			mel.LoadedBehavior = System.Windows.Controls.MediaState.Manual;
-			mel.BeginInit();
 			this.Width = System.Convert.ToInt32(SystemParameters.PrimaryScreenWidth / 2);
 			this.Height = System.Convert.ToInt32(SystemParameters.PrimaryScreenHeight / 2);
 			// 在 InitializeComponent() 调用之后添加任何初始化。

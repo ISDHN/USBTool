@@ -28,7 +28,7 @@ namespace USBTool
                     newform.SpeechText.Text = "奥利给";
                     newform.Choose.Hide();
                     newform.Browse.Hide();
-                    foreach (var availableVoice in Form1.Voice.GetInstalledVoices())
+                    foreach (var availableVoice in FormMain.Voice.GetInstalledVoices())
                     {
                         newform.SpeechVoice.Items.Add(availableVoice.VoiceInfo.Name);
                     }
