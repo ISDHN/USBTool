@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Windows.Forms;
+#if MEDIA_FOUNDATION
+using USBTool.MediaFoundation;
+#endif
 
 namespace USBTool
 {
@@ -13,17 +16,16 @@ namespace USBTool
 	{
 		public static string sentence;
 		public static SpeechSynthesizer Voice;
-		public static DEVMODE DEVMODE1 = new DEVMODE()
-		{
-			dmDeviceName = new string(new char[33]),
-			dmFormName = new string(new char[33]),
-			dmSize = (short)(Marshal.SizeOf(DEVMODE1))
-		};
-		public static Random rand = new Random();
-		public delegate bool FormatExCallBack(int Command, int Modifier, IntPtr Argument);
+		public static DEVMODE DEVMODE1;
+		public static Random rand ;
+		//public delegate bool FormatExCallBack(int Command, int Modifier, IntPtr Argument);
 		//[DllImport("fmifs.dll", SetLastError = true)]
 		//public static extern int FormatEx(string drivename, uint media, string format, string volume, bool QuickFormat, int size, FormatExCallBack callback);        
-		#region user32.dll
+#if MEDIA_MCI
+		[DllImport("Msvfw32.dll", SetLastError = true)]
+		public static extern IntPtr MCIWndCreate(IntPtr hwndParent, IntPtr hInstance, uint dwStyle, string file);
+#endif
+#region user32.dll
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref string pvParam, uint fWinIni);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -56,16 +58,16 @@ namespace USBTool
 		public static extern IntPtr GetParent(IntPtr hwnd);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool MoveWindow(IntPtr hWnd,int X,int Y,int nWidth, int nHeight, bool bRepaint);
-		#endregion
-		#region kernel32.dll
+#endregion
+#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode, IntPtr lpInBuffer, uint nInBufferSize, IntPtr lpOutBuffer, uint nOutBufferSize, ref uint lpBytesReturned, IntPtr lpOverlapped);
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern int GetShortPathName(string instring, StringBuilder outstring, int buff);
-		#endregion
-		#region dwmapi.dll
+#endregion
+#region dwmapi.dll
 		[DllImport("dwmapi.dll", SetLastError = true)]
 		public static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
 		[DllImport("dwmapi.dll", SetLastError = true)]
@@ -75,14 +77,28 @@ namespace USBTool
 		[DllImport("dwmapi.dll", SetLastError = true)]
 		public static extern bool DwmSetWindowAttribute(IntPtr hwnd, uint attr, ref uint attrValue, int attrSize);
 		#endregion
-		#region mfplat.dll
+#if MEDIA_FOUNDATION
+#region Media Foundation
 		[DllImport("mfplat.dll", SetLastError = true,PreserveSig =true)]
 		public static extern int MFStartup( uint Version,uint flags);
 		[DllImport("mfplat.dll")]
 		public static extern int MFShutdown();
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFCreateMediaSession(IntPtr pConfiguration,out IMFMediaSession ppMediaSession);
+		[DllImport("mf.dll",SetLastError =true,PreserveSig =true)]
+		public static extern int MFCreateSourceResolver(out IMFSourceResolver ppISourceResolver);
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int  MFCreateTopology(out IMFTopology ppTopo);
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFCreateTopologyNode(uint NodeType,out IMFTopologyNode ppNode);
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFCreateVideoRendererActivate(IntPtr hwndVideo,out IMFActivate ppActivate);
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFCreateAudioRendererActivate(out IMFActivate ppActivate);
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFGetService(IUnknown punkObject,ref Guid guidService,ref Guid riid,out IntPtr ppvObject);
 		#endregion
-		[DllImport("Msvfw32.dll",SetLastError = true)]
-		public static extern IntPtr MCIWndCreate(IntPtr hwndParent, IntPtr hInstance,uint dwStyle,string file);
+#endif
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DWM_BLURBEHIND
 		{
@@ -143,36 +159,61 @@ namespace USBTool
 		public const uint SPI_SETMOUSETRAILS = 0x5D;
 		public const uint WM_CLOSE = 0x0010;
 		public const uint WM_USER = 0x0400;
+		public const uint WM_PAINT = 0x000F;
 		public const uint WS_VISIBLE = 0x10000000;
 		public const uint WS_CHILD = 0x40000000;
 		public const uint SW_NORMAL = 1;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
-
+#if MEDIA_DSHOW
 		public const uint EC_COMPLETE = 0x01;
-
-		public const uint MF_SDK_VERSION = 0x0002;
+#endif
+#if MEDIA_FOUNDATION
+		public Guid MF_TOPONODE_SOURCE = Guid.Parse("835c58ec-e075-4bc7-bcba-4de000df9ae6");
+		public Guid MF_TOPONODE_PRESENTATION_DESCRIPTOR = Guid.Parse("835c58ed-e075-4bc7-bcba-4de000df9ae6");
+		public Guid MF_TOPONODE_STREAM_DESCRIPTOR = Guid.Parse("835c58ee-e075-4bc7-bcba-4de000df9ae6");
+		public Guid MFMediaType_Audio = Guid.Parse("73647561-0000-0010-8000-00AA00389B71");
+		public Guid MFMediaType_Video = Guid.Parse("73646976-0000-0010-8000-00AA00389B71");
+		public Guid MF_TOPONODE_NOSHUTDOWN_ON_REMOVE = Guid.Parse("14932f9c-9087-4bb4-8412-5167145cbe04");
+		public Guid MF_TOPONODE_STREAMID = Guid.Parse("14932f9b-9087-4bb4-8412-5167145cbe04");
+		public Guid MR_POLICY_VOLUME_SERVICE = new Guid(0x1abaa2ac, 0x9d3b, 0x47c6, 0xab, 0x48, 0xc5, 0x95, 0x6, 0xde, 0x78, 0x4d);
+		public Guid MR_STREAM_VOLUME_SERVICE =  Guid.Parse("f8b5fa2f-32ef-46f5-b172-1321212fb2c4");
+		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c,0xab1a,0x459a,0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
+		public Guid MF_RATE_CONTROL_SERVICE = Guid.Parse("866fa297-b802-4bf8-9dc9-5e3b6a9f53c9");
+		public const uint MF_SDK_VERSION = 0x0001;
 		public const uint MF_API_VERSION = 0x0070;
 		public const uint MF_VERSION = (MF_SDK_VERSION << 16)| MF_API_VERSION;
 		public const uint MFSTARTUP_NOSOCKET = 0x1;
+		public const uint MFSTARTUP_FULL = 0x0;
+		public const uint MF_RESOLUTION_MEDIASOURCE = 0x00000001;
+		public const uint MF_RESOLUTION_BYTESTREAM = 0x00000002;
+		public const uint MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE = 0x00000010;
+		public const uint MF_TOPOLOGY_OUTPUT_NODE = 0x0;
+        public const uint MF_TOPOLOGY_SOURCESTREAM_NODE	= 0x1;
+		public const uint MFSESSION_SETTOPOLOGY_IMMEDIATE = 0x1;
+		public const uint MESessionEnded = 107;
+		public const ushort VT_I8 = 20;
+#endif
 		//public const uint FMIFS_HARDDISK = 0xC;
+#if MEDIA_MCI
 		public enum MCIConst : uint
-        {
+		{
 			MCIWNDM_OPEN = WM_USER + 252,
 			MCIWNDM_NOTIFYMODE = WM_USER + 200,
 			MCIWNDM_SETVOLUME = WM_USER + 110,
 			MCIWNDM_SETSPEED = WM_USER + 112,
 			MCIWNDM_NOTIFYERROR  =   WM_USER + 205,
 			MCIWNDF_NOAUTOSIZEWINDOW = 0x0001,
-            MCIWNDF_NOPLAYBAR = 0x0002,
-            MCIWNDF_NOMENU = 0x0008,
-            MCIWNDF_NOTIFYMODE = 0x0100,
+			MCIWNDF_NOPLAYBAR = 0x0002,
+			MCIWNDF_NOMENU = 0x0008,
+			MCIWNDF_NOTIFYMODE = 0x0100,
 			MCIWNDF_NOTIFYERROR  =      0x1000,
 			MCIWNDF_NOERRORDLG      =    0x4000,
 			MCI_PLAY = 0x0806,
-            MCI_MODE_STOP = 525,		
+			MCI_MODE_STOP = 525,		
 		}
+#endif
 		public static void ForEachWindow(IntPtr hwnd, string op)
 		{
 			MARGINS m = new MARGINS()

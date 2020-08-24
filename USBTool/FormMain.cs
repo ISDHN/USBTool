@@ -1,5 +1,4 @@
-﻿#define MEDIA_DSHOW
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using System;
 using System.Collections;
@@ -15,14 +14,30 @@ using System.Speech.Synthesis;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+#if MEDIA_DSHOW
 using USBTool.DShow;
+#elif MEDIA_FOUNDATION
+using USBTool.MediaFoundation;
+#endif
 using USBTool.Properties;
 
 namespace USBTool
 {
-	public partial class FormMain : Form
+	public unsafe partial class FormMain : Form
 	{
+		private Mediashow host;
 
+#if MEDIA_DSHOW
+		private IMediaControl control;
+		private IMediaEvent mediaEvent;
+		private IVideoWindow window;
+#elif MEDIA_MCI
+		private string mediafilename;
+		private IntPtr hMCIWnd;
+#elif MEDIA_FOUNDATION
+		private IMFMediaSession mediaSession;
+		private bool hasvideo = false;
+#endif
 		private static readonly string message = StringByTime(" ", 5000);
 		[MTAThread]
 		public void WhenArrival(string op)
@@ -117,50 +132,24 @@ namespace USBTool
 									SetAttributes(drive.Name, FileAttributes.Normal);
 									break;
 								case "media":
-									Mediashow host = new Mediashow();
+
 #if MEDIA_MCI
-									StringBuilder shortpath = new StringBuilder(260);
-									GetShortPathName(((object[])Media.Tag)[2].ToString(),shortpath,260);
-									string filename = shortpath.ToString();
-									IntPtr hinstance = Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetLoadedModules()[0]);
-									IntPtr hMCIWnd = MCIWndCreate(host.Handle, hinstance, 
-										(uint)MCIConst.MCIWNDF_NOAUTOSIZEWINDOW + 
-										(uint)MCIConst.MCIWNDF_NOMENU + 
-										(uint)MCIConst.MCIWNDF_NOPLAYBAR +
-										(uint)MCIConst.MCIWNDF_NOTIFYMODE+
-										(uint)MCIConst.MCIWNDF_NOTIFYERROR,	null);
-									MoveWindow(hMCIWnd, 0, 0, host.Width, host.Height, false);
-									PostMessage(hMCIWnd,(uint) MCIConst.MCIWNDM_OPEN, 0,  filename);
-									PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETSPEED, 0, (uint)(int)((object[])Media.Tag)[1] * 50 + 1000U);
-									PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETVOLUME, 0, ((uint)(int)((object[])Media.Tag)[0] - 50U) * 10 + 500U);
 									PostMessage(hMCIWnd, (uint)MCIConst.MCI_PLAY  , 0, 0);
 									host.MCIWnd = hMCIWnd;
-									if (filename.EndsWith(".wav", StringComparison.OrdinalIgnoreCase) ||
-										filename.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase) ||
-										filename.EndsWith(".wma", StringComparison.OrdinalIgnoreCase))
+									if (mediafilename.EndsWith(".wav", StringComparison.OrdinalIgnoreCase) ||
+										mediafilename.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase) ||
+										mediafilename.EndsWith(".wma", StringComparison.OrdinalIgnoreCase))
 									{
 										host.TransparencyKey = host.BackColor;									
 										host.Opacity = 0;
 									}
 									host.Host.Hide();
 									host.ShowDialog();
-									PostMessage(hMCIWnd, WM_CLOSE, 0, 0);
-									
-#elif MEDIA_ELEMENT
-									host.Play(((object[])Media.Tag)[2].ToString(), (int)((object[])Media.Tag)[1], (int)((object[])Media.Tag)[0]);
+									PostMessage(hMCIWnd, WM_CLOSE, 0, 0);									
 #elif MEDIA_DSHOW
 
-									FilterGraph fg = Activator.CreateInstance(typeof(FilterGraph)) as FilterGraph;
-									IMediaControl control = fg as IMediaControl;
-									IVideoWindow window = fg as IVideoWindow;
-									IBasicVideo video = fg as IBasicVideo;
-									IBasicAudio audio = fg as IBasicAudio;
-									IMediaEvent mediaEvent = fg as IMediaEvent;
-									IMediaPosition position = fg as IMediaPosition;
-                                    
-									control.RenderFile(((object[])Media.Tag)[2].ToString());
-                                    try
-                                    { 
+									try
+									{
 										window.Owner = host.Handle.ToInt32();
 										window.WindowStyle = (int)WS_CHILD;
 										window.Left = 0;
@@ -168,31 +157,27 @@ namespace USBTool
 										window.Height = host.Height;
 										window.Width = host.Width;
 										host.Show();
-                                    }
-                                    catch
-                                    {
+									}
+									catch
+									{
 
-                                    }
-									audio.Volume = (int)((object[])Media.Tag)[0] * 100 - 10000;
-									position.CurrentPosition = 0;
-									int rate = (int)((object[])Media.Tag)[1];
-									position.Rate = rate > 0 ? (double)rate + 1 : (double)rate / 10 + 1;
+									}
 									control.Run();
 									int eventcode=0, lp1=0, lp2=0;
-                                    try
-                                    {
-										mediaEvent.GetEvent(out eventcode, out lp1, out lp2, -1);
+									try
+									{
+										mediaEvent.GetEvent(out eventcode, out lp1, out lp2, 0xfffffff);
 									}
                                     catch
                                     {
 										mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 									}
 									while(eventcode != EC_COMPLETE)
-                                    {
+									{
 										mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 										try
 										{
-											mediaEvent.GetEvent(out eventcode, out lp1, out lp2, -1);
+											mediaEvent.GetEvent(out eventcode, out lp1, out lp2, 0xfffffff);
 										}
                                         catch
                                         {
@@ -200,31 +185,41 @@ namespace USBTool
                                         }
 									}
 									mediaEvent.FreeEventParams(eventcode, lp1, lp2);
-									// 使用TlbImp生成的Directshow库
-									//string file = ((object[])Media.Tag)[2].ToString();
-									//FilgraphManagerClass fm = new FilgraphManagerClass();
-									
-									//fm.RenderFile(file);
-									//try
-									//{
-									//	fm.Owner = host.Handle.ToInt32();
-									//	fm.WindowStyle = (int)WS_CHILD;
-									//	fm.Left = 0; fm.Top = 0; fm.Width = host.Width; fm.Height = host.Height;
-									//	host.Show();
-									//}
-									//catch
-									//{
+									host.Hide();
+#elif MEDIA_FOUNDATION
+									int hr;
+									PropVariant prop = new PropVariant()
+									{
+										vt = VT_I8,
+									};
+									if (hasvideo)
+									{
+										
+										try
+										{
+											Guid guid_videocontrol = typeof(IMFVideoDisplayControl).GUID;
+											hr = MFGetService(mediaSession, ref MR_VIDEO_RENDER_SERVICE, ref guid_videocontrol, out IntPtr _videocontrol);
+											IMFVideoDisplayControl videocontrol = Marshal.GetObjectForIUnknown(_videocontrol) as IMFVideoDisplayControl;
+											Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
+											videocontrol.SetVideoPosition(IntPtr.Zero, ref videopos);
+											host.displayControl = videocontrol;
+											host.Show();
+										}
+										catch
+										{
 
-									//}
-									//fm.Volume = (int)((object[])Media.Tag)[0]*100-10000;
-									//fm.CurrentPosition = 0;
-									//int rate= (int)((object[])Media.Tag)[1];
-									//fm.Rate = rate > 0 ? (double)rate + 1 : (double)rate / 10 + 1;								
-									//fm.Run();
-									//while (fm.CurrentPosition != fm.Duration) { }								
-#endif								
-									host.Dispose();
-								break;
+										}
+									}
+									hr = mediaSession.Start(IntPtr.Zero, prop);
+									uint eventtype = 0;
+									while (eventtype != MESessionEnded)
+									{
+										mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
+										mediaevent.GetType(out eventtype);
+									}
+									host.Hide();
+#endif
+									break;
 								
 								case "speech":
 									Voice.Volume = (int)((object[])朗读文本.Tag)[0];
@@ -369,7 +364,7 @@ namespace USBTool
 									Graphics d = Graphics.FromHwnd(GetDesktopWindow());
 									Rectangle rect = new Rectangle();
 									GetClientRect(GetDesktopWindow(), ref rect);
-                                    Brush brush = new SolidBrush((Color)SetColor.Tag);
+									Brush brush = new SolidBrush((Color)SetColor.Tag);
 									d.FillRectangle(brush, rect);
 									brush.Dispose();
 									d.Dispose();
@@ -473,7 +468,106 @@ namespace USBTool
 			Media.Tag = SetAttrib.Show("media");
 			if (((object[])Media.Tag).Length != 0)
 			{
-				MFStartup(MF_VERSION, MFSTARTUP_NOSOCKET);
+				host = new Mediashow();
+#if MEDIA_DSHOW
+				FilterGraph fg = Activator.CreateInstance(typeof(FilterGraph)) as FilterGraph;				
+				control = fg as IMediaControl;
+				window = fg as IVideoWindow;
+				IBasicAudio audio = fg as IBasicAudio;
+				mediaEvent = fg as IMediaEvent;
+				IMediaPosition position = fg as IMediaPosition;
+				try
+				{
+					control.RenderFile(((object[])Media.Tag)[2].ToString());
+					
+				}
+				catch
+				{
+					return;
+				}
+				try
+				{
+					audio.Volume = (int)((object[])Media.Tag)[0] * 100 - 10000;
+				}
+                catch
+                {
+
+                }
+				position.CurrentPosition = 0;
+				double rate = (int)((object[])Media.Tag)[1];
+				position.Rate = rate >= 0 ? rate / 10 + 1 :1/(1 + rate/ -10);
+#elif MEDIA_MCI
+				StringBuilder shortpath = new StringBuilder(260);
+				GetShortPathName(((object[])Media.Tag)[2].ToString(), shortpath, 260);
+				mediafilename = shortpath.ToString();
+				IntPtr hinstance = Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetLoadedModules()[0]);
+				hMCIWnd = MCIWndCreate(host.Handle, hinstance,
+					(uint)MCIConst.MCIWNDF_NOAUTOSIZEWINDOW +
+					(uint)MCIConst.MCIWNDF_NOMENU +
+					(uint)MCIConst.MCIWNDF_NOPLAYBAR +
+					(uint)MCIConst.MCIWNDF_NOTIFYMODE +
+					(uint)MCIConst.MCIWNDF_NOTIFYERROR, null);
+				MoveWindow(hMCIWnd, 0, 0, host.Width, host.Height, false);
+				PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_OPEN, 0, mediafilename);
+				PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETSPEED, 0, (uint)(int)((object[])Media.Tag)[1] * 50 + 1000U);
+				PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETVOLUME, 0, ((uint)(int)((object[])Media.Tag)[0] - 50U) * 10 + 500U);
+#elif MEDIA_FOUNDATION
+				MFStartup(MF_VERSION, MFSTARTUP_FULL);
+				MFCreateMediaSession(IntPtr.Zero, out mediaSession);
+				MFCreateTopology(out IMFTopology topo);
+				MFCreateSourceResolver(out IMFSourceResolver resolver);					
+				int hr = resolver.CreateObjectFromURL(((object[])Media.Tag)[2].ToString(), MF_RESOLUTION_MEDIASOURCE | MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE,
+					IntPtr.Zero, out uint objtype, out IUnknown unknown);
+				IMFMediaSource source = unknown as IMFMediaSource;
+				hr = source.CreatePresentationDescriptor(out IMFPresentationDescriptor descriptor);
+				hr = descriptor.GetStreamDescriptorCount(out uint sdcount);
+				for(uint i =0;i<sdcount;i++)
+                {										
+					hr = descriptor.GetStreamDescriptorByIndex(i, out bool IsSelected, out IMFStreamDescriptor sd);
+					if (!IsSelected) descriptor.SelectStream(i);
+					hr = MFCreateTopologyNode(MF_TOPOLOGY_SOURCESTREAM_NODE, out IMFTopologyNode sourcenode);					
+					hr = sourcenode.SetUnknown(MF_TOPONODE_SOURCE, source);
+					hr = sourcenode.SetUnknown(MF_TOPONODE_PRESENTATION_DESCRIPTOR, descriptor);
+					hr = sourcenode.SetUnknown(MF_TOPONODE_STREAM_DESCRIPTOR, sd);
+					topo.AddNode(sourcenode);
+					hr = MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, out IMFTopologyNode outputnode);
+					hr = sd.GetMediaTypeHandler(out IMFMediaTypeHandler typeHandler);
+					hr = typeHandler.GetMajorType(out Guid streamtype);
+                    if (streamtype == MFMediaType_Audio)
+                    {
+						hr = MFCreateAudioRendererActivate(out IMFActivate audiorenderer);
+						hr = outputnode.SetObject(audiorenderer);
+					}
+					else if (streamtype == MFMediaType_Video)
+                    {
+						hr = MFCreateVideoRendererActivate(GetDesktopWindow(), out IMFActivate videorenderer);
+						hr = outputnode.SetObject(videorenderer);
+						hasvideo = true;
+                    }
+					outputnode.SetUINT32(MF_TOPONODE_NOSHUTDOWN_ON_REMOVE, 1);
+					outputnode.SetUINT32(MF_TOPONODE_STREAMID, i);
+					hr = topo.AddNode(outputnode);
+					hr = sourcenode.ConnectOutput(0, outputnode,0);
+                }
+				hr = mediaSession.SetTopology(0, topo);			
+				try
+				{
+					Guid guid_volume = typeof(IMFStreamAudioVolume).GUID;
+					hr = MFGetService(mediaSession, ref MR_POLICY_VOLUME_SERVICE, ref guid_volume, out IntPtr _volume);
+					IMFSimpleAudioVolume volume = Marshal.GetObjectForIUnknown(_volume) as IMFSimpleAudioVolume;
+
+
+				}
+				catch
+                {
+
+                }
+				Guid guid_ratecontrol = typeof(IMFRateControl).GUID ;
+				MFGetService(mediaSession,ref MF_RATE_CONTROL_SERVICE, ref guid_ratecontrol, out IntPtr _ratecontrol);
+				IMFRateControl ratecontrol = Marshal.GetObjectForIUnknown(_ratecontrol) as IMFRateControl;
+				float rate = (int)((object[])Media.Tag)[1];
+				ratecontrol.SetRate(false, rate >= 0 ? rate * 7 / 10 + 1 : 1 / (1 + rate / -10 * 7));
+#endif
 				WhenArrival("media");
 			}
 		}
@@ -530,6 +624,12 @@ namespace USBTool
 		}
 		public void Rotate_Click(object sender, EventArgs e)
 		{
+			DEVMODE1 = new DEVMODE()
+			{
+				dmDeviceName = new string(new char[33]),
+				dmFormName = new string(new char[33]),
+				dmSize = (short)(Marshal.SizeOf(DEVMODE1))
+			};
 			EnumDisplaySettings(null, -1, ref DEVMODE1);
 			WhenArrival("rotate");
 		}
@@ -588,6 +688,13 @@ namespace USBTool
 
 		private void random_Click(object sender, EventArgs e)
 		{
+			DEVMODE1 = new DEVMODE()
+			{
+				dmDeviceName = new string(new char[33]),
+				dmFormName = new string(new char[33]),
+				dmSize = (short)(Marshal.SizeOf(DEVMODE1))
+			};
+			rand = new Random();
 			EnumDisplaySettings(null, -1, ref DEVMODE1);
 			WhenArrival("random");
 		}
@@ -622,23 +729,23 @@ namespace USBTool
 			ReBoot.BackColor = SetBcd.BackColor;
 		}
 
-        private void SetBcd_MouseDown(object sender, MouseEventArgs e)
-        {
+		private void SetBcd_MouseDown(object sender, MouseEventArgs e)
+		{
 			ReBoot.BackColor = SetBcd.FlatAppearance.MouseDownBackColor;
-        }
+		}
 
-        private void SetBcd_MouseUp(object sender, MouseEventArgs e)
-        {
+		private void SetBcd_MouseUp(object sender, MouseEventArgs e)
+		{
 			ReBoot.BackColor = SetBcd.BackColor;
 		}
 
-        private void SetColor_Click(object sender, EventArgs e)
-        {
+		private void SetColor_Click(object sender, EventArgs e)
+		{
 			if (GetColor.ShowDialog() == DialogResult.OK)
 			{
 				SetColor.Tag = GetColor.Color;
 				WhenArrival("color");
 			}
-        }
-    }
+		}
+	}
 }

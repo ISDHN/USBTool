@@ -6,6 +6,9 @@ dotnet_diagnostic.CA1031.severity = none
 # IDE1006: 命名样式
 dotnet_diagnostic.IDE1006.severity = none
 
+# IDE0044: 只读
+dotnet_diagnostic.IDE0044.severity = none
+
 # CA1401: P/Invokes should not be visible
 dotnet_diagnostic.CA1401.severity = none
 

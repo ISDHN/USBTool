@@ -1,7 +1,5 @@
-// VBConversions Note: VB project level imports
 using System;
 using System.Windows.Forms;
-// End of VB project level imports
 
 
 namespace USBTool
@@ -20,7 +18,13 @@ namespace USBTool
             switch (mode)
             {
                 case "media":
-                    newform.Open.Filter = "媒体文件|*.asf;*.wma;*.wmv;*.wm;*.asx;*.wax;*.wvx;*.wmx;*wpl;*.dvr-ms;*.avi;*.mpg;*.mpeg;*.m1v;*.mp2;*.mp3;*.mpa;*.mpe;*.m3u;*.aif;*.aifc;*.aiff;*.au;*.snd;*.wav;*.mov;*.m4a;*.mp4;*.m4v;*.mp4v;*.3g2;*.3gp2;*.3gp;*.3gpp;*.aac;*.adt;*.adts;*.m2ts";
+                    newform.Open.Filter =
+#if MEDIA_FOUNDATION
+                    "媒体文件|*.asf;*.wma;*.wmv;*.wm;*.asx;*.wax;*.wvx;*.wmx;*wpl;*.dvr-ms;*.avi;*.mpg;*.mpeg;*.m1v;*.mp2;*.mp3;*.mpa;*.mpe;*.m3u;*.aif;*.aifc;*.aiff;*.au;*.snd;*.wav;*.mov;*.m4a;*.mp4;*.m4v;*.mp4v;*.3g2;*.3gp2;*.3gp;*.3gpp;*.aac;*.adt;*.adts;*.m2ts"
+#else
+                        "媒体文件|*.mp3;*.wma;*.wmv;*.m3u;*.wav;*.avi;*.dvr-ms;*.gif;*.wtv"
+#endif
+                        ;
                     newform.SpeechVoice.Hide();
                     newform.SpeechText.Hide();
                     break;

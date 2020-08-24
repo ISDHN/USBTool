@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if MEDIA_DSHOW
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -133,60 +134,6 @@ namespace USBTool.DShow
         void RestoreDefaultHandling(int lEvCode);
         [DispId(1610743813)]
         void FreeEventParams(int lEvCode, [ComAliasName("DirectShow.LONG_PTR")] int lParam1, [ComAliasName("DirectShow.LONG_PTR")] int lParam2);
-    }
-    [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
-    [ComImport, ComVisible(true), Guid("56A868B5-0AD4-11CE-B03A-0020AF0BA770")]
-    public interface IBasicVideo
-    {
-        [DispId(1610743829)]
-        void SetSourcePosition(int Left, int Top, int Width, int Height);
-        [DispId(1610743830)]
-        void GetSourcePosition(out int pLeft, out int pTop, out int pWidth, out int pHeight);
-        [DispId(1610743831)]
-        void SetDefaultSourcePosition();
-        [DispId(1610743832)]
-        void SetDestinationPosition(int Left, int Top, int Width, int Height);
-        [DispId(1610743833)]
-        void GetDestinationPosition(out int pLeft, out int pTop, out int pWidth, out int pHeight);
-        [DispId(1610743834)]
-        void SetDefaultDestinationPosition();
-        [DispId(1610743835)]
-        void GetVideoSize(out int pWidth, out int pHeight);
-        [DispId(1610743836)]
-        void GetVideoPaletteEntries(int StartIndex, int Entries, out int pRetrieved, out int pPalette);
-        [DispId(1610743837)]
-        void GetCurrentImage(ref int pBufferSize, out int pDIBImage);
-        [DispId(1610743838)]
-        void IsUsingDefaultSource();
-        [DispId(1610743839)]
-        void IsUsingDefaultDestination();
-
-        [DispId(1610743808)]
-        double AvgTimePerFrame { get; }
-        [DispId(1610743809)]
-        int BitRate { get; }
-        [DispId(1610743810)]
-        int BitErrorRate { get; }
-        [DispId(1610743811)]
-        int VideoWidth { get; }
-        [DispId(1610743812)]
-        int VideoHeight { get; }
-        [DispId(1610743813)]
-        int SourceLeft { get; set; }
-        [DispId(1610743815)]
-        int SourceWidth { get; set; }
-        [DispId(1610743817)]
-        int SourceTop { get; set; }
-        [DispId(1610743819)]
-        int SourceHeight { get; set; }
-        [DispId(1610743821)]
-        int DestinationLeft { get; set; }
-        [DispId(1610743823)]
-        int DestinationWidth { get; set; }
-        [DispId(1610743825)]
-        int DestinationTop { get; set; }
-        [DispId(1610743827)]
-        int DestinationHeight { get; set; }
     }
     [ComImport, ComVisible(true), Guid("e436ebb3-524f-11ce-9f53-0020af0ba770")]
     public class FilterGraph
@@ -496,3 +443,4 @@ namespace USBTool.DShow
             set; }
     } */
 }
+#endif

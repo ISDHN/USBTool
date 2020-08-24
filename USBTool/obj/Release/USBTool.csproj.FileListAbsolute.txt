@@ -1,7 +1,6 @@
 J:\Chevy\Program\USBTool\USBTool\bin\Release\USBTool.exe.config
 J:\Chevy\Program\USBTool\USBTool\bin\Release\USBTool.exe
 J:\Chevy\Program\USBTool\USBTool\bin\Release\USBTool.pdb
-J:\Chevy\Program\USBTool\USBTool\bin\Release\DirectShow.dll
 J:\Chevy\Program\USBTool\USBTool\bin\Release\mm.exe
 J:\Chevy\Program\USBTool\USBTool\bin\Release\mm.pdb
 J:\Chevy\Program\USBTool\USBTool\bin\Release\mm.exe.config

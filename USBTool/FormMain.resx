@@ -547,10 +547,10 @@
     <value>19</value>
   </data>
   <data name="Media.Text" xml:space="preserve">
-    <value>播放媒体</value>
+    <value>播放视频</value>
   </data>
   <data name="Media.ToolTip" xml:space="preserve">
-    <value>自带循环\r\n音量有点小，记得调大</value>
+    <value>自带循环</value>
   </data>
   <data name="&gt;&gt;Media.Name" xml:space="preserve">
     <value>Media</value>
