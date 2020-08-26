@@ -38,6 +38,13 @@ namespace USBTool
 				FormMain.ShowWindow(MCIWnd, FormMain.SW_NORMAL);
 
 		}
-		
-    }
+
+        private void Mediashow_Paint(object sender, PaintEventArgs e)
+        {
+#if MEDIA_FOUNDATION
+				if (displayControl != null)
+					displayControl.RepaintVideo();
+#endif
+		}
+	}
 }

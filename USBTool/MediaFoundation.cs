@@ -8,7 +8,30 @@ using System.Drawing;
 
 namespace USBTool.MediaFoundation
 {
-	
+	[StructLayout(LayoutKind.Sequential)]
+	public struct BITMAPINFOHEADER
+	{
+		public uint biSize;
+		public int biWidth;
+		public int biHeight;
+		public ushort biPlanes;
+		public ushort biBitCount;
+		public uint biCompression;
+		public uint biSizeImage;
+		public int biXPelsPerMeter;
+		public int biYPelsPerMeter;
+		public uint biClrUsed;
+		public uint biClrImportant;
+	}
+	[StructLayout(LayoutKind.Sequential)]
+	public struct PropVariant
+	{
+		public ushort vt;
+		public ushort wReserved1;
+		public ushort wReserved2;
+		public ushort wReserved3;
+		public IntPtr unionmember;
+	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true),ComImport,Guid("90377834-21D0-4dee-8214-BA2E3E6C1127")]
 	public interface IMFMediaSession : IUnknown
@@ -82,15 +105,6 @@ namespace USBTool.MediaFoundation
 		int GetNodeByID(ulong qwTopoNodeID,out IMFTopologyNode ppNode);
 		int GetSourceNodeCollection(out IntPtr ppCollection);
 		int GetOutputNodeCollection(out IntPtr ppCollection);
-	}
-	[StructLayout(LayoutKind.Sequential)]
-	public struct PropVariant
-	{
-		public ushort vt;
-		public ushort wReserved1;
-		public ushort wReserved2;
-		public ushort wReserved3;
-		public IntPtr unionmember;
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("279a808d-aec7-40c8-9c6b-a6b492c78a66")]
@@ -382,15 +396,6 @@ namespace USBTool.MediaFoundation
 		int GetValue(out PropVariant pvValue);		
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true), ComImport, Guid("089EDF13-CF71-4338-8D13-9E569DBDC319")]
-	public interface IMFSimpleAudioVolume : IUnknown
-	{
-		int SetMasterVolume(float fLevel);
-		int GetMasterVolume(out float pfLevel);
-		int SetMute(bool bMute);
-		int GetMute(out bool pbMute);
-	}
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("0a9ccdbc-d797-4563-9667-94ec5d79292d")]
 	public interface IMFRateSupport
 	{
@@ -400,14 +405,15 @@ namespace USBTool.MediaFoundation
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("88ddcd21-03c3-4275-91ed-55ee3929328f")]
-	public interface IMFRateControl
+	public interface IMFRateControl : IUnknown
 	{
 		int SetRate(bool fThin,float flRate);
 		int GetRate(ref bool pfThin,ref float pflRate);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("76B1BBDB-4EC8-4f36-B106-70A9316DF593")]
-	public interface IMFStreamAudioVolume : IUnknown{
+	public interface IMFStreamAudioVolume : IUnknown
+	{
 		int GetChannelCount(out uint pdwCount);
 		int SetChannelVolume(uint dwIndex, float fLevel);
 		int GetChannelVolume(uint dwIndex,out float pfLevel);
@@ -416,11 +422,11 @@ namespace USBTool.MediaFoundation
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("a490b1e4-ab84-4d31-a1b2-181e03b1077a")]
-	public interface IMFVideoDisplayControl
+	public interface IMFVideoDisplayControl :IUnknown
 	{
 		int GetNativeVideoSize(ref Size pszVideo,ref Size pszARVideo);        
 		int GetIdealVideoSize(ref Size pszMin,ref Size pszMax);       
-		int SetVideoPosition(IntPtr pnrcSource, ref  Rectangle prcDest);
+		int SetVideoPosition(IntPtr pnrcSource,ref Rectangle prcDest);
 		int GetVideoPosition( out RectangleF pnrcSource, out Rectangle prcDest);      
 		int SetAspectRatioMode(uint dwAspectRatioMode);
 		int GetAspectRatioMode(out uint pdwAspectRatioMode);
@@ -435,19 +441,111 @@ namespace USBTool.MediaFoundation
 		int SetFullscreen(bool fFullscreen);
 		int GetFullscreen(out bool pfFullscreen);
 	}
-	public struct  BITMAPINFOHEADER
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("a0638c2b-6465-4395-9ae7-a321a9fd2856")]
+	public interface IMFAudioPolicy : IUnknown
 	{
-		public uint biSize;
-		public int biWidth;
-		public int biHeight;
-		public ushort biPlanes;
-		public ushort biBitCount;
-		public uint biCompression;
-		public uint biSizeImage;
-		public int biXPelsPerMeter;
-		public int biYPelsPerMeter;
-		public uint biClrUsed;
-		public uint biClrImportant;
+		int SetGroupingParam(ref Guid rguidClass);
+		int GetGroupingParam(out Guid pguidClass);      
+		int SetDisplayName(string pszName);
+		int GetDisplayName(out string pszName);
+		int SetIconPath( string pszPath);
+		int GetIconPath(out string pszPath);
+	}
+	public enum MFP_MEDIAPLAYER_STATE
+	{
+		EMPTY = 0,
+		STOPPED = 0x1,
+		PLAYING = 0x2,
+		PAUSED = 0x3,
+		SHUTDOWN = 0x4
+	}
+	public struct MFP_EVENT_HEADER
+	{
+		public uint eEventType;
+		public int hrEvent;
+		public IMFPMediaPlayer pMediaPlayer;
+		public MFP_MEDIAPLAYER_STATE eState;
+		public IntPtr pPropertyStore;
+	}
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("A714590A-58AF-430a-85BF-44F5EC838D85")]
+	public interface IMFPMediaPlayer :  IUnknown
+	{
+		int Play();      
+		int Pause();        
+		int Stop();       
+		int FrameStep();      
+		int SetPosition(ref Guid guidPositionType,ref PropVariant pvPositionValue);    
+		int GetPosition(ref Guid guidPositionType,out PropVariant pvPositionValue);       
+		int GetDuration(ref Guid guidPositionType,out PropVariant pvDurationValue);     
+		int SetRate(float flRate);     
+		int GetRate(out  float pflRate);    
+		int GetSupportedRates(bool fForwardDirection,out  float pflSlowestRate,out  float pflFastestRate);       
+		int GetState(out MFP_MEDIAPLAYER_STATE peState);       
+		int CreateMediaItemFromURL(string pwszURL,bool fSync,UIntPtr dwUserData, out IMFPMediaItem ppMediaItem);     
+		int CreateMediaItemFromObject(IUnknown pIUnknownObj, bool fSync,ulong dwUserData,out IMFPMediaItem ppMediaItem);    
+		int SetMediaItem(IMFPMediaItem pIMFPMediaItem);      
+		int ClearMediaItem();  
+		int GetMediaItem(out IMFPMediaItem ppIMFPMediaItem);   
+		int GetVolume(out  float pflVolume);      
+		int SetVolume(float flVolume);    
+		int GetBalance(out float pflBalance);
+		int SetBalance(float flBalance);
+		int GetMute(out bool pfMute);    
+		int SetMute(bool fMute);      
+		int GetNativeVideoSize(out Size pszVideo,out Size pszARVideo);      
+		int GetIdealVideoSize(out Size pszMin,out Size pszMax);
+		int SetVideoSourceRect(ref RectangleF pnrcSource);      
+		int GetVideoSourceRect(out RectangleF pnrcSource);       
+		int SetAspectRatioMode( uint dwAspectRatioMode);     
+		int GetAspectRatioMode(out uint pdwAspectRatioMode);   
+		int GetVideoWindow(out IntPtr phwndVideo);      
+		int UpdateVideo();   
+		int SetBorderColor(uint Clr);   
+		int GetBorderColor(out uint pClr);       
+		int InsertEffect(IUnknown pEffect,bool fOptional);      
+		int RemoveEffect(IUnknown pEffect);
+		int RemoveAllEffects();
+		int Shutdown();
+	};
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("90EB3E6B-ECBF-45cc-B1DA-C6FE3EA70D57")]
+	public interface IMFPMediaItem :  IUnknown
+	{
+		int GetMediaPlayer(out IMFPMediaPlayer ppMediaPlayer);     
+		int GetURL(out string ppwszURL);   
+		int GetObject(out IUnknown ppIUnknown);      
+		int GetUserData(out uint pdwUserData);
+		int SetUserData(ulong dwUserData);       
+		int GetStartStopPosition(out Guid pguidStartPositionType,out PropVariant pvStartValue,out Guid pguidStopPositionType,out PropVariant pvStopValue); 
+		int SetStartStopPosition(ref Guid pguidStartPositionType,ref PropVariant pvStartValue,ref Guid pguidStopPositionType,ref PropVariant pvStopValue);       
+		int HasVideo(out bool pfHasVideo,out bool pfSelected);
+		int HasAudio(out bool pfHasAudio,out bool pfSelected);   
+		int IsProtected(out bool pfProtected);
+		int GetDuration(ref Guid guidPositionType,out PropVariant pvDurationValue);     
+		int GetNumberOfStreams(out uint pdwStreamCount);      
+		int GetStreamSelection( uint dwStreamIndex,out bool pfEnabled);       
+		int SetStreamSelection( uint dwStreamIndex, bool fEnabled);  
+		int GetStreamAttribute( uint dwStreamIndex,ref Guid guidMFAttribute,out PropVariant pvValue);     
+		int GetPresentationAttribute(ref Guid guidMFAttribute,out PropVariant pvValue);
+		int GetCharacteristics(out uint pCharacteristics);       
+		int SetStreamSink(uint dwStreamIndex,IUnknown pMediaSink);
+		int GetMetadata(out IntPtr ppMetadataStore);
+		
+	};
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("766C8FFB-5FDB-4fea-A28D-B912996F51BD")]
+	public interface IMFPMediaPlayerCallback
+	{
+		void OnMediaPlayerEvent(ref MFP_EVENT_HEADER pEventHeader);       
+	};
+	public class MFPMediaPlayerCallback : IMFPMediaPlayerCallback
+	{
+		public void OnMediaPlayerEvent(ref MFP_EVENT_HEADER pEventHeader)
+		{
+
+		}
 	}
 }
 #endif

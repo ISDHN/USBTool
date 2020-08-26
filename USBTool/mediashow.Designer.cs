@@ -65,6 +65,7 @@ namespace USBTool
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.Shown += new System.EventHandler(this.Mediashow_Shown);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Mediashow_Paint);
             this.ResumeLayout(false);
 
 			}

@@ -20,3 +20,5 @@ dotnet_diagnostic.CA1034.severity = none
 
 # CA1815: Override equals and operator equals on value types
 dotnet_diagnostic.CA1815.severity = none
+
+dotnet_diagnostic.CS0168.severity = none

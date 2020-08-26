@@ -59,7 +59,10 @@ namespace USBTool
             // 
             // Choose
             // 
+            this.Choose.BackColor = System.Drawing.Color.Black;
+            this.Choose.ForeColor = System.Drawing.Color.White;
             this.Choose.FormattingEnabled = true;
+            this.Choose.IntegralHeight = false;
             this.Choose.ItemHeight = 12;
             this.Choose.Location = new System.Drawing.Point(12, 12);
             this.Choose.Name = "Choose";
@@ -68,6 +71,7 @@ namespace USBTool
             // 
             // Volume
             // 
+            this.Volume.BackColor = System.Drawing.Color.Black;
             this.Volume.Location = new System.Drawing.Point(9, 171);
             this.Volume.Maximum = 100;
             this.Volume.Name = "Volume";
@@ -91,45 +95,55 @@ namespace USBTool
             // 
             // Yes
             // 
+            this.Yes.BackColor = System.Drawing.Color.Black;
+            this.Yes.ForeColor = System.Drawing.Color.White;
             this.Yes.Location = new System.Drawing.Point(169, 12);
             this.Yes.Name = "Yes";
             this.Yes.Size = new System.Drawing.Size(75, 35);
             this.Yes.TabIndex = 3;
             this.Yes.Text = "确定";
-            this.Yes.UseVisualStyleBackColor = true;
+            this.Yes.UseVisualStyleBackColor = false;
             this.Yes.Click += new System.EventHandler(this.Yes_Click);
             // 
             // Cancle
             // 
+            this.Cancle.BackColor = System.Drawing.Color.Black;
             this.Cancle.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancle.ForeColor = System.Drawing.Color.White;
             this.Cancle.Location = new System.Drawing.Point(169, 64);
             this.Cancle.Name = "Cancle";
             this.Cancle.Size = new System.Drawing.Size(75, 35);
             this.Cancle.TabIndex = 4;
             this.Cancle.Text = "取消";
-            this.Cancle.UseVisualStyleBackColor = true;
+            this.Cancle.UseVisualStyleBackColor = false;
             // 
             // Browse
             // 
+            this.Browse.BackColor = System.Drawing.Color.Black;
+            this.Browse.ForeColor = System.Drawing.Color.White;
             this.Browse.Location = new System.Drawing.Point(169, 113);
             this.Browse.Name = "Browse";
             this.Browse.Size = new System.Drawing.Size(75, 35);
             this.Browse.TabIndex = 5;
             this.Browse.Text = "浏览...";
-            this.Browse.UseVisualStyleBackColor = true;
+            this.Browse.UseVisualStyleBackColor = false;
             this.Browse.Click += new System.EventHandler(this.Browse_Click);
             // 
             // SpeechVoice
             // 
+            this.SpeechVoice.BackColor = System.Drawing.Color.Black;
             this.SpeechVoice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SpeechVoice.ForeColor = System.Drawing.Color.White;
             this.SpeechVoice.FormattingEnabled = true;
-            this.SpeechVoice.Location = new System.Drawing.Point(13, 128);
+            this.SpeechVoice.Location = new System.Drawing.Point(12, 128);
             this.SpeechVoice.Name = "SpeechVoice";
             this.SpeechVoice.Size = new System.Drawing.Size(150, 20);
             this.SpeechVoice.TabIndex = 6;
             // 
             // SpeechText
             // 
+            this.SpeechText.BackColor = System.Drawing.Color.Black;
+            this.SpeechText.ForeColor = System.Drawing.SystemColors.Window;
             this.SpeechText.Location = new System.Drawing.Point(12, 12);
             this.SpeechText.Multiline = true;
             this.SpeechText.Name = "SpeechText";
@@ -140,7 +154,7 @@ namespace USBTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(263, 285);
             this.Controls.Add(this.SpeechText);
             this.Controls.Add(this.SpeechVoice);

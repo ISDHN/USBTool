@@ -79,6 +79,8 @@ namespace USBTool
 		#endregion
 #if MEDIA_FOUNDATION
 #region Media Foundation
+		[DllImport ("Ole32.dll")]
+		public static extern int CoInitialize(object pvReserved);
 		[DllImport("mfplat.dll", SetLastError = true,PreserveSig =true)]
 		public static extern int MFStartup( uint Version,uint flags);
 		[DllImport("mfplat.dll")]
@@ -88,7 +90,7 @@ namespace USBTool
 		[DllImport("mf.dll",SetLastError =true,PreserveSig =true)]
 		public static extern int MFCreateSourceResolver(out IMFSourceResolver ppISourceResolver);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
-		public static extern int  MFCreateTopology(out IMFTopology ppTopo);
+		public static extern int MFCreateTopology(out IMFTopology ppTopo);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFCreateTopologyNode(uint NodeType,out IMFTopologyNode ppNode);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
@@ -96,7 +98,11 @@ namespace USBTool
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFCreateAudioRendererActivate(out IMFActivate ppActivate);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
-		public static extern int MFGetService(IUnknown punkObject,ref Guid guidService,ref Guid riid,out IntPtr ppvObject);
+		public static extern int MFGetService(IUnknown punkObject, ref Guid guidService, ref Guid riid, out IUnknown ppvObject);
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFRequireProtectedEnvironment(IMFPresentationDescriptor pPresentationDescriptor);
+		[DllImport("Mfplay.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFPCreateMediaPlayer(string pwszURL,bool fStartPlayback,uint creationOptions,IMFPMediaPlayerCallback pCallback,IntPtr hWnd,out IMFPMediaPlayer ppMediaPlayer );
 		#endregion
 #endif
 		[StructLayout(LayoutKind.Sequential)]
@@ -170,6 +176,8 @@ namespace USBTool
 		public const uint EC_COMPLETE = 0x01;
 #endif
 #if MEDIA_FOUNDATION
+		public Guid MFP_POSITIONTYPE_100NS = new Guid(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0);
+		public Guid MF_TOPOLOGY_RESOLUTION_STATUS = new Guid(0x494bbcde, 0xb031, 0x4e38, 0x97, 0xc4, 0xd5, 0x42, 0x2d, 0xd6, 0x18, 0xdc);
 		public Guid MF_TOPONODE_SOURCE = Guid.Parse("835c58ec-e075-4bc7-bcba-4de000df9ae6");
 		public Guid MF_TOPONODE_PRESENTATION_DESCRIPTOR = Guid.Parse("835c58ed-e075-4bc7-bcba-4de000df9ae6");
 		public Guid MF_TOPONODE_STREAM_DESCRIPTOR = Guid.Parse("835c58ee-e075-4bc7-bcba-4de000df9ae6");
@@ -181,6 +189,7 @@ namespace USBTool
 		public Guid MR_STREAM_VOLUME_SERVICE =  Guid.Parse("f8b5fa2f-32ef-46f5-b172-1321212fb2c4");
 		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c,0xab1a,0x459a,0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
 		public Guid MF_RATE_CONTROL_SERVICE = Guid.Parse("866fa297-b802-4bf8-9dc9-5e3b6a9f53c9");
+		public Guid MR_AUDIO_POLICY_SERVICE = new Guid(0x911fd737, 0x6775, 0x4ab0, 0xa6, 0x14, 0x29, 0x78, 0x62, 0xfd, 0xac, 0x88);
 		public const uint MF_SDK_VERSION = 0x0001;
 		public const uint MF_API_VERSION = 0x0070;
 		public const uint MF_VERSION = (MF_SDK_VERSION << 16)| MF_API_VERSION;
@@ -193,6 +202,8 @@ namespace USBTool
         public const uint MF_TOPOLOGY_SOURCESTREAM_NODE	= 0x1;
 		public const uint MFSESSION_SETTOPOLOGY_IMMEDIATE = 0x1;
 		public const uint MESessionEnded = 107;
+		public const uint MESessionTopologyStatus = 111;
+		public const uint MESessionTopologySet = 101;
 		public const ushort VT_I8 = 20;
 #endif
 		//public const uint FMIFS_HARDDISK = 0xC;
