@@ -42,7 +42,6 @@ namespace USBTool
 		[System.Diagnostics.DebuggerStepThrough()]
 			private void InitializeComponent()
 			{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mediashow));
             this.SuspendLayout();
             // 
             // Mediashow
@@ -54,8 +53,9 @@ namespace USBTool
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Enabled = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Mediashow";
@@ -65,7 +65,6 @@ namespace USBTool
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.Shown += new System.EventHandler(this.Mediashow_Shown);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Mediashow_Paint);
             this.ResumeLayout(false);
 
 			}
@@ -79,6 +78,6 @@ namespace USBTool
 			// 在 InitializeComponent() 调用之后添加任何初始化。
 			
 		}
-	}
+    }
 	
 }

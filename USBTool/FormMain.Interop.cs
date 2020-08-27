@@ -204,6 +204,7 @@ namespace USBTool
 		public const uint MESessionEnded = 107;
 		public const uint MESessionTopologyStatus = 111;
 		public const uint MESessionTopologySet = 101;
+		public const uint MESessionStopped = 105;
 		public const ushort VT_I8 = 20;
 #endif
 		//public const uint FMIFS_HARDDISK = 0xC;

@@ -7,7 +7,7 @@
     <ProjectGuid>{43286F55-2D62-47CA-87FA-6021F9070C09}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>USBTool</RootNamespace>
-    <AssemblyName>USBTool</AssemblyName>
+    <AssemblyName>ut</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

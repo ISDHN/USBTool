@@ -190,17 +190,17 @@ namespace USBTool
 									host.Hide();
 #elif MEDIA_FOUNDATION
 									int hr;
+									uint eventtype = 0;
 									if (hasvideo)
 									{ 
 										host.Show();
 									}
-                                    long position = 0;
 									PropVariant prop = new PropVariant()
 									{
 										vt = VT_I8,
-										unionmember = (IntPtr)(&position)
+										unionmember=0,
 									};
-                                    #region mfplay
+									#region mfplay
 									/*
 									player.SetPosition(ref MFP_POSITIONTYPE_100NS, prop);
 									player.Play();
@@ -211,11 +211,16 @@ namespace USBTool
 									}
 									*/
 									#endregion
-                                    #region mediasession																
-                                    hr = mediaSession.Start(IntPtr.Zero, prop);
-									uint eventtype = 0;
-									while (eventtype != MESessionEnded)
+									#region mediasession	
+									Thread upvideo = new Thread(() =>
 									{
+										while(host.Visible)
+											host.displayControl.RepaintVideo();
+									});									
+									hr = mediaSession.Start(Guid.Empty, prop);
+									upvideo.Start();
+									while (eventtype != MESessionEnded)
+									{					
 										mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
 										mediaevent.GetType(out eventtype);
 									}									

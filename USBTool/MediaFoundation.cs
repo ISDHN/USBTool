@@ -30,7 +30,7 @@ namespace USBTool.MediaFoundation
 		public ushort wReserved1;
 		public ushort wReserved2;
 		public ushort wReserved3;
-		public IntPtr unionmember;
+		public long unionmember;
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true),ComImport,Guid("90377834-21D0-4dee-8214-BA2E3E6C1127")]
@@ -44,7 +44,7 @@ namespace USBTool.MediaFoundation
 		//IMFMediaSession
 		int SetTopology(uint dwSetTopologyFlags,IMFTopology pTopology);
 		int ClearTopologies();
-		int Start(IntPtr pguidTimeFormat, ref PropVariant pvarStartPosition);
+		int Start(ref Guid pguidTimeFormat, ref PropVariant pvarStartPosition);
 		int Pause();	
 		int Stop();
 		int Close();

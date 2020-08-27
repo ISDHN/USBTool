@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -24,27 +25,15 @@ namespace USBTool
 			if (m.Msg == (uint)FormMain.MCIConst.MCIWNDM_NOTIFYERROR)
 				Hide();
 #endif
-#if MEDIA_FOUNDATION
-			if (m.Msg == FormMain.WM_PAINT)
-				if (displayControl != null)
-					displayControl.RepaintVideo();
-#endif
 		}
 
-        private void Mediashow_Shown(object sender, EventArgs e)
+		private void Mediashow_Shown(object sender, EventArgs e)
         {
-
+#if MEDIA_MCI
 			if(MCIWnd!= null)
 				FormMain.ShowWindow(MCIWnd, FormMain.SW_NORMAL);
-
-		}
-
-        private void Mediashow_Paint(object sender, PaintEventArgs e)
-        {
-#if MEDIA_FOUNDATION
-				if (displayControl != null)
-					displayControl.RepaintVideo();
 #endif
+
 		}
 	}
 }
