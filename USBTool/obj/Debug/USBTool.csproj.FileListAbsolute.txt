@@ -5,11 +5,6 @@ D:\Chevy\Program\USBTool\USBTool\obj\Debug\USBTool.Properties.Resources.resource
 D:\Chevy\Program\USBTool\USBTool\obj\Debug\USBTool.csproj.GenerateResource.cache
 D:\Chevy\Program\USBTool\USBTool\obj\Debug\USBTool.csproj.CoreCompileInputs.cache
 D:\Chevy\Program\USBTool\USBTool\obj\Debug\USBTool.csproj.CopyComplete
-D:\Chevy\Program\USBTool\USBTool\USBTool.exe.config
-D:\Chevy\Program\USBTool\USBTool\obj\Debug\USBTool.exe
-D:\Chevy\Program\USBTool\USBTool\obj\Debug\USBTool.pdb
-D:\Chevy\Program\USBTool\USBTool\USBTool.exe
-D:\Chevy\Program\USBTool\USBTool\USBTool.pdb
 D:\Chevy\Program\USBTool\USBTool\mm.exe
 D:\Chevy\Program\USBTool\USBTool\mm.pdb
 D:\Chevy\Program\USBTool\USBTool\mm.exe.config
@@ -32,3 +27,8 @@ J:\Chevy\Program\USBTool\USBTool\obj\Debug\ut.exe
 J:\Chevy\Program\USBTool\USBTool\obj\Debug\ut.pdb
 J:\Chevy\Program\USBTool\USBTool\ut.exe
 J:\Chevy\Program\USBTool\USBTool\ut.pdb
+D:\Chevy\Program\USBTool\USBTool\ut.exe.config
+D:\Chevy\Program\USBTool\USBTool\obj\Debug\ut.exe
+D:\Chevy\Program\USBTool\USBTool\obj\Debug\ut.pdb
+D:\Chevy\Program\USBTool\USBTool\ut.exe
+D:\Chevy\Program\USBTool\USBTool\ut.pdb

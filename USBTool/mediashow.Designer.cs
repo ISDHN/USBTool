@@ -35,7 +35,6 @@ namespace USBTool
 		
 		//Windows 窗体设计器所必需的
 		private System.ComponentModel.Container components = null;
-		
 		//注意: 以下过程是 Windows 窗体设计器所必需的
 		//可以使用 Windows 窗体设计器修改它。
 		//不要使用代码编辑器修改它。
@@ -63,8 +62,7 @@ namespace USBTool
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TopMost = true;
-            this.Shown += new System.EventHandler(this.Mediashow_Shown);
+            this.Text = " ";
             this.ResumeLayout(false);
 
 			}
@@ -73,10 +71,12 @@ namespace USBTool
 			
 			// 此调用是设计器所必需的。
 			InitializeComponent();
-			this.Width = System.Convert.ToInt32(SystemParameters.PrimaryScreenWidth / 2);
-			this.Height = System.Convert.ToInt32(SystemParameters.PrimaryScreenHeight / 2);
+			this.Width = (int)(SystemParameters.PrimaryScreenWidth / 2);
+			this.Height = (int)(SystemParameters.PrimaryScreenHeight / 2);
+			Control.CheckForIllegalCrossThreadCalls = false;
+			this.SetStyle(ControlStyles.Selectable, false);
+			this.Cursor.Dispose();
 			// 在 InitializeComponent() 调用之后添加任何初始化。
-			
 		}
     }
 	

@@ -72,13 +72,16 @@ namespace USBTool
             this.picture = new System.Windows.Forms.Button();
             this.random = new System.Windows.Forms.Button();
             this.Beep = new System.Windows.Forms.Button();
-            this.beuncle = new System.Windows.Forms.Button();
+            this.BeUncle = new System.Windows.Forms.Button();
             this.SetBcd = new System.Windows.Forms.Button();
             this.CloseNetWork = new System.Windows.Forms.Button();
             this.SetColor = new System.Windows.Forms.Button();
+            this.FullScreen = new System.Windows.Forms.CheckBox();
+            this.FixCursor = new System.Windows.Forms.Button();
             this.flash = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
+            this.DeleteFileExt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // 一插U盘就无法打开
@@ -202,6 +205,10 @@ namespace USBTool
             this.ToolTip1.SetToolTip(this.Media, resources.GetString("Media.ToolTip"));
             this.Media.UseVisualStyleBackColor = true;
             this.Media.Click += new System.EventHandler(this.PlayMedia_Click);
+            this.Media.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Media_MouseDown);
+            this.Media.MouseEnter += new System.EventHandler(this.Media_MouseEnter);
+            this.Media.MouseLeave += new System.EventHandler(this.Media_MouseLeave);
+            this.Media.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Media_MouseUp);
             // 
             // Computer
             // 
@@ -350,13 +357,13 @@ namespace USBTool
             this.Beep.UseVisualStyleBackColor = true;
             this.Beep.Click += new System.EventHandler(this.Beep_Click);
             // 
-            // beuncle
+            // BeUncle
             // 
-            resources.ApplyResources(this.beuncle, "beuncle");
-            this.beuncle.Name = "beuncle";
-            this.ToolTip1.SetToolTip(this.beuncle, resources.GetString("beuncle.ToolTip"));
-            this.beuncle.UseVisualStyleBackColor = true;
-            this.beuncle.Click += new System.EventHandler(this.Center_Click);
+            resources.ApplyResources(this.BeUncle, "BeUncle");
+            this.BeUncle.Name = "BeUncle";
+            this.ToolTip1.SetToolTip(this.BeUncle, resources.GetString("BeUncle.ToolTip"));
+            this.BeUncle.UseVisualStyleBackColor = true;
+            this.BeUncle.Click += new System.EventHandler(this.BeUncle_Click);
             // 
             // SetBcd
             // 
@@ -386,6 +393,23 @@ namespace USBTool
             this.SetColor.UseVisualStyleBackColor = true;
             this.SetColor.Click += new System.EventHandler(this.SetColor_Click);
             // 
+            // FullScreen
+            // 
+            resources.ApplyResources(this.FullScreen, "FullScreen");
+            this.FullScreen.BackColor = System.Drawing.Color.PaleGreen;
+            this.FullScreen.ForeColor = System.Drawing.Color.MediumSeaGreen;
+            this.FullScreen.Name = "FullScreen";
+            this.ToolTip1.SetToolTip(this.FullScreen, resources.GetString("FullScreen.ToolTip"));
+            this.FullScreen.UseVisualStyleBackColor = false;
+            // 
+            // FixCursor
+            // 
+            resources.ApplyResources(this.FixCursor, "FixCursor");
+            this.FixCursor.Name = "FixCursor";
+            this.ToolTip1.SetToolTip(this.FixCursor, resources.GetString("FixCursor.ToolTip"));
+            this.FixCursor.UseVisualStyleBackColor = true;
+            this.FixCursor.Click += new System.EventHandler(this.Cursor_Click);
+            // 
             // flash
             // 
             resources.ApplyResources(this.flash, "flash");
@@ -407,16 +431,27 @@ namespace USBTool
             this.GetColor.Color = System.Drawing.Color.Blue;
             this.GetColor.FullOpen = true;
             // 
+            // DeleteFileExt
+            // 
+            resources.ApplyResources(this.DeleteFileExt, "DeleteFileExt");
+            this.DeleteFileExt.Name = "DeleteFileExt";
+            this.ToolTip1.SetToolTip(this.DeleteFileExt, resources.GetString("DeleteFileExt.ToolTip"));
+            this.DeleteFileExt.UseVisualStyleBackColor = true;
+            this.DeleteFileExt.Click += new System.EventHandler(this.DeleteFileExt_Click);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
+            this.Controls.Add(this.DeleteFileExt);
+            this.Controls.Add(this.FixCursor);
+            this.Controls.Add(this.FullScreen);
             this.Controls.Add(this.SetColor);
             this.Controls.Add(this.ReBoot);
             this.Controls.Add(this.CloseNetWork);
             this.Controls.Add(this.SetBcd);
-            this.Controls.Add(this.beuncle);
+            this.Controls.Add(this.BeUncle);
             this.Controls.Add(this.Beep);
             this.Controls.Add(this.random);
             this.Controls.Add(this.picture);
@@ -521,14 +556,17 @@ namespace USBTool
 		internal Button flash;
 		internal Button picture;
 		private System.ComponentModel.IContainer components;
-        internal Button random;
-        internal Button Beep;
-        internal Button beuncle;
-        internal Button SetBcd;
-        internal Button CloseNetWork;
-        private CheckBox ReBoot;
-        internal Button SetColor;
-        private ColorDialog GetColor;
+		internal Button random;
+		internal Button Beep;
+		internal Button BeUncle;
+		internal Button SetBcd;
+		internal Button CloseNetWork;
+		private CheckBox ReBoot;
+		internal Button SetColor;
+		private ColorDialog GetColor;
+		private CheckBox FullScreen;
+        internal Button FixCursor;
+        internal Button DeleteFileExt;
     }
 	
 }

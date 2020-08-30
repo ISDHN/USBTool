@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
@@ -18,9 +19,8 @@ namespace USBTool
 		public static SpeechSynthesizer Voice;
 		public static DEVMODE DEVMODE1;
 		public static Random rand ;
-		//public delegate bool FormatExCallBack(int Command, int Modifier, IntPtr Argument);
-		//[DllImport("fmifs.dll", SetLastError = true)]
-		//public static extern int FormatEx(string drivename, uint media, string format, string volume, bool QuickFormat, int size, FormatExCallBack callback);        
+		private static TaskFactory tf;
+		public delegate bool EnumWindowsCallBack(IntPtr hwnd, string lpPatam);
 #if MEDIA_MCI
 		[DllImport("Msvfw32.dll", SetLastError = true)]
 		public static extern IntPtr MCIWndCreate(IntPtr hwndParent, IntPtr hInstance, uint dwStyle, string file);
@@ -41,9 +41,9 @@ namespace USBTool
 		[DllImport("user32.dll",SetLastError = true)]
 		public static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern int PostMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
+		public static extern int SendMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern int PostMessage(IntPtr hWnd, uint msg, uint wParam, [MarshalAs (UnmanagedType.LPWStr)]string lParam);
+		public static extern int SendMessage(IntPtr hWnd, uint msg, uint wParam, [MarshalAs (UnmanagedType.LPWStr)]string lParam);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern int ChangeDisplaySettings(ref DEVMODE devMode, int flags);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -58,6 +58,10 @@ namespace USBTool
 		public static extern IntPtr GetParent(IntPtr hwnd);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool MoveWindow(IntPtr hWnd,int X,int Y,int nWidth, int nHeight, bool bRepaint);
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern int ShowCursor(bool bShow);
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern bool EnumChildWindows(IntPtr hWndParent,EnumWindowsCallBack lpEnumFunc,string lParam);
 #endregion
 #region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -166,12 +170,18 @@ namespace USBTool
 		public const uint WM_CLOSE = 0x0010;
 		public const uint WM_USER = 0x0400;
 		public const uint WM_PAINT = 0x000F;
+		public const uint WM_MOUSEACTIVATE = 0x0021;
+		public const uint WM_SETTEXT = 0x000C;
 		public const uint WS_VISIBLE = 0x10000000;
-		public const uint WS_CHILD = 0x40000000;
+		public const uint WS_CHILD = 0x40000000;		
+		public const uint WS_EX_NOACTIVATE = 0x8000000;
+		public const uint MA_NOACTIVATE = 3;
+		public const uint MA_NOACTIVATEANDEAT = 4;
 		public const uint SW_NORMAL = 1;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
+		
 #if MEDIA_DSHOW
 		public const uint EC_COMPLETE = 0x01;
 #endif
@@ -199,7 +209,7 @@ namespace USBTool
 		public const uint MF_RESOLUTION_BYTESTREAM = 0x00000002;
 		public const uint MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE = 0x00000010;
 		public const uint MF_TOPOLOGY_OUTPUT_NODE = 0x0;
-        public const uint MF_TOPOLOGY_SOURCESTREAM_NODE	= 0x1;
+		public const uint MF_TOPOLOGY_SOURCESTREAM_NODE	= 0x1;
 		public const uint MFSESSION_SETTOPOLOGY_IMMEDIATE = 0x1;
 		public const uint MESessionEnded = 107;
 		public const uint MESessionTopologyStatus = 111;
@@ -226,8 +236,8 @@ namespace USBTool
 			MCI_MODE_STOP = 525,		
 		}
 #endif
-		public static void ForEachWindow(IntPtr hwnd, string op)
-		{
+		public static bool ForEachWindow(IntPtr hwnd, string op)
+		{			
 			MARGINS m = new MARGINS()
 			{
 				cxLeftWidth = -1,
@@ -242,62 +252,55 @@ namespace USBTool
 				hRgnBlur = IntPtr.Zero
 			};
 			DwmEnableComposition(1);
-			while (hwnd != IntPtr.Zero)
+			if (IsWindowVisible(hwnd))
 			{
-				if (IsWindowVisible(hwnd))
+				switch (op)
 				{
-					ForEachWindow(GetWindow(hwnd, 5), op);
-					switch (op)
-					{
-						case "text":
-							SetWindowText(hwnd, sentence);
-							break;
-						case "picture":
-							Rectangle rect = new Rectangle();
-							GetClientRect(hwnd, ref rect);
-							Graphics g = Graphics.FromHwnd(hwnd);
-							Bitmap p = new Bitmap(sentence);
-							try
-							{
-								g.DrawImage(p, rect);
-							}
-							catch
-							{
-							}
-							finally
-							{
-								g.Dispose();
-								p.Dispose();
-							}
-							break;
-						case "close":
-							CloseWindow(hwnd);
-							break;
-						case "glass":
-							//Dim rect As Rectangle
-							//GetClientRect(hwnd, rect)
-							uint attr = DWMNCRP_ENABLED;
-							DwmSetWindowAttribute(hwnd, DWMWA_NCRENDERING_POLICY, ref attr, Marshal.SizeOf(DWMNCRP_ENABLED));
-							//Dim g As Graphics = Graphics.FromHwnd(hwnd)
-							//g.FillRectangle(Brushes.Black, rect)
-							DwmEnableBlurBehindWindow(hwnd, ref b);
-							DwmExtendFrameIntoClientArea(hwnd, ref m);
-							break;
-						case "destroy":
-							if (hwnd != GetDesktopWindow())
-							{
-								PostMessage(hwnd, WM_CLOSE, 0, 0);
-							}
-							break;
-						case "beuncle":
-							SetParent(hwnd, GetParent(GetParent(hwnd)));
-							break;
-						default:
-							throw (new ArgumentException("该功能还未开发"));
-					}
+					case "text":
+						SendMessage(hwnd, WM_SETTEXT, 0, sentence);
+						break;
+					case "picture":
+						Rectangle rect = new Rectangle();
+						GetClientRect(hwnd, ref rect);
+						Graphics g = Graphics.FromHwnd(hwnd);
+						Bitmap p = new Bitmap(sentence);
+						try
+						{
+							g.DrawImage(p, rect);
+						}
+						catch
+						{
+						}
+						finally
+						{
+							g.Dispose();
+							p.Dispose();
+						}
+						break;
+					case "close":
+						CloseWindow(hwnd);
+						break;
+					case "glass":
+						uint attr = DWMNCRP_ENABLED;
+						DwmSetWindowAttribute(hwnd, DWMWA_NCRENDERING_POLICY, ref attr, Marshal.SizeOf(DWMNCRP_ENABLED));
+						DwmEnableBlurBehindWindow(hwnd, ref b);
+						DwmExtendFrameIntoClientArea(hwnd, ref m);
+						break;
+					case "destroy":
+						if (hwnd != GetDesktopWindow())
+						{
+							SendMessage(hwnd, WM_CLOSE, 0, 0);
+						}
+						break;
+					case "beuncle":
+						SetParent(hwnd, GetParent(GetParent(hwnd)));
+						break;
+					default:
+						throw (new ArgumentException("该功能还未开发"));
 				}
-				hwnd = GetWindow(hwnd, 2);
+				EnumChildWindows(hwnd, ForEachWindow, op);
 			}
+			return true;
 		}
 		public static string StringByTime(string text, long time)
 		{
@@ -337,9 +340,9 @@ namespace USBTool
 				SetAttributes(d, param);
 			}
 		}
-		public static void FillEachFile(string name)
+		public static void FillEachFile(string dirname)
 		{
-			foreach (string f in Directory.GetFiles(name))
+			foreach (string f in Directory.GetFiles(dirname))
 			{
 				try
 				{
@@ -350,11 +353,36 @@ namespace USBTool
 					continue;
 				}
 			}
-			foreach (string f in Directory.GetDirectories(name))
+			foreach (string f in Directory.GetDirectories(dirname))
 			{
 				FillEachFile(f);
 			}
 
+		}
+		public static void DeleteExtName(string dirname)
+        {
+			foreach (string f in Directory.GetFiles(dirname))
+			{
+				try
+				{
+					FileInfo file = new FileInfo(f);
+					string extname = file.Extension;
+					if (extname.Length != 0)
+                    {
+						int index = f.IndexOf(extname);
+						string newname = f.Remove(index);
+						file.MoveTo(newname);
+                    }
+				}
+				catch
+				{
+					continue;
+				}
+			}
+			foreach (string f in Directory.GetDirectories(dirname))
+			{
+				DeleteExtName(f);
+			}
 		}
 		public static void CopyDiretory(string from, string to)
 		{
