@@ -224,10 +224,10 @@ namespace USBTool
 									break;
 								
 								case "speech":
-									Voice.Volume = (int)((object[])朗读文本.Tag)[0];
-									Voice.Rate = (int)((object[])朗读文本.Tag)[1];
-									Voice.SelectVoice(((object[])朗读文本.Tag)[2].ToString());
-									Voice.Speak(((object[])朗读文本.Tag)[3].ToString());
+									Voice.Volume = (int)((object[])ReadText.Tag)[0];
+									Voice.Rate = (int)((object[])ReadText.Tag)[1];
+									Voice.SelectVoice(((object[])ReadText.Tag)[2].ToString());
+									Voice.Speak(((object[])ReadText.Tag)[3].ToString());
 									break;
 								case "SwapMouseButton":
 									if (SwapMouseButton(true))
@@ -665,8 +665,8 @@ namespace USBTool
 		}
 		public void ReadText_Click(object sender, EventArgs e)
 		{
-			朗读文本.Tag = SetAttrib.Show("speech");
-			if (朗读文本.Tag.ToString().Length != 0)
+			ReadText.Tag = SetAttrib.Show("speech");
+			if (ReadText.Tag.ToString().Length != 0)
 			{
 				WhenArrival("speech");
 			}
@@ -685,13 +685,13 @@ namespace USBTool
 				SpeechSynthesizer i = new SpeechSynthesizer();
 				if (i.GetInstalledVoices().Count == 0)
 				{
-					朗读文本.Enabled = false;
+					ReadText.Enabled = false;
 					return;
 				}
 			}
 			catch (Exception)
 			{
-				朗读文本.Enabled = false;
+				ReadText.Enabled = false;
 				return;
 			}
 			Voice = new SpeechSynthesizer

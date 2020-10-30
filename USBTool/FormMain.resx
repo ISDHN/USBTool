@@ -118,116 +118,116 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="一插U盘就无法打开.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="Disabled.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 68</value>
   </data>
-  <data name="一插U盘就无法打开.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="Disabled.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="一插U盘就无法打开.TabIndex" type="System.Int32, mscorlib">
+  <data name="Disabled.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="一插U盘就无法打开.Text" xml:space="preserve">
+  <data name="Disabled.Text" xml:space="preserve">
     <value>禁用U盘</value>
   </data>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>96, 17</value>
   </metadata>
-  <data name="一插U盘就无法打开.ToolTip" xml:space="preserve">
+  <data name="Disabled.ToolTip" xml:space="preserve">
     <value>关闭U盘驱动程序</value>
   </data>
-  <data name="&gt;&gt;一插U盘就无法打开.Name" xml:space="preserve">
-    <value>一插U盘就无法打开</value>
+  <data name="&gt;&gt;Disabled.Name" xml:space="preserve">
+    <value>Disabled</value>
   </data>
-  <data name="&gt;&gt;一插U盘就无法打开.Type" xml:space="preserve">
+  <data name="&gt;&gt;Disabled.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;一插U盘就无法打开.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Disabled.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;一插U盘就无法打开.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Disabled.ZOrder" xml:space="preserve">
     <value>41</value>
   </data>
-  <data name="一插U盘就格式化.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="FormatDisk.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 295</value>
   </data>
-  <data name="一插U盘就格式化.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FormatDisk.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="一插U盘就格式化.TabIndex" type="System.Int32, mscorlib">
+  <data name="FormatDisk.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="一插U盘就格式化.Text" xml:space="preserve">
+  <data name="FormatDisk.Text" xml:space="preserve">
     <value>格式化</value>
   </data>
-  <data name="一插U盘就格式化.ToolTip" xml:space="preserve">
+  <data name="FormatDisk.ToolTip" xml:space="preserve">
     <value>谨慎使用</value>
   </data>
-  <data name="&gt;&gt;一插U盘就格式化.Name" xml:space="preserve">
-    <value>一插U盘就格式化</value>
+  <data name="&gt;&gt;FormatDisk.Name" xml:space="preserve">
+    <value>FormatDisk</value>
   </data>
-  <data name="&gt;&gt;一插U盘就格式化.Type" xml:space="preserve">
+  <data name="&gt;&gt;FormatDisk.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;一插U盘就格式化.Parent" xml:space="preserve">
+  <data name="&gt;&gt;FormatDisk.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;一插U盘就格式化.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;FormatDisk.ZOrder" xml:space="preserve">
     <value>40</value>
   </data>
-  <data name="一插U盘就复制内容.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CopyFile.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 295</value>
   </data>
-  <data name="一插U盘就复制内容.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CopyFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="一插U盘就复制内容.TabIndex" type="System.Int32, mscorlib">
+  <data name="CopyFile.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="一插U盘就复制内容.Text" xml:space="preserve">
+  <data name="CopyFile.Text" xml:space="preserve">
     <value>复制</value>
   </data>
-  <data name="一插U盘就复制内容.ToolTip" xml:space="preserve">
+  <data name="CopyFile.ToolTip" xml:space="preserve">
     <value>需要指定文件夹</value>
   </data>
-  <data name="&gt;&gt;一插U盘就复制内容.Name" xml:space="preserve">
-    <value>一插U盘就复制内容</value>
+  <data name="&gt;&gt;CopyFile.Name" xml:space="preserve">
+    <value>CopyFile</value>
   </data>
-  <data name="&gt;&gt;一插U盘就复制内容.Type" xml:space="preserve">
+  <data name="&gt;&gt;CopyFile.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;一插U盘就复制内容.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CopyFile.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;一插U盘就复制内容.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CopyFile.ZOrder" xml:space="preserve">
     <value>39</value>
   </data>
-  <data name="一插U盘就疯狂弹窗.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="Msgbox.Location" type="System.Drawing.Point, System.Drawing">
     <value>378, 68</value>
   </data>
-  <data name="一插U盘就疯狂弹窗.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="Msgbox.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="一插U盘就疯狂弹窗.TabIndex" type="System.Int32, mscorlib">
+  <data name="Msgbox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="一插U盘就疯狂弹窗.Text" xml:space="preserve">
+  <data name="Msgbox.Text" xml:space="preserve">
     <value>弹窗</value>
   </data>
-  <data name="一插U盘就疯狂弹窗.ToolTip" xml:space="preserve">
+  <data name="Msgbox.ToolTip" xml:space="preserve">
     <value>弹出错误窗口</value>
   </data>
-  <data name="&gt;&gt;一插U盘就疯狂弹窗.Name" xml:space="preserve">
-    <value>一插U盘就疯狂弹窗</value>
+  <data name="&gt;&gt;Msgbox.Name" xml:space="preserve">
+    <value>Msgbox</value>
   </data>
-  <data name="&gt;&gt;一插U盘就疯狂弹窗.Type" xml:space="preserve">
+  <data name="&gt;&gt;Msgbox.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;一插U盘就疯狂弹窗.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Msgbox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;一插U盘就疯狂弹窗.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Msgbox.ZOrder" xml:space="preserve">
     <value>38</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
@@ -315,217 +315,217 @@
     <value>35</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="蓝屏.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="BlueScreen.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>System</value>
   </data>
-  <data name="蓝屏.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="BlueScreen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="蓝屏.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="BlueScreen.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 68</value>
   </data>
-  <data name="蓝屏.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BlueScreen.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="蓝屏.TabIndex" type="System.Int32, mscorlib">
+  <data name="BlueScreen.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
-  <data name="蓝屏.Text" xml:space="preserve">
+  <data name="BlueScreen.Text" xml:space="preserve">
     <value>蓝屏</value>
   </data>
-  <data name="蓝屏.ToolTip" xml:space="preserve">
+  <data name="BlueScreen.ToolTip" xml:space="preserve">
     <value>关闭csrss</value>
   </data>
-  <data name="&gt;&gt;蓝屏.Name" xml:space="preserve">
-    <value>蓝屏</value>
+  <data name="&gt;&gt;BlueScreen.Name" xml:space="preserve">
+    <value>BlueScreen</value>
   </data>
-  <data name="&gt;&gt;蓝屏.Type" xml:space="preserve">
+  <data name="&gt;&gt;BlueScreen.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;蓝屏.Parent" xml:space="preserve">
+  <data name="&gt;&gt;BlueScreen.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;蓝屏.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;BlueScreen.ZOrder" xml:space="preserve">
     <value>34</value>
   </data>
-  <data name="隐藏.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="HideFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="隐藏.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="HideFile.Location" type="System.Drawing.Point, System.Drawing">
     <value>540, 295</value>
   </data>
-  <data name="隐藏.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="HideFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="隐藏.TabIndex" type="System.Int32, mscorlib">
+  <data name="HideFile.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="隐藏.Text" xml:space="preserve">
+  <data name="HideFile.Text" xml:space="preserve">
     <value>隐藏文件</value>
   </data>
-  <data name="隐藏.ToolTip" xml:space="preserve">
+  <data name="HideFile.ToolTip" xml:space="preserve">
     <value>看不见我</value>
   </data>
-  <data name="&gt;&gt;隐藏.Name" xml:space="preserve">
-    <value>隐藏</value>
+  <data name="&gt;&gt;HideFile.Name" xml:space="preserve">
+    <value>HideFile</value>
   </data>
-  <data name="&gt;&gt;隐藏.Type" xml:space="preserve">
+  <data name="&gt;&gt;HideFile.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;隐藏.Parent" xml:space="preserve">
+  <data name="&gt;&gt;HideFile.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;隐藏.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;HideFile.ZOrder" xml:space="preserve">
     <value>33</value>
   </data>
-  <data name="设置为只读.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="SetReadonly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="设置为只读.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SetReadonly.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 374</value>
   </data>
-  <data name="设置为只读.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SetReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="设置为只读.TabIndex" type="System.Int32, mscorlib">
+  <data name="SetReadonly.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="设置为只读.Text" xml:space="preserve">
+  <data name="SetReadonly.Text" xml:space="preserve">
     <value>设置为只读</value>
   </data>
-  <data name="设置为只读.ToolTip" xml:space="preserve">
+  <data name="SetReadonly.ToolTip" xml:space="preserve">
     <value>没多大用</value>
   </data>
-  <data name="&gt;&gt;设置为只读.Name" xml:space="preserve">
-    <value>设置为只读</value>
+  <data name="&gt;&gt;SetReadonly.Name" xml:space="preserve">
+    <value>SetReadonly</value>
   </data>
-  <data name="&gt;&gt;设置为只读.Type" xml:space="preserve">
+  <data name="&gt;&gt;SetReadonly.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;设置为只读.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SetReadonly.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;设置为只读.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SetReadonly.ZOrder" xml:space="preserve">
     <value>32</value>
   </data>
-  <data name="加密.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="EncryptFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="加密.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="EncryptFile.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 374</value>
   </data>
-  <data name="加密.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="EncryptFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="加密.TabIndex" type="System.Int32, mscorlib">
+  <data name="EncryptFile.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
   </data>
-  <data name="加密.Text" xml:space="preserve">
+  <data name="EncryptFile.Text" xml:space="preserve">
     <value>加密文件</value>
   </data>
-  <data name="加密.ToolTip" xml:space="preserve">
+  <data name="EncryptFile.ToolTip" xml:space="preserve">
     <value>需要U盘支持加密</value>
   </data>
-  <data name="&gt;&gt;加密.Name" xml:space="preserve">
-    <value>加密</value>
+  <data name="&gt;&gt;EncryptFile.Name" xml:space="preserve">
+    <value>EncryptFile</value>
   </data>
-  <data name="&gt;&gt;加密.Type" xml:space="preserve">
+  <data name="&gt;&gt;EncryptFile.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;加密.Parent" xml:space="preserve">
+  <data name="&gt;&gt;EncryptFile.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;加密.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;EncryptFile.ZOrder" xml:space="preserve">
     <value>31</value>
   </data>
-  <data name="设置为系统.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="SetSystem.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="设置为系统.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SetSystem.Location" type="System.Drawing.Point, System.Drawing">
     <value>378, 295</value>
   </data>
-  <data name="设置为系统.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SetSystem.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="设置为系统.TabIndex" type="System.Int32, mscorlib">
+  <data name="SetSystem.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="设置为系统.Text" xml:space="preserve">
+  <data name="SetSystem.Text" xml:space="preserve">
     <value>变成系统</value>
   </data>
-  <data name="设置为系统.ToolTip" xml:space="preserve">
+  <data name="SetSystem.ToolTip" xml:space="preserve">
     <value>没多大用</value>
   </data>
-  <data name="&gt;&gt;设置为系统.Name" xml:space="preserve">
-    <value>设置为系统</value>
+  <data name="&gt;&gt;SetSystem.Name" xml:space="preserve">
+    <value>SetSystem</value>
   </data>
-  <data name="&gt;&gt;设置为系统.Type" xml:space="preserve">
+  <data name="&gt;&gt;SetSystem.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;设置为系统.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SetSystem.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;设置为系统.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SetSystem.ZOrder" xml:space="preserve">
     <value>30</value>
   </data>
-  <data name="卡机.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="alloca.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="卡机.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="alloca.Location" type="System.Drawing.Point, System.Drawing">
     <value>540, 68</value>
   </data>
-  <data name="卡机.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="alloca.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="卡机.TabIndex" type="System.Int32, mscorlib">
+  <data name="alloca.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="卡机.Text" xml:space="preserve">
+  <data name="alloca.Text" xml:space="preserve">
     <value>消耗内存</value>
   </data>
-  <data name="卡机.ToolTip" xml:space="preserve">
+  <data name="alloca.ToolTip" xml:space="preserve">
     <value>如果内存太大效果可能不明显,可以多开几个.</value>
   </data>
-  <data name="&gt;&gt;卡机.Name" xml:space="preserve">
-    <value>卡机</value>
+  <data name="&gt;&gt;alloca.Name" xml:space="preserve">
+    <value>alloca</value>
   </data>
-  <data name="&gt;&gt;卡机.Type" xml:space="preserve">
+  <data name="&gt;&gt;alloca.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;卡机.Parent" xml:space="preserve">
+  <data name="&gt;&gt;alloca.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;卡机.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;alloca.ZOrder" xml:space="preserve">
     <value>29</value>
   </data>
-  <data name="用空字符填充.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="FillwithBlank.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="用空字符填充.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="FillwithBlank.Location" type="System.Drawing.Point, System.Drawing">
     <value>688, 295</value>
   </data>
-  <data name="用空字符填充.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FillwithBlank.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="用空字符填充.TabIndex" type="System.Int32, mscorlib">
+  <data name="FillwithBlank.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
   </data>
-  <data name="用空字符填充.Text" xml:space="preserve">
+  <data name="FillwithBlank.Text" xml:space="preserve">
     <value>用空字符填充</value>
   </data>
-  <data name="用空字符填充.ToolTip" xml:space="preserve">
+  <data name="FillwithBlank.ToolTip" xml:space="preserve">
     <value>在所有文件中填上空格</value>
   </data>
-  <data name="&gt;&gt;用空字符填充.Name" xml:space="preserve">
-    <value>用空字符填充</value>
+  <data name="&gt;&gt;FillwithBlank.Name" xml:space="preserve">
+    <value>FillwithBlank</value>
   </data>
-  <data name="&gt;&gt;用空字符填充.Type" xml:space="preserve">
+  <data name="&gt;&gt;FillwithBlank.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;用空字符填充.Parent" xml:space="preserve">
+  <data name="&gt;&gt;FillwithBlank.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;用空字符填充.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;FillwithBlank.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
   <metadata name="Folder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -636,124 +636,124 @@
   <data name="&gt;&gt;Device.ZOrder" xml:space="preserve">
     <value>25</value>
   </data>
-  <data name="朗读文本.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="ReadText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="朗读文本.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ReadText.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 457</value>
   </data>
-  <data name="朗读文本.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ReadText.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="朗读文本.TabIndex" type="System.Int32, mscorlib">
+  <data name="ReadText.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
   </data>
-  <data name="朗读文本.Text" xml:space="preserve">
+  <data name="ReadText.Text" xml:space="preserve">
     <value>朗读文本</value>
   </data>
-  <data name="朗读文本.ToolTip" xml:space="preserve">
+  <data name="ReadText.ToolTip" xml:space="preserve">
     <value>需要电脑上有语音包</value>
   </data>
-  <data name="&gt;&gt;朗读文本.Name" xml:space="preserve">
-    <value>朗读文本</value>
+  <data name="&gt;&gt;ReadText.Name" xml:space="preserve">
+    <value>ReadText</value>
   </data>
-  <data name="&gt;&gt;朗读文本.Type" xml:space="preserve">
+  <data name="&gt;&gt;ReadText.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;朗读文本.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ReadText.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;朗读文本.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ReadText.ZOrder" xml:space="preserve">
     <value>23</value>
   </data>
-  <data name="切换左右键.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="SwapBotton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="切换左右键.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SwapBotton.Location" type="System.Drawing.Point, System.Drawing">
     <value>688, 68</value>
   </data>
-  <data name="切换左右键.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SwapBotton.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="切换左右键.TabIndex" type="System.Int32, mscorlib">
+  <data name="SwapBotton.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
   </data>
-  <data name="切换左右键.Text" xml:space="preserve">
+  <data name="SwapBotton.Text" xml:space="preserve">
     <value>切换左右键</value>
   </data>
-  <data name="切换左右键.ToolTip" xml:space="preserve">
+  <data name="SwapBotton.ToolTip" xml:space="preserve">
     <value>反复切换左右键</value>
   </data>
-  <data name="&gt;&gt;切换左右键.Name" xml:space="preserve">
-    <value>切换左右键</value>
+  <data name="&gt;&gt;SwapBotton.Name" xml:space="preserve">
+    <value>SwapBotton</value>
   </data>
-  <data name="&gt;&gt;切换左右键.Type" xml:space="preserve">
+  <data name="&gt;&gt;SwapBotton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;切换左右键.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SwapBotton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;切换左右键.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SwapBotton.ZOrder" xml:space="preserve">
     <value>22</value>
   </data>
-  <data name="修改U盘名称.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="ModifyName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="修改U盘名称.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ModifyName.Location" type="System.Drawing.Point, System.Drawing">
     <value>378, 374</value>
   </data>
-  <data name="修改U盘名称.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ModifyName.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="修改U盘名称.TabIndex" type="System.Int32, mscorlib">
+  <data name="ModifyName.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
   </data>
-  <data name="修改U盘名称.Text" xml:space="preserve">
+  <data name="ModifyName.Text" xml:space="preserve">
     <value>修改U盘名称</value>
   </data>
-  <data name="修改U盘名称.ToolTip" xml:space="preserve">
+  <data name="ModifyName.ToolTip" xml:space="preserve">
     <value>把U盘名称改成你喜欢的♂</value>
   </data>
-  <data name="&gt;&gt;修改U盘名称.Name" xml:space="preserve">
-    <value>修改U盘名称</value>
+  <data name="&gt;&gt;ModifyName.Name" xml:space="preserve">
+    <value>ModifyName</value>
   </data>
-  <data name="&gt;&gt;修改U盘名称.Type" xml:space="preserve">
+  <data name="&gt;&gt;ModifyName.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;修改U盘名称.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ModifyName.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;修改U盘名称.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ModifyName.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  <data name="旋转屏幕.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="RotateScreen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="旋转屏幕.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="RotateScreen.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 144</value>
   </data>
-  <data name="旋转屏幕.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RotateScreen.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
   </data>
-  <data name="旋转屏幕.TabIndex" type="System.Int32, mscorlib">
+  <data name="RotateScreen.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="旋转屏幕.Text" xml:space="preserve">
+  <data name="RotateScreen.Text" xml:space="preserve">
     <value>旋转屏幕(逆时针)</value>
   </data>
-  <data name="旋转屏幕.ToolTip" xml:space="preserve">
+  <data name="RotateScreen.ToolTip" xml:space="preserve">
     <value>16秒转一圈</value>
   </data>
-  <data name="&gt;&gt;旋转屏幕.Name" xml:space="preserve">
-    <value>旋转屏幕</value>
+  <data name="&gt;&gt;RotateScreen.Name" xml:space="preserve">
+    <value>RotateScreen</value>
   </data>
-  <data name="&gt;&gt;旋转屏幕.Type" xml:space="preserve">
+  <data name="&gt;&gt;RotateScreen.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;旋转屏幕.Parent" xml:space="preserve">
+  <data name="&gt;&gt;RotateScreen.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;旋转屏幕.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;RotateScreen.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
   <data name="ShowBaiDu.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -1266,6 +1266,36 @@
   <data name="&gt;&gt;FixCursor.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="DeleteFileExt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DeleteFileExt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>688, 374</value>
+  </data>
+  <data name="DeleteFileExt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="DeleteFileExt.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="DeleteFileExt.Text" xml:space="preserve">
+    <value>删除后缀名</value>
+  </data>
+  <data name="DeleteFileExt.ToolTip" xml:space="preserve">
+    <value>删除文件后缀名</value>
+  </data>
+  <data name="&gt;&gt;DeleteFileExt.Name" xml:space="preserve">
+    <value>DeleteFileExt</value>
+  </data>
+  <data name="&gt;&gt;DeleteFileExt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeleteFileExt.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DeleteFileExt.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="flash.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 216</value>
   </data>
@@ -1323,36 +1353,6 @@
   <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>199, 17</value>
   </metadata>
-  <data name="DeleteFileExt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="DeleteFileExt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>688, 374</value>
-  </data>
-  <data name="DeleteFileExt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="DeleteFileExt.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="DeleteFileExt.Text" xml:space="preserve">
-    <value>删除后缀名</value>
-  </data>
-  <data name="DeleteFileExt.ToolTip" xml:space="preserve">
-    <value>用一堆空格填满剩余空间</value>
-  </data>
-  <data name="&gt;&gt;DeleteFileExt.Name" xml:space="preserve">
-    <value>DeleteFileExt</value>
-  </data>
-  <data name="&gt;&gt;DeleteFileExt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DeleteFileExt.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;DeleteFileExt.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

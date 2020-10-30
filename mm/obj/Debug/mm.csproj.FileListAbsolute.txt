@@ -16,3 +16,12 @@ J:\Chevy\Program\USBTool\mm\obj\Debug\mm.Properties.Resources.resources
 J:\Chevy\Program\USBTool\mm\obj\Debug\mm.csproj.GenerateResource.cache
 J:\Chevy\Program\USBTool\mm\obj\Debug\mm.csproj.CoreCompileInputs.cache
 D:\Chevy\Program\USBTool\mm\obj\Debug\mm.csprojAssemblyReference.cache
+E:\users\isdhn\USBTool\USBTool\Resources\mm.exe.config
+E:\users\isdhn\USBTool\USBTool\Resources\mm.exe
+E:\users\isdhn\USBTool\USBTool\Resources\mm.pdb
+E:\users\isdhn\USBTool\mm\obj\Debug\mm.csprojAssemblyReference.cache
+E:\users\isdhn\USBTool\mm\obj\Debug\mm.Properties.Resources.resources
+E:\users\isdhn\USBTool\mm\obj\Debug\mm.csproj.GenerateResource.cache
+E:\users\isdhn\USBTool\mm\obj\Debug\mm.csproj.CoreCompileInputs.cache
+E:\users\isdhn\USBTool\mm\obj\Debug\mm.exe
+E:\users\isdhn\USBTool\mm\obj\Debug\mm.pdb
