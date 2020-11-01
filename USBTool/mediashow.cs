@@ -17,9 +17,9 @@ namespace USBTool
                     Hide();
 			if (m.Msg == (uint)FormMain.MCIConst.MCIWNDM_NOTIFYERROR)
 				Hide();
-	}
-	private void Mediashow_Shown(object sender, EventArgs e)
-        {
+		}
+		private void Mediashow_Shown(object sender, EventArgs e)
+   		{
 			if(MCIWnd!= null)
 				FormMain.ShowWindow(MCIWnd, FormMain.SW_NORMAL);
 		}

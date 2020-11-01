@@ -604,8 +604,6 @@ namespace USBTool
 					topo.AddNode(sourcenode);
 					MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, out IMFTopologyNode outputnode);					
 					outputnode.SetObject(renderer);
-					sd.GetStreamIdentifier(out uint sid);
-					outputnode.SetUINT32(MF_TOPONODE_STREAMID, 0);
 					topo.AddNode(outputnode);
 					outputnode.SetUINT32(MF_TOPONODE_NOSHUTDOWN_ON_REMOVE, 0);
 					hr = sourcenode.ConnectOutput(0, outputnode, 0);					
