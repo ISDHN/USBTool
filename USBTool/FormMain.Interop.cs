@@ -25,7 +25,13 @@ namespace USBTool
 		[DllImport("Msvfw32.dll", SetLastError = true)]
 		public static extern IntPtr MCIWndCreate(IntPtr hwndParent, IntPtr hInstance, uint dwStyle, string file);
 #endif
-#region user32.dll
+		[DllImport("user32.dll",  SetLastError = true)]
+		public static extern bool SetMagnificationDesktopColorEffect(ref float[] pEffect);
+		[DllImport("Magnification.dll", SetLastError = true)]
+		public static extern bool MagInitialize();
+		[DllImport("Magnification.dll", SetLastError = true)]
+		public static extern bool MagSetColorEffect(IntPtr hwnd, ref float[,] pEffect);
+		#region user32.dll
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref string pvParam, uint fWinIni);
 		[DllImport("user32.dll", SetLastError = true)]

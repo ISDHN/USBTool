@@ -71,7 +71,6 @@ namespace USBTool
             this.Eject = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.Button();
             this.random = new System.Windows.Forms.Button();
-            this.Beep = new System.Windows.Forms.Button();
             this.BeUncle = new System.Windows.Forms.Button();
             this.SetBcd = new System.Windows.Forms.Button();
             this.CloseNetWork = new System.Windows.Forms.Button();
@@ -82,6 +81,8 @@ namespace USBTool
             this.flash = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
+            this.Beep = new System.Windows.Forms.Button();
+            this.Negative = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Disabled
@@ -349,14 +350,6 @@ namespace USBTool
             this.random.UseVisualStyleBackColor = true;
             this.random.Click += new System.EventHandler(this.random_Click);
             // 
-            // Beep
-            // 
-            resources.ApplyResources(this.Beep, "Beep");
-            this.Beep.Name = "Beep";
-            this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
-            this.Beep.UseVisualStyleBackColor = true;
-            this.Beep.Click += new System.EventHandler(this.Beep_Click);
-            // 
             // BeUncle
             // 
             resources.ApplyResources(this.BeUncle, "BeUncle");
@@ -439,11 +432,27 @@ namespace USBTool
             this.GetColor.Color = System.Drawing.Color.Blue;
             this.GetColor.FullOpen = true;
             // 
+            // Beep
+            // 
+            resources.ApplyResources(this.Beep, "Beep");
+            this.Beep.Name = "Beep";
+            this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
+            this.Beep.UseVisualStyleBackColor = true;
+            this.Beep.Click += new System.EventHandler(this.Beep_Click);
+            // 
+            // Negative
+            // 
+            resources.ApplyResources(this.Negative, "Negative");
+            this.Negative.Name = "Negative";
+            this.Negative.UseVisualStyleBackColor = true;
+            this.Negative.Click += new System.EventHandler(this.Negative_Click);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
+            this.Controls.Add(this.Negative);
             this.Controls.Add(this.DeleteFileExt);
             this.Controls.Add(this.FixCursor);
             this.Controls.Add(this.FullScreen);
@@ -557,7 +566,6 @@ namespace USBTool
 		internal Button picture;
 		private System.ComponentModel.IContainer components;
 		internal Button random;
-		internal Button Beep;
 		internal Button BeUncle;
 		internal Button SetBcd;
 		internal Button CloseNetWork;
@@ -567,6 +575,8 @@ namespace USBTool
 		private CheckBox FullScreen;
         internal Button FixCursor;
         internal Button DeleteFileExt;
+        internal Button Beep;
+        internal Button Negative;
     }
 	
 }

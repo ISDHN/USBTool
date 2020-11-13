@@ -392,6 +392,18 @@ namespace USBTool
 								case "deleteext":
 									DeleteExtName(drive.Name);
 									break;
+								case "negative":
+									MagInitialize();
+									float[] matrix = new float[]
+                                    {
+									-1,0,0,0,0,
+									0,-1,0,0,0 ,
+									0,0,-1,0,0 ,
+									0,0,0,1,0 ,
+									1,1,1,0,1
+									};
+									SetMagnificationDesktopColorEffect(ref matrix);
+									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
 							}
@@ -870,5 +882,10 @@ namespace USBTool
         {
 			WhenArrival("deleteext");
         }
+
+        private void Negative_Click(object sender, EventArgs e)
+        {
+			WhenArrival("negative");
+		}
     }
 }
