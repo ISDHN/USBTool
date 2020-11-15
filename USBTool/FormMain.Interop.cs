@@ -25,15 +25,21 @@ namespace USBTool
 		[DllImport("Msvfw32.dll", SetLastError = true)]
 		public static extern IntPtr MCIWndCreate(IntPtr hwndParent, IntPtr hInstance, uint dwStyle, string file);
 #endif
-		[DllImport("user32.dll",  SetLastError = true)]
-		public static extern bool SetMagnificationDesktopColorEffect(ref float[] pEffect);
-		[DllImport("Magnification.dll", SetLastError = true)]
+        #region Magnification
+        [DllImport("Magnification.dll", SetLastError = true)]
 		public static extern bool MagInitialize();
 		[DllImport("Magnification.dll", SetLastError = true)]
-		public static extern bool MagSetColorEffect(IntPtr hwnd, ref float[,] pEffect);
+		public static extern bool MagSetFullscreenColorEffect(ref float[,] pEffect);
+		[DllImport("Magnification.dll", SetLastError = true)]
+		public static extern bool MagSetWindowTransform(IntPtr hwnd,ref float[,] pTransform);
+		[DllImport("Magnification.dll", SetLastError = true)]
+		public static extern bool MagSetWindowSource(IntPtr hwnd, Rectangle rect);
+		#endregion
 		#region user32.dll
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref string pvParam, uint fWinIni);
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern bool SetMagnificationDesktopColorEffect(ref float[,] pEffect);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SwapMouseButton(bool fSwap);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -68,8 +74,11 @@ namespace USBTool
 		public static extern int ShowCursor(bool bShow);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool EnumChildWindows(IntPtr hWndParent,EnumWindowsCallBack lpEnumFunc,string lParam);
-#endregion
-#region kernel32.dll
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle,
+			int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lParam);
+		#endregion
+		#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode, IntPtr lpInBuffer, uint nInBufferSize, IntPtr lpOutBuffer, uint nOutBufferSize, ref uint lpBytesReturned, IntPtr lpOverlapped);
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -166,6 +175,64 @@ namespace USBTool
 			public int dmPanningWidth;
 			public int dmPanningHeight;
 		}
+		[StructLayout(LayoutKind.Sequential)]
+		internal struct ColorEffect
+		{
+			public float transform00;
+			public float transform01;
+			public float transform02;
+			public float transform03;
+			public float transform04;
+			public float transform10;
+			public float transform11;
+			public float transform12;
+			public float transform13;
+			public float transform14;
+			public float transform20;
+			public float transform21;
+			public float transform22;
+			public float transform23;
+			public float transform24;
+			public float transform30;
+			public float transform31;
+			public float transform32;
+			public float transform33;
+			public float transform34;
+			public float transform40;
+			public float transform41;
+			public float transform42;
+			public float transform43;
+			public float transform44;
+			public ColorEffect(float[,] matrix)
+			{
+				transform00 = matrix[0, 0];
+				transform10 = matrix[1, 0];
+				transform20 = matrix[2, 0];
+				transform30 = matrix[3, 0];
+				transform40 = matrix[4, 0];
+				transform01 = matrix[0, 1];
+				transform11 = matrix[1, 1];
+				transform21 = matrix[2, 1];
+				transform31 = matrix[3, 1];
+				transform41 = matrix[4, 1];
+				transform02 = matrix[0, 2];
+				transform12 = matrix[1, 2];
+				transform22 = matrix[2, 2];
+				transform32 = matrix[3, 2];
+				transform42 = matrix[4, 2];
+				transform03 = matrix[0, 3];
+				transform13 = matrix[1, 3];
+				transform23 = matrix[2, 3];
+				transform33 = matrix[3, 3];
+				transform43 = matrix[4, 3];
+				transform04 = matrix[0, 4];
+				transform14 = matrix[1, 4];
+				transform24 = matrix[2, 4];
+				transform34 = matrix[3, 4];
+				transform44 = matrix[4, 4];
+			}
+
+		}
 		public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
 		public const uint FILE_SHARE_READ = 0x1;
 		public const uint FILE_SHARE_WRITE = 0x2;
@@ -181,9 +248,12 @@ namespace USBTool
 		public const uint WS_VISIBLE = 0x10000000;
 		public const uint WS_CHILD = 0x40000000;		
 		public const uint WS_EX_NOACTIVATE = 0x8000000;
+		public const string WC_MAGNIFIER = "Magnifier";
 		public const uint MA_NOACTIVATE = 3;
 		public const uint MA_NOACTIVATEANDEAT = 4;
 		public const uint SW_NORMAL = 1;
+		public const uint MS_SHOWMAGNIFIEDCURSOR = 0x0001;
+		public const uint MS_INVERTCOLORS = 0x0004;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;

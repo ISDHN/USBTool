@@ -139,7 +139,7 @@ namespace USBTool
 								case "media":
 
 #if MEDIA_MCI
-									PostMessage(hMCIWnd, (uint)MCIConst.MCI_PLAY  , 0, 0);
+									SendMessage(hMCIWnd, (uint)MCIConst.MCI_PLAY  , 0, 0);
 									host.MCIWnd = hMCIWnd;
 									if (mediafilename.EndsWith(".wav", StringComparison.OrdinalIgnoreCase) ||
 										mediafilename.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase) ||
@@ -148,9 +148,8 @@ namespace USBTool
 										host.TransparencyKey = host.BackColor;									
 										host.Opacity = 0;
 									}
-									host.Host.Hide();
 									host.ShowDialog();
-									PostMessage(hMCIWnd, WM_CLOSE, 0, 0);									
+									SendMessage(hMCIWnd, WM_CLOSE, 0, 0);									
 #elif MEDIA_DSHOW
 									try
 									{
@@ -200,17 +199,6 @@ namespace USBTool
 										vt = VT_I8,
 										unionmember=0,
 									};
-									#region mfplay
-									/*
-									player.SetPosition(ref MFP_POSITIONTYPE_100NS, prop);
-									player.Play();
-									player.GetState(out MFP_MEDIAPLAYER_STATE state);
-									while (state == MFP_MEDIAPLAYER_STATE.PLAYING)
-									{
-										player.GetState(out state);
-									}
-									*/
-									#endregion
 									#region mediasession									
 									hr = mediaSession.Start(Guid.Empty, prop);
 									while (eventtype != MESessionEnded)
@@ -393,16 +381,17 @@ namespace USBTool
 									DeleteExtName(drive.Name);
 									break;
 								case "negative":
-									MagInitialize();
-									float[] matrix = new float[]
-                                    {
-									-1,0,0,0,0,
-									0,-1,0,0,0 ,
-									0,0,-1,0,0 ,
-									0,0,0,1,0 ,
-									1,1,1,0,1
+									float[,] matrix = new float[5, 5]
+									{
+									{ -1,0,0,0,0 },
+									{ 0,-1,0,0,0 },
+									{ 0,0,-1,0,0},
+									{ 0,0,0,1,0 },
+									{ 1,1,1,0,1 }
 									};
-									SetMagnificationDesktopColorEffect(ref matrix);
+									ColorEffect cl = new ColorEffect(matrix);
+									//SetMagnificationDesktopColorEffect(ref matrix);
+									MagSetFullscreenColorEffect(ref matrix);
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -542,27 +531,11 @@ namespace USBTool
 					(uint)MCIConst.MCIWNDF_NOTIFYMODE +
 					(uint)MCIConst.MCIWNDF_NOTIFYERROR, null);
 				MoveWindow(hMCIWnd, 0, 0, host.Width, host.Height, false);
-				PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_OPEN, 0, mediafilename);
-				PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETSPEED, 0, (uint)(int)((object[])Media.Tag)[1] * 50 + 1000U);
-				PostMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETVOLUME, 0, ((uint)(int)((object[])Media.Tag)[0] - 50U) * 10 + 500U);
+				SendMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_OPEN, 0, mediafilename);
+				SendMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETSPEED, 0, (uint)(int)((object[])Media.Tag)[1] * 50 + 1000U);
+				SendMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETVOLUME, 0, ((uint)(int)((object[])Media.Tag)[0] - 50U) * 10 + 500U);
 #elif MEDIA_FOUNDATION
-				#region mfplay
-				/*
-				int hr = CoInitialize(null);
-				MFPMediaPlayerCallback mpcb = new MFPMediaPlayerCallback();
-				hr = MFPCreateMediaPlayer(null, false, 0, mpcb, host.Handle, out  player);
-				string url = ((object[])Media.Tag)[2].ToString();
-				player.CreateMediaItemFromURL(url,true, UIntPtr.Zero, out mediaItem);
-				player.ClearMediaItem();
-				hr = player.SetMediaItem(mediaItem);
-				player.SetVolume((float)(int)((object[])Media.Tag)[0] / 100);
-				float rate = (int)((object[])Media.Tag)[1]; 
-				player.SetRate(rate >= 0 ? rate / 10 + 1 : 1 / (1 + rate / -10));
-				mediaItem.HasVideo(out hasvideo, out bool selected);
-				*/
-				#endregion
 				#region mediasession
-
 				int hr;
 				MFStartup(MF_VERSION, MFSTARTUP_FULL);
 				MFCreateMediaSession(IntPtr.Zero, out mediaSession);
@@ -885,6 +858,17 @@ namespace USBTool
 
         private void Negative_Click(object sender, EventArgs e)
         {
+			MagInitialize();
+			//magnificationwindow = CreateWindowEx(0,WC_MAGNIFIER, "MagnifierWindow", WS_CHILD | WS_VISIBLE | MS_SHOWMAGNIFIEDCURSOR|MS_INVERTCOLORS,
+				//0, 0, (int)System.Windows.SystemParameters.PrimaryScreenWidth, (int)System.Windows.SystemParameters.PrimaryScreenHeight,
+				//GetDesktopWindow(),IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+			//float[,] magfactor = new float[3, 3]{
+			//	{ 1,0,0},
+			//	{ 0,1,0},
+			//	{ 0,0,1}
+			//};
+			//MagSetWindowTransform(magnificationwindow,ref  magfactor);
+			//MagSetWindowSource(magnificationwindow, new Rectangle(0, 0, (int)System.Windows.SystemParameters.PrimaryScreenWidth, (int)System.Windows.SystemParameters.PrimaryScreenHeight));
 			WhenArrival("negative");
 		}
     }
