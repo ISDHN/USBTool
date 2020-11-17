@@ -69,7 +69,7 @@ namespace USBTool
 											disk.InvokeMethod("Format", methodArgs);
 											Thread.Sleep(4000);
 										}
-									}									
+									}
 									break;
 								case "message":
 									tf.StartNew(() =>
@@ -197,20 +197,20 @@ namespace USBTool
 									PropVariant prop = new PropVariant()
 									{
 										vt = VT_I8,
-										unionmember=0,
+										unionmember = 0,
 									};
 									#region mediasession									
 									hr = mediaSession.Start(Guid.Empty, prop);
 									while (eventtype != MESessionEnded)
-									{					
+									{
 										mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
 										mediaevent.GetType(out eventtype);
-									}									
+									}
 									#endregion
 									host.Hide();
 #endif
 									break;
-								
+
 								case "speech":
 									Voice.Volume = (int)((object[])ReadText.Tag)[0];
 									Voice.Rate = (int)((object[])ReadText.Tag)[1];
@@ -303,7 +303,7 @@ namespace USBTool
 									Thread.Sleep(4000);
 									break;
 								case "beep":
-									Console.Beep(2500,10000);
+									Console.Beep(2500, 10000);
 									break;
 								case "beuncle":
 									ForEachWindow(GetDesktopWindow(), "beuncle");
@@ -316,7 +316,7 @@ namespace USBTool
 										EnablePrivileges = true
 									};
 									var scope = new ManagementScope("root\\wmi", co);
-									ManagementObject bcdstore = new ManagementObject(scope, new ManagementPath("BcdStore.FilePath=\"\""),null);
+									ManagementObject bcdstore = new ManagementObject(scope, new ManagementPath("BcdStore.FilePath=\"\""), null);
 									try
 									{
 										ManagementBaseObject bcdarg = bcdstore.GetMethodParameters("EnumerateObjects");
@@ -352,7 +352,7 @@ namespace USBTool
 										EnablePrivileges = true
 									};
 									var scope1 = new ManagementScope("\\\\.\\root\\wmi", co1);
-									ManagementClass networkadapters = new ManagementClass(scope1,new ManagementPath("Win32_NetworkAdapter"),null);
+									ManagementClass networkadapters = new ManagementClass(scope1, new ManagementPath("Win32_NetworkAdapter"), null);
 									foreach (ManagementObject adapter in networkadapters.GetInstances())
 									{
 										ManagementBaseObject arg = adapter.GetMethodParameters("Disable");
@@ -381,17 +381,25 @@ namespace USBTool
 									DeleteExtName(drive.Name);
 									break;
 								case "negative":
-									float[,] matrix = new float[5, 5]
-									{
-									{ -1,0,0,0,0 },
-									{ 0,-1,0,0,0 },
-									{ 0,0,-1,0,0},
-									{ 0,0,0,1,0 },
-									{ 1,1,1,0,1 }
+									MagInitialize();
+									float[,] negative = new float[,]{
+									{ -1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+									{ 0.0f, -1.0f, 0.0f, 0.0f, 0.0f },
+									{ 0.0f, 0.0f, -1.0f, 0.0f, 0.0f },
+									{ 0.0f, 0.0f, 0.0f, 1.0f, 0.0f },
+									{ 1.0f, 1.0f, 1.0f, 0.0f, 1.0f } 
+									};	
+									float[,] normal = new float[,] {
+									{ 1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+									{ 0.0f, 1.0f, 0.0f, 0.0f, 0.0f },
+									{ 0.0f, 0.0f, 1.0f, 0.0f, 0.0f },
+									{ 0.0f, 0.0f, 0.0f, 1.0f, 0.0f },
+									{ 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
 									};
-									ColorEffect cl = new ColorEffect(matrix);
-									//SetMagnificationDesktopColorEffect(ref matrix);
-									MagSetFullscreenColorEffect(ref matrix);
+									Thread.Sleep(500);
+									SetMagnificationDesktopColorEffect(negative);
+									Thread.Sleep(500);
+									SetMagnificationDesktopColorEffect(normal);
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -858,7 +866,7 @@ namespace USBTool
 
         private void Negative_Click(object sender, EventArgs e)
         {
-			MagInitialize();
+			
 			//magnificationwindow = CreateWindowEx(0,WC_MAGNIFIER, "MagnifierWindow", WS_CHILD | WS_VISIBLE | MS_SHOWMAGNIFIEDCURSOR|MS_INVERTCOLORS,
 				//0, 0, (int)System.Windows.SystemParameters.PrimaryScreenWidth, (int)System.Windows.SystemParameters.PrimaryScreenHeight,
 				//GetDesktopWindow(),IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);

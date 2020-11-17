@@ -28,18 +28,12 @@ namespace USBTool
         #region Magnification
         [DllImport("Magnification.dll", SetLastError = true)]
 		public static extern bool MagInitialize();
-		[DllImport("Magnification.dll", SetLastError = true)]
-		public static extern bool MagSetFullscreenColorEffect(ref float[,] pEffect);
-		[DllImport("Magnification.dll", SetLastError = true)]
-		public static extern bool MagSetWindowTransform(IntPtr hwnd,ref float[,] pTransform);
-		[DllImport("Magnification.dll", SetLastError = true)]
-		public static extern bool MagSetWindowSource(IntPtr hwnd, Rectangle rect);
 		#endregion
 		#region user32.dll
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref string pvParam, uint fWinIni);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern bool SetMagnificationDesktopColorEffect(ref float[,] pEffect);
+		public static extern bool SetMagnificationDesktopColorEffect(float[,] pEffect);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SwapMouseButton(bool fSwap);
 		[DllImport("user32.dll", SetLastError = true)]
