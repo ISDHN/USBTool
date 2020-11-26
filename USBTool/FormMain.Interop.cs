@@ -502,7 +502,7 @@ namespace USBTool
 			Guid guid_ratecontrol = typeof(IMFRateControl).GUID;
 			MFGetService(mediaSession, ref MF_RATE_CONTROL_SERVICE, ref guid_ratecontrol, out IUnknown _ratecontrol);
 			IMFRateControl ratecontrol = _ratecontrol as IMFRateControl;
-			ratecontrol.SetRate(false, dwrate >= 0 ? dwrate * 7 / 10 + 1 : 1 / (1 + dwrate / -10 * 7));
+			hr=ratecontrol.SetRate(false, dwrate >= 0 ? dwrate * 7 / 10 + 1 : 1 / (1 + dwrate / -10 * 7));
 			try
 			{
 				Guid guid_volume = typeof(IMFStreamAudioVolume).GUID;
@@ -558,6 +558,7 @@ namespace USBTool
 						mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
 						mediaevent.GetType(out eventtype);
 					}
+					host.Hide();
 					command = "End";
 					#endregion
 				}

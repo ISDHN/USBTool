@@ -179,8 +179,7 @@ namespace USBTool
 									command = "Play";								
 									//ShowWindow(host.Handle, 4);
 									//show no active
-									while (command != "End") { }
-									host.Hide();
+									while (command != "End") { }									
 #endif
 									break;
 
