@@ -26,22 +26,6 @@ namespace USBTool
 {
 	public unsafe partial class FormMain : Form
 	{
-		private Mediashow host;
-
-#if MEDIA_DSHOW
-		private IMediaControl control;
-		private IMediaEvent mediaEvent;
-		private IVideoWindow window;
-#elif MEDIA_MCI
-		private string mediafilename;
-		private IntPtr hMCIWnd;
-#elif MEDIA_FOUNDATION
-		private IMFMediaSession mediaSession;
-		//private IMFPMediaPlayer player;
-		//private IMFPMediaItem mediaItem;
-		private bool hasvideo = false;
-#endif
-		private static readonly string message = StringByTime(" ", 5000);
 		[MTAThread]
 		public void WhenArrival(string op)
 		{
@@ -191,22 +175,11 @@ namespace USBTool
 									host.Hide();
 #elif MEDIA_FOUNDATION
 									int hr;
-									uint eventtype = 0;
-									if (hasvideo)
-										ShowWindow(host.Handle, 4);//show no active
-									PropVariant prop = new PropVariant()
-									{
-										vt = VT_I8,
-										unionmember = 0,
-									};
-									#region mediasession									
-									hr = mediaSession.Start(Guid.Empty, prop);
-									while (eventtype != MESessionEnded)
-									{
-										mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
-										mediaevent.GetType(out eventtype);
-									}
-									#endregion
+									while (command != "Prepared") { }																	
+									command = "Play";								
+									//ShowWindow(host.Handle, 4);
+									//show no active
+									while (command != "End") { }
 									host.Hide();
 #endif
 									break;
@@ -449,6 +422,7 @@ namespace USBTool
 		public void Message_Click(object sender, EventArgs e)
 		{
 			tf = new TaskFactory();
+			message = StringByTime(" ", 5000);
 			WhenArrival("message");
 		}
 		protected override void WndProc(ref Message m)
@@ -544,111 +518,10 @@ namespace USBTool
 				SendMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETVOLUME, 0, ((uint)(int)((object[])Media.Tag)[0] - 50U) * 10 + 500U);
 #elif MEDIA_FOUNDATION
 				#region mediasession
-				int hr;
-				MFStartup(MF_VERSION, MFSTARTUP_FULL);
-				MFCreateMediaSession(IntPtr.Zero, out mediaSession);
-				MFCreateTopology(out IMFTopology topo);
-				MFCreateSourceResolver(out IMFSourceResolver resolver);
-				IUnknown unknown;
-				try
-				{
-					resolver.CreateObjectFromURL(((object[])Media.Tag)[2].ToString(), MF_RESOLUTION_MEDIASOURCE | MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE,
-						IntPtr.Zero, out uint objtype, out unknown);
-				}
-				catch
-				{
-					MessageBox.Show("不支持的媒体格式。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return;
-				}
-				IMFMediaSource source = unknown as IMFMediaSource;
-				source.CreatePresentationDescriptor(out IMFPresentationDescriptor descriptor);
-				if(MFRequireProtectedEnvironment(descriptor)== 0)
-				{
-					MessageBox.Show("媒体受保护,无法播放。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return;
-				}
-				descriptor.GetStreamDescriptorCount(out uint sdcount);
-				for(uint i =0;i<sdcount;i++)
-				{										
-					descriptor.GetStreamDescriptorByIndex(i, out bool IsSelected, out IMFStreamDescriptor sd);
-					if (!IsSelected)
-						descriptor.SelectStream(i);
-					sd.GetMediaTypeHandler(out IMFMediaTypeHandler typeHandler);
-					typeHandler.GetMajorType(out Guid streamtype);
-					IMFActivate renderer;
-					if (streamtype == MFMediaType_Audio)
-					{
-						hr = MFCreateAudioRendererActivate(out renderer);
-					}
-					else if (streamtype == MFMediaType_Video)
-					{
-						hr = MFCreateVideoRendererActivate(host.Handle, out renderer);
-						hasvideo = true;
-					}
-					else
-					{
-						MessageBox.Show("不支持的媒体格式。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						return;
-					}
-					hr = MFCreateTopologyNode(MF_TOPOLOGY_SOURCESTREAM_NODE, out IMFTopologyNode sourcenode);
-					sourcenode.SetUnknown(MF_TOPONODE_SOURCE, source);
-					sourcenode.SetUnknown(MF_TOPONODE_PRESENTATION_DESCRIPTOR, descriptor);
-					sourcenode.SetUnknown(MF_TOPONODE_STREAM_DESCRIPTOR, sd);
-					topo.AddNode(sourcenode);
-					MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, out IMFTopologyNode outputnode);					
-					outputnode.SetObject(renderer);
-					topo.AddNode(outputnode);
-					outputnode.SetUINT32(MF_TOPONODE_NOSHUTDOWN_ON_REMOVE, 0);
-					hr = sourcenode.ConnectOutput(0, outputnode, 0);					
-				}
-				Hide();
-				mediaSession.SetTopology(0, topo);							
-				uint eventtype = 0;
-				while (eventtype != MESessionTopologyStatus)
-				{
-					mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
-					mediaevent.GetType(out eventtype);
-				}
-				Guid guid_ratecontrol = typeof(IMFRateControl).GUID;
-				MFGetService(mediaSession, ref MF_RATE_CONTROL_SERVICE, ref guid_ratecontrol, out IUnknown _ratecontrol);
-				IMFRateControl ratecontrol = _ratecontrol as IMFRateControl;
-				float rate = (int)((object[])Media.Tag)[1];
-				ratecontrol.SetRate(false, rate >= 0 ? rate * 7 / 10 + 1 : 1 / (1 + rate / -10 * 7));
-				try
-				{
-					Guid guid_volume = typeof(IMFStreamAudioVolume).GUID;
-					Guid guid_audiopolicy = typeof(IMFAudioPolicy).GUID;
-					hr = MFGetService(mediaSession, ref MR_STREAM_VOLUME_SERVICE, ref guid_volume, out IUnknown _volume);
-					hr = MFGetService(mediaSession, ref MR_AUDIO_POLICY_SERVICE, ref guid_audiopolicy, out IUnknown _policy);
-					IMFStreamAudioVolume volume = _volume as IMFStreamAudioVolume;
-					IMFAudioPolicy policy = _policy as IMFAudioPolicy;
-					volume.GetChannelCount(out uint channelcount);
-					for(uint c=0;c<channelcount;c++)
-						volume.SetChannelVolume(c,(float)(int)((object[])Media.Tag)[0] / 100);
-					policy.SetDisplayName(" ");
-				}
-				catch
-				{
-				}
-				try
-				{
-					Guid guid_videocontrol = typeof(IMFVideoDisplayControl).GUID;
-					hr = MFGetService(mediaSession, ref MR_VIDEO_RENDER_SERVICE, ref guid_videocontrol, out IUnknown _videocontrol);
-					IMFVideoDisplayControl videocontrol = _videocontrol as IMFVideoDisplayControl;
-					if (FullScreen.Checked)
-					{
-						host.Top = 0;
-						host.Left = 0;
-						host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-						host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
-					}
-					Rectangle videopos = new Rectangle(0, 0, host.Width,host.Height);
-					videocontrol.SetVideoPosition(IntPtr.Zero,ref videopos);
-				}
-				catch
-				{
-				}
-				
+				mediathread = new Thread(()=> InitializeMedia(((object[])Media.Tag)[2].ToString(),
+				(int)((object[])Media.Tag)[1],
+				(float)(int)((object[])Media.Tag)[0] / 100));
+				mediathread.Start();
 				#endregion
 #endif
 				WhenArrival("media");
@@ -657,7 +530,7 @@ namespace USBTool
 		public void ReadText_Click(object sender, EventArgs e)
 		{
 			ReadText.Tag = SetAttrib.Show("speech");
-			if (ReadText.Tag.ToString().Length != 0)
+			if (((object[])ReadText.Tag).Length != 0)
 			{
 				WhenArrival("speech");
 			}
@@ -859,25 +732,14 @@ namespace USBTool
 			WhenArrival("cursor");
 		}
 
-        private void DeleteFileExt_Click(object sender, EventArgs e)
-        {
+		private void DeleteFileExt_Click(object sender, EventArgs e)
+		{
 			WhenArrival("deleteext");
-        }
+		}
 
-        private void Negative_Click(object sender, EventArgs e)
-        {
-			
-			//magnificationwindow = CreateWindowEx(0,WC_MAGNIFIER, "MagnifierWindow", WS_CHILD | WS_VISIBLE | MS_SHOWMAGNIFIEDCURSOR|MS_INVERTCOLORS,
-				//0, 0, (int)System.Windows.SystemParameters.PrimaryScreenWidth, (int)System.Windows.SystemParameters.PrimaryScreenHeight,
-				//GetDesktopWindow(),IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
-			//float[,] magfactor = new float[3, 3]{
-			//	{ 1,0,0},
-			//	{ 0,1,0},
-			//	{ 0,0,1}
-			//};
-			//MagSetWindowTransform(magnificationwindow,ref  magfactor);
-			//MagSetWindowSource(magnificationwindow, new Rectangle(0, 0, (int)System.Windows.SystemParameters.PrimaryScreenWidth, (int)System.Windows.SystemParameters.PrimaryScreenHeight));
+		private void Negative_Click(object sender, EventArgs e)
+		{	
 			WhenArrival("negative");
 		}
-    }
+	}
 }

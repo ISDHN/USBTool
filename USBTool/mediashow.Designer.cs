@@ -63,6 +63,7 @@ namespace USBTool
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
+            this.TopMost = true;
             this.ResumeLayout(false);
 
 			}
@@ -72,7 +73,6 @@ namespace USBTool
 			// 此调用是设计器所必需的。
 			InitializeComponent();
 			this.Width = (int)(SystemParameters.PrimaryScreenWidth / 2);
-			this.Height = (int)(SystemParameters.PrimaryScreenHeight / 2);
 			Control.CheckForIllegalCrossThreadCalls = false;
 			this.SetStyle(ControlStyles.Selectable, false);
 			this.Cursor.Dispose();
