@@ -131,9 +131,9 @@
   <data name="Disabled.Text" xml:space="preserve">
     <value>禁用U盘</value>
   </data>
-  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>96, 17</value>
-  </metadata>
+  </data>
   <data name="Disabled.ToolTip" xml:space="preserve">
     <value>关闭U盘驱动程序</value>
   </data>
@@ -528,9 +528,9 @@
   <data name="&gt;&gt;FillwithBlank.ZOrder" xml:space="preserve">
     <value>29</value>
   </data>
-  <metadata name="Folder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="Folder.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>7, 17</value>
-  </metadata>
+  </data>
   <data name="Folder.Description" xml:space="preserve">
     <value>选择目标文件夹</value>
   </data>
@@ -1066,10 +1066,10 @@
     <value>38</value>
   </data>
   <data name="BeUncle.Text" xml:space="preserve">
-    <value>当自己叔叔</value>
+    <value>窗口混乱</value>
   </data>
   <data name="BeUncle.ToolTip" xml:space="preserve">
-    <value>使一个窗口成为它爷爷的子窗口</value>
+    <value>让所有子窗口成为独立窗口</value>
   </data>
   <data name="&gt;&gt;BeUncle.Name" xml:space="preserve">
     <value>BeUncle</value>
@@ -1320,9 +1320,9 @@
   <data name="&gt;&gt;ReBoot.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>199, 17</value>
-  </metadata>
+  </data>
   <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1380,12 +1380,12 @@
   <data name="&gt;&gt;Negative.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  </data>
+  <data name="$this.TrayHeight" type="System.Int32, mscorlib">
     <value>41</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 12</value>
   </data>

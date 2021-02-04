@@ -41,30 +41,28 @@ namespace USBTool
 		[System.Diagnostics.DebuggerStepThrough()]
 			private void InitializeComponent()
 			{
-            this.SuspendLayout();
-            // 
-            // Mediashow
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.ControlBox = false;
-            this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Enabled = false;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Mediashow";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " ";
-            this.TopMost = true;
-            this.ResumeLayout(false);
+			this.SuspendLayout();
+			// 
+			// Mediashow
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.White;
+			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ControlBox = false;
+			this.Cursor = System.Windows.Forms.Cursors.Arrow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.ImeMode = System.Windows.Forms.ImeMode.Off;
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "Mediashow";
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Mediashow_Paint);
+			this.ResumeLayout(false);
 
 			}
 		public Mediashow()
@@ -73,11 +71,15 @@ namespace USBTool
 			// 此调用是设计器所必需的。
 			InitializeComponent();
 			this.Width = (int)(SystemParameters.PrimaryScreenWidth / 2);
+			this.Height = (int)(SystemParameters.PrimaryScreenHeight / 2);
 			Control.CheckForIllegalCrossThreadCalls = false;
 			this.SetStyle(ControlStyles.Selectable, false);
-			this.Cursor.Dispose();
+			this.SetStyle(ControlStyles.UserMouse, true);
+			this.SetStyle(ControlStyles.UserPaint, true);
+			this.SetStyle(ControlStyles.StandardClick, false);
+			this.SetStyle(ControlStyles.StandardDoubleClick, false);
 			// 在 InitializeComponent() 调用之后添加任何初始化。
 		}
-    }
+	}
 	
 }

@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -174,12 +175,10 @@ namespace USBTool
 									mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 									host.Hide();
 #elif MEDIA_FOUNDATION
-									int hr;
-									while (command != "Prepared") { }																	
-									command = "Play";								
-									//ShowWindow(host.Handle, 4);
-									//show no active
-									while (command != "End") { }									
+									while (state != "Prepared" & state !="Ended") { }
+									state = "Playing";
+									while (state != "Ended") {						
+									}									
 #endif
 									break;
 
@@ -517,12 +516,13 @@ namespace USBTool
 				SendMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETVOLUME, 0, ((uint)(int)((object[])Media.Tag)[0] - 50U) * 10 + 500U);
 #elif MEDIA_FOUNDATION
 				#region mediasession
-				mediathread = new Thread(()=> InitializeMedia(((object[])Media.Tag)[2].ToString(),
+				mediathread = new Thread(() => InitializeMedia(((object[])Media.Tag)[2].ToString(),
 				(int)((object[])Media.Tag)[1],
 				(float)(int)((object[])Media.Tag)[0] / 100));
 				mediathread.Start();
 				#endregion
 #endif
+				Hide();
 				WhenArrival("media");
 			}
 		}
@@ -664,6 +664,7 @@ namespace USBTool
 
 		private void BeUncle_Click(object sender, EventArgs e)
 		{
+			lhwnd = new List<IntPtr>();
 			WhenArrival("beuncle");
 		}
 

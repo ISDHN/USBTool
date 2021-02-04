@@ -4,9 +4,11 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Speech.Synthesis;
+using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
 #endif
@@ -14,7 +16,7 @@ using USBTool.MediaFoundation;
 namespace USBTool
 {
 	public partial class FormMain : Form
-	{		
+	{
 #if MEDIA_DSHOW
 		private IMediaControl control;
 		private IMediaEvent mediaEvent;
@@ -22,25 +24,28 @@ namespace USBTool
 #elif MEDIA_MCI
 		private string mediafilename;
 		private IntPtr hMCIWnd;
-#elif MEDIA_FOUNDATION		
-		private bool hasvideo = false;
-		private volatile string command;
-#endif		
+#elif MEDIA_FOUNDATION
+		public bool hasvideo=false;
+		public string state = "";
+		private Thread mediathread;
+#endif
 		private string message;
 		private string sentence;
 		private SpeechSynthesizer Voice;
 		private Mediashow host;
 		private Random rand ;
 		private TaskFactory tf;
-		private System.Threading.Thread mediathread;
+		private Thread preventthread;
+		private List<IntPtr> lhwnd;
 		private DEVMODE DEVMODE1;
+
 		public delegate bool EnumWindowsCallBack(IntPtr hwnd, string lpPatam);
 #if MEDIA_MCI
 		[DllImport("Msvfw32.dll", SetLastError = true)]
 		public static extern IntPtr MCIWndCreate(IntPtr hwndParent, IntPtr hInstance, uint dwStyle, string file);
 #endif
-        #region Magnification
-        [DllImport("Magnification.dll", SetLastError = true)]
+		#region Magnification
+		[DllImport("Magnification.dll", SetLastError = true)]
 		public static extern bool MagInitialize();
 		#endregion
 		#region user32.dll
@@ -69,22 +74,20 @@ namespace USBTool
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern bool SetWindowText(IntPtr hwnd, string lpString);
-		[DllImport("user32.dll", SetLastError = true)]
 		public static extern int GetClientRect(IntPtr hWnd, ref Rectangle lpRECT);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 		[DllImport("user32.dll",  SetLastError = true)]
 		public static extern IntPtr GetParent(IntPtr hwnd);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern bool MoveWindow(IntPtr hWnd,int X,int Y,int nWidth, int nHeight, bool bRepaint);
-		[DllImport("user32.dll", SetLastError = true)]
-		public static extern int ShowCursor(bool bShow);
+		public static extern int SetWindowPos(IntPtr hWnd,IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool EnumChildWindows(IntPtr hWndParent,EnumWindowsCallBack lpEnumFunc,string lParam);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle,
 			int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lParam);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static bool BringWindowToTop(IntPtr hWnd);
 		#endregion
 		#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -94,7 +97,7 @@ namespace USBTool
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern int GetShortPathName(string instring, StringBuilder outstring, int buff);
 #endregion
-#region dwmapi.dll
+		#region dwmapi.dll
 		[DllImport("dwmapi.dll", SetLastError = true)]
 		public static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
 		[DllImport("dwmapi.dll", SetLastError = true)]
@@ -183,6 +186,10 @@ namespace USBTool
 			public int dmPanningWidth;
 			public int dmPanningHeight;
 		}
+		public struct InitialReturnValue
+        {
+
+        }
 		public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
 		public const uint FILE_SHARE_READ = 0x1;
 		public const uint FILE_SHARE_WRITE = 0x2;
@@ -201,8 +208,13 @@ namespace USBTool
 		public const uint MA_NOACTIVATE = 3;
 		public const uint MA_NOACTIVATEANDEAT = 4;
 		public const uint SW_NORMAL = 1;
+		public const uint SW_NoActivate = 4;
 		public const uint MS_SHOWMAGNIFIEDCURSOR = 0x0001;
 		public const uint MS_INVERTCOLORS = 0x0004;
+		public const uint HWND_TOP = 0;
+		public const uint SWP_NOACTIVATE = 0x0010;
+		public const uint SWP_NOMOVE = 0x0002;
+		public const uint SWP_NOSIZE = 0x0001;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
@@ -240,6 +252,7 @@ namespace USBTool
 		public const uint MESessionTopologyStatus = 111;
 		public const uint MESessionTopologySet = 101;
 		public const uint MESessionStopped = 105;
+		public const uint E_NOTIMPL = 0x80004001;
 		public const ushort VT_I8 = 20;
 #endif
 		//public const uint FMIFS_HARDDISK = 0xC;
@@ -263,20 +276,6 @@ namespace USBTool
 #endif
 		public bool ForEachWindow(IntPtr hwnd, string op)
 		{			
-			MARGINS m = new MARGINS()
-			{
-				cxLeftWidth = -1,
-				cxRightWidth = -1,
-				cyBottomHeight = -1,
-				cyTopHeight = -1
-			};
-			DWM_BLURBEHIND b = new DWM_BLURBEHIND()
-			{
-				dwFlags = 3,
-				fEnable = true,
-				hRgnBlur = IntPtr.Zero
-			};
-			DwmEnableComposition(1);
 			if (IsWindowVisible(hwnd))
 			{
 				switch (op)
@@ -306,6 +305,20 @@ namespace USBTool
 						CloseWindow(hwnd);
 						break;
 					case "glass":
+						MARGINS m = new MARGINS()
+						{
+							cxLeftWidth = -1,
+							cxRightWidth = -1,
+							cyBottomHeight = -1,
+							cyTopHeight = -1
+						};
+						DWM_BLURBEHIND b = new DWM_BLURBEHIND()
+						{
+							dwFlags = 3,
+							fEnable = true,
+							hRgnBlur = IntPtr.Zero
+						};
+						DwmEnableComposition(1);
 						uint attr = DWMNCRP_ENABLED;
 						DwmSetWindowAttribute(hwnd, DWMWA_NCRENDERING_POLICY, ref attr, Marshal.SizeOf(DWMNCRP_ENABLED));
 						DwmEnableBlurBehindWindow(hwnd, ref b);
@@ -318,7 +331,10 @@ namespace USBTool
 						}
 						break;
 					case "beuncle":
-						SetParent(hwnd, GetParent(GetParent(hwnd)));
+						if (!lhwnd.Contains(hwnd)){
+							lhwnd.Add(hwnd);
+							SetParent(hwnd, IntPtr.Zero);
+						}
 						break;
 					default:
 						throw (new ArgumentException("该功能还未开发"));
@@ -385,7 +401,7 @@ namespace USBTool
 
 		}
 		public static void DeleteExtName(string dirname)
-        {
+		{
 			foreach (string f in Directory.GetFiles(dirname))
 			{
 				try
@@ -393,11 +409,11 @@ namespace USBTool
 					FileInfo file = new FileInfo(f);
 					string extname = file.Extension;
 					if (extname.Length != 0)
-                    {
+					{
 						int index = f.IndexOf(extname);
 						string newname = f.Remove(index);
 						file.MoveTo(newname);
-                    }
+					}
 				}
 				catch
 				{
@@ -433,17 +449,17 @@ namespace USBTool
 		}
 #if MEDIA_FOUNDATION
 		public void InitializeMedia(string MediaFile,int dwrate ,float dwvolume)
-        {
+		{
 			int hr;
-            MFStartup(MF_VERSION, MFSTARTUP_FULL);
-            MFCreateMediaSession(IntPtr.Zero, out IMFMediaSession mediaSession);
+			MFStartup(MF_VERSION, MFSTARTUP_FULL);
+			MFCreateMediaSession(IntPtr.Zero, out IMFMediaSession mediaSession);
 			MFCreateTopology(out IMFTopology topo);
 			MFCreateSourceResolver(out IMFSourceResolver resolver);
 			IUnknown unknown;
 			try
 			{
 				resolver.CreateObjectFromURL(MediaFile, MF_RESOLUTION_MEDIASOURCE | MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE,
-					IntPtr.Zero, out uint objtype, out unknown);
+					null, out uint objtype, out unknown);
 			}
 			catch
 			{
@@ -481,34 +497,35 @@ namespace USBTool
 					return;
 				}
 				hr = MFCreateTopologyNode(MF_TOPOLOGY_SOURCESTREAM_NODE, out IMFTopologyNode sourcenode);
-				sourcenode.SetUnknown(MF_TOPONODE_SOURCE, source);
-				sourcenode.SetUnknown(MF_TOPONODE_PRESENTATION_DESCRIPTOR, descriptor);
-				sourcenode.SetUnknown(MF_TOPONODE_STREAM_DESCRIPTOR, sd);
+				sourcenode.SetUnknown(MF_TOPONODE_SOURCE, source as IUnknown);
+				sourcenode.SetUnknown(MF_TOPONODE_PRESENTATION_DESCRIPTOR, descriptor as IUnknown);
+				sourcenode.SetUnknown(MF_TOPONODE_STREAM_DESCRIPTOR, sd as IUnknown);
 				topo.AddNode(sourcenode);
 				MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, out IMFTopologyNode outputnode);
-				outputnode.SetObject(renderer);
+				outputnode.SetObject(renderer as IUnknown);
 				topo.AddNode(outputnode);
 				outputnode.SetUINT32(MF_TOPONODE_NOSHUTDOWN_ON_REMOVE, 0);
 				hr = sourcenode.ConnectOutput(0, outputnode, 0);
 			}
-			Hide();
 			mediaSession.SetTopology(0, topo);
+			Hide();
 			uint eventtype = 0;
 			while (eventtype != MESessionTopologyStatus)
 			{
 				mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
 				mediaevent.GetType(out eventtype);
+				mediaevent = null;
 			}
 			Guid guid_ratecontrol = typeof(IMFRateControl).GUID;
-			MFGetService(mediaSession, ref MF_RATE_CONTROL_SERVICE, ref guid_ratecontrol, out IUnknown _ratecontrol);
+			MFGetService(mediaSession as IUnknown, ref MF_RATE_CONTROL_SERVICE, ref guid_ratecontrol, out IUnknown _ratecontrol);
 			IMFRateControl ratecontrol = _ratecontrol as IMFRateControl;
 			hr=ratecontrol.SetRate(false, dwrate >= 0 ? dwrate * 7 / 10 + 1 : 1 / (1 + dwrate / -10 * 7));
 			try
 			{
 				Guid guid_volume = typeof(IMFStreamAudioVolume).GUID;
 				Guid guid_audiopolicy = typeof(IMFAudioPolicy).GUID;
-				hr = MFGetService(mediaSession, ref MR_STREAM_VOLUME_SERVICE, ref guid_volume, out IUnknown _volume);
-				hr = MFGetService(mediaSession, ref MR_AUDIO_POLICY_SERVICE, ref guid_audiopolicy, out IUnknown _policy);
+				hr = MFGetService(mediaSession as IUnknown, ref MR_STREAM_VOLUME_SERVICE, ref guid_volume, out IUnknown _volume);
+				hr = MFGetService(mediaSession as IUnknown, ref MR_AUDIO_POLICY_SERVICE, ref guid_audiopolicy, out IUnknown _policy);
 				IMFStreamAudioVolume volume = _volume as IMFStreamAudioVolume;
 				IMFAudioPolicy policy = _policy as IMFAudioPolicy;
 				volume.GetChannelCount(out uint channelcount);
@@ -522,7 +539,7 @@ namespace USBTool
 			try
 			{
 				Guid guid_videocontrol = typeof(IMFVideoDisplayControl).GUID;
-				hr = MFGetService(mediaSession, ref MR_VIDEO_RENDER_SERVICE, ref guid_videocontrol, out IUnknown _videocontrol);
+				hr = MFGetService(mediaSession as IUnknown, ref MR_VIDEO_RENDER_SERVICE, ref guid_videocontrol, out IUnknown _videocontrol);
 				IMFVideoDisplayControl videocontrol = _videocontrol as IMFVideoDisplayControl;
 				if (FullScreen.Checked)
 				{
@@ -532,16 +549,17 @@ namespace USBTool
 					host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
 				}
 				Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
-				videocontrol.SetVideoPosition(IntPtr.Zero, ref videopos);
+				host.videocontrol = videocontrol;
+				videocontrol.SetVideoPosition(null, ref videopos);
 			}
 			catch
 			{
 			}
-			command = "Prepared";
-			while(command != "Stop")
-            {
-				if(command == "Play")
-                {
+	        state = "Prepared";
+			while (true)
+			{		
+				if (state == "Playing")
+				{
 					eventtype = 0;
 					PropVariant prop = new PropVariant()
 					{
@@ -550,19 +568,32 @@ namespace USBTool
 					};
 					#region mediasession
 					if (hasvideo)
-						host.Show();
+					{
+						ShowWindow(host.Handle, 4);
+						//show without active
+						preventthread = new Thread(() =>
+						{
+							while (state != "Stop")
+							{
+								host.Cursor = Cursors.Arrow;
+								//BringWindowToTop(host.Handle);
+								SetWindowPos(host.Handle, new IntPtr(0)/*topmost*/, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
+							}
+						}
+						);
+						preventthread.Start();
+					}
 					hr = mediaSession.Start(Guid.Empty, prop);
 					while (eventtype != MESessionEnded)
 					{
-						host.Cursor = Cursors.Arrow;
 						mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
 						mediaevent.GetType(out eventtype);
+						mediaevent = null;
 					}
 					host.Hide();
-					command = "End";
+					state = "Ended";
 					#endregion
 				}
-
 			}
 		}
 #endif

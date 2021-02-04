@@ -92,6 +92,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MediaFoundation.cs" />
     <Compile Include="Mediashow.Designer.cs">
       <DependentUpon>Mediashow.cs</DependentUpon>
