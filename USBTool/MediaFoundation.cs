@@ -33,8 +33,8 @@ namespace USBTool.MediaFoundation
 		public long unionmember;
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true),ComImport,Guid("90377834-21D0-4dee-8214-BA2E3E6C1127")]
-	public interface IMFMediaSession 
+	[ComVisible(true), ComImport, Guid("90377834-21D0-4dee-8214-BA2E3E6C1127")]
+	public interface IMFMediaSession
 	{
 		//IMFMediaEventGenerator
 		int GetEvent(uint dwFlags, out IMFMediaEvent ppEvent);
@@ -43,22 +43,22 @@ namespace USBTool.MediaFoundation
 		int EndGetEvent(IUnknown pResult, out IMFMediaEvent ppEvent);
 		int QueueEvent(uint met, ref Guid guidExtendedType, int hrStatus, ref PropVariant pvValue);
 		//IMFMediaSession
-		int SetTopology(uint dwSetTopologyFlags,IMFTopology pTopology);
+		int SetTopology(uint dwSetTopologyFlags, IMFTopology pTopology);
 		int ClearTopologies();
 		int Start(ref Guid pguidTimeFormat, ref PropVariant pvarStartPosition);
-		int Pause();	
+		int Pause();
 		int Stop();
 		int Close();
 		int Shutdown();
 		int GetClock(out IUnknown ppClock);
 		int GetSessionCapabilities(out uint pdwCaps);
-		int GetFullTopology(uint dwGetFullTopologyFlags,ulong TopoId,IMFTopology ppFullTopology);
+		int GetFullTopology(uint dwGetFullTopologyFlags, ulong TopoId, IMFTopology ppFullTopology);
 	}
 	[ComVisible(true), ComImport, Guid("FBE5A32D-A497-4b61-BB85-97B1A848A6E3")]
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	public interface IMFSourceResolver
 	{
-		int CreateObjectFromURL(string pwszURL,uint dwFlags,IUnknown pProps,out uint pObjectType, out IUnknown ppObject);
+		int CreateObjectFromURL(string pwszURL, uint dwFlags, IUnknown pProps, out uint pObjectType, out IUnknown ppObject);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("83CF873A-F6DA-4bc8-823F-BACFD55DC433")]
@@ -96,37 +96,37 @@ namespace USBTool.MediaFoundation
 		int GetItemByIndex(uint unIndex, out Guid pguidKey, [In, Out] ref PropVariant pValue);
 		int CopyAllItems(IMFAttributes pDest);
 		//IMFTopology
-		int GetTopologyID(out ulong pID);      
+		int GetTopologyID(out ulong pID);
 		int AddNode(IMFTopologyNode pNode);
-		int RemoveNode(IMFTopologyNode pNode);        
-		int GetNodeCount(out ushort pwNodes);  
-		int GetNode(ushort wIndex,out IMFTopologyNode ppNode);      
-		int Clear();    
+		int RemoveNode(IMFTopologyNode pNode);
+		int GetNodeCount(out ushort pwNodes);
+		int GetNode(ushort wIndex, out IMFTopologyNode ppNode);
+		int Clear();
 		int CloneFrom(IMFTopology pTopology);
-		int GetNodeByID(ulong qwTopoNodeID,out IMFTopologyNode ppNode);
+		int GetNodeByID(ulong qwTopoNodeID, out IMFTopologyNode ppNode);
 		int GetSourceNodeCollection(out IUnknown ppCollection);
 		int GetOutputNodeCollection(out IUnknown ppCollection);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("279a808d-aec7-40c8-9c6b-a6b492c78a66")]
-	public interface IMFMediaSource 
+	public interface IMFMediaSource
 	{
 		//IMFMediaEventGenerator
-		int GetEvent(uint dwFlags,out IMFMediaEvent ppEvent) ;   
-		int BeginGetEvent(IMFAsyncCallback pCallback,IUnknown punkState);     
-		int EndGetEvent(IUnknown pResult,out IMFMediaEvent ppEvent) ; 
-		int QueueEvent(uint met,ref Guid guidExtendedType,int hrStatus,ref PropVariant pvValue) ;
+		int GetEvent(uint dwFlags, out IMFMediaEvent ppEvent);
+		int BeginGetEvent(IMFAsyncCallback pCallback, IUnknown punkState);
+		int EndGetEvent(IUnknown pResult, out IMFMediaEvent ppEvent);
+		int QueueEvent(uint met, ref Guid guidExtendedType, int hrStatus, ref PropVariant pvValue);
 		//IMFMediaSource
 		int GetCharacteristics(out uint pdwCharacteristics);
-		int CreatePresentationDescriptor(out IMFPresentationDescriptor ppPresentationDescriptor);	
-		int Start(IMFPresentationDescriptor pPresentationDescriptor,IUnknown pguidTimeFormat,ref PropVariant pvarStartPosition);
+		int CreatePresentationDescriptor(out IMFPresentationDescriptor ppPresentationDescriptor);
+		int Start(IMFPresentationDescriptor pPresentationDescriptor, IUnknown pguidTimeFormat, ref PropVariant pvarStartPosition);
 		int Stop();
 		int Pause();
 		int Shutdown();
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("03cb2711-24d7-4db6-a17f-f3a7a479a536")]
-	public interface IMFPresentationDescriptor  
+	public interface IMFPresentationDescriptor
 	{
 		//IMFAttributes
 		int GetItem(ref Guid guidKey, [In, Out] ref PropVariant pValue);
@@ -161,21 +161,21 @@ namespace USBTool.MediaFoundation
 		int CopyAllItems(IMFAttributes pDest);
 		//IMFPresentationDescriptor
 		int GetStreamDescriptorCount(out uint pdwDescriptorCount);
-		int GetStreamDescriptorByIndex(uint dwIndex,out bool pfSelected,out IMFStreamDescriptor ppDescriptor);
+		int GetStreamDescriptorByIndex(uint dwIndex, out bool pfSelected, out IMFStreamDescriptor ppDescriptor);
 		int SelectStream(uint dwDescriptorIndex);
 		int DeselectStream(uint dwDescriptorIndex);
 		int Clone(out IMFPresentationDescriptor ppPresentationDescriptor);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true),ComImport, Guid("00000000-0000-0000-C000-000000000046")]
+	[ComVisible(true), ComImport, Guid("00000000-0000-0000-C000-000000000046")]
 	public interface IUnknown
 	{
-		int QueryInterface(ref Guid iid,  out IUnknown ppvObj);
+		int QueryInterface(ref Guid iid, out IUnknown ppvObj);
 		int AddRef();
 		int Release();
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true),ComImport,  Guid("2cd2d921-c447-44a7-a13c-4adabfc247e3")]
+	[ComVisible(true), ComImport, Guid("2cd2d921-c447-44a7-a13c-4adabfc247e3")]
 	public interface IMFAttributes
 	{
 		int GetItem(ref Guid guidKey, [In, Out] ref PropVariant pValue);
@@ -187,10 +187,10 @@ namespace USBTool.MediaFoundation
 		int GetDouble(ref Guid guidKey, out double pfValue);
 		int GetGUID(ref Guid guidKey, out Guid pguidValue);
 		int GetStringLength(ref Guid guidKey, out uint pcchLength);
-		int GetString(ref Guid guidKey, StringBuilder pwszValue, uint cchBufSize, [In,Out]ref uint pcchLength);
+		int GetString(ref Guid guidKey, StringBuilder pwszValue, uint cchBufSize, [In, Out] ref uint pcchLength);
 		int GetAllocatedString(ref Guid guidKey, StringBuilder ppwszValue, out uint pcchLength);
 		int GetBlobSize(ref Guid guidKey, out uint pcbBlobSize);
-		int GetBlob(ref Guid guidKey, out ushort pBuf, uint cbBufSize, [In,Out]ref uint pcbBlobSize);
+		int GetBlob(ref Guid guidKey, out ushort pBuf, uint cbBufSize, [In, Out] ref uint pcbBlobSize);
 		int GetAllocatedBlob(ref Guid guidKey, out ushort ppBuf, out uint pcbSize);
 		int GetUnknown(ref Guid guidKey, Guid riid, out IUnknown ppv);
 		int SetItem(ref Guid guidKey, ref PropVariant Value);
@@ -206,12 +206,12 @@ namespace USBTool.MediaFoundation
 		int LockStore();
 		int UnlockStore();
 		int GetCount(out uint pcItems);
-		int GetItemByIndex(uint unIndex, out Guid pguidKey, [In,Out]ref PropVariant pValue);
+		int GetItemByIndex(uint unIndex, out Guid pguidKey, [In, Out] ref PropVariant pValue);
 		int CopyAllItems(IMFAttributes pDest);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true),ComImport,Guid("56c03d9c-9dbb-45f5-ab4b-d80f47c05938")]
-	public interface IMFStreamDescriptor 
+	[ComVisible(true), ComImport, Guid("56c03d9c-9dbb-45f5-ab4b-d80f47c05938")]
+	public interface IMFStreamDescriptor
 	{
 		//IMFAttributes
 		int GetItem(ref Guid guidKey, [In, Out] ref PropVariant pValue);
@@ -284,26 +284,26 @@ namespace USBTool.MediaFoundation
 		int GetItemByIndex(uint unIndex, out Guid pguidKey, [In, Out] ref PropVariant pValue);
 		int CopyAllItems(IMFAttributes pDest);
 		//IMFTopologyNode
-		int SetObject(IUnknown pObject);   
-		int GetObject(out IUnknown ppObject);      
-		int GetNodeType(out uint pType);       
-		int GetTopoNodeID(out ulong pID);        
-		int SetTopoNodeID(ulong ullTopoID);      
-		int GetInputCount(out uint pcInputs);        
-		int GetOutputCount(out uint pcOutputs);       
-		int ConnectOutput(uint dwOutputIndex,IMFTopologyNode pDownstreamNode,uint dwInputIndexOnDownstreamNode);       
-		int DisconnectOutput(uint dwOutputIndex);      
-		int GetInput(uint dwInputIndex,out IMFTopologyNode ppUpstreamNode,out uint pdwOutputIndexOnUpstreamNode);       
-		int GetOutput(uint dwOutputIndex,out IMFTopologyNode ppDownstreamNode,out uint pdwInputIndexOnDownstreamNode);       
-		int SetOutputPrefType(uint dwOutputIndex,IUnknown pType);       
-		int GetOutputPrefType(uint dwOutputIndex,out IUnknown ppType);     
-		int SetInputPrefType(uint dwInputIndex,IUnknown pType);       
-		int GetInputPrefType(uint dwInputIndex,out IUnknown ppType);
+		int SetObject(IUnknown pObject);
+		int GetObject(out IUnknown ppObject);
+		int GetNodeType(out uint pType);
+		int GetTopoNodeID(out ulong pID);
+		int SetTopoNodeID(ulong ullTopoID);
+		int GetInputCount(out uint pcInputs);
+		int GetOutputCount(out uint pcOutputs);
+		int ConnectOutput(uint dwOutputIndex, IMFTopologyNode pDownstreamNode, uint dwInputIndexOnDownstreamNode);
+		int DisconnectOutput(uint dwOutputIndex);
+		int GetInput(uint dwInputIndex, out IMFTopologyNode ppUpstreamNode, out uint pdwOutputIndexOnUpstreamNode);
+		int GetOutput(uint dwOutputIndex, out IMFTopologyNode ppDownstreamNode, out uint pdwInputIndexOnDownstreamNode);
+		int SetOutputPrefType(uint dwOutputIndex, IUnknown pType);
+		int GetOutputPrefType(uint dwOutputIndex, out IUnknown ppType);
+		int SetInputPrefType(uint dwInputIndex, IUnknown pType);
+		int GetInputPrefType(uint dwInputIndex, out IUnknown ppType);
 		int CloneFrom(IMFTopologyNode pNode);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("7FEE9E9A-4A89-47a6-899C-B6A53A70FB67")]
-	public interface IMFActivate 
+	public interface IMFActivate
 	{
 		//IMFAttributes
 		int GetItem(ref Guid guidKey, [In, Out] ref PropVariant pValue);
@@ -337,22 +337,22 @@ namespace USBTool.MediaFoundation
 		int GetItemByIndex(uint unIndex, out Guid pguidKey, [In, Out] ref PropVariant pValue);
 		int CopyAllItems(IMFAttributes pDest);
 		//IMFActivate
-		int ActivateObject(ref Guid riid,out IUnknown ppv);  
-		int ShutdownObject();  
+		int ActivateObject(ref Guid riid, out IUnknown ppv);
+		int ShutdownObject();
 		int DetachObject();
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("e93dcf6c-4b07-4e1e-8123-aa16ed6eadf5")]
 	public interface IMFMediaTypeHandler
 	{
-		int IsMediaTypeSupported(IUnknown pMediaType,out IUnknown ppMediaType);    
-		int GetMediaTypeCount(out uint pdwTypeCount);    
-		int GetMediaTypeByIndex(uint dwIndex,out IUnknown ppType);
-		
+		int IsMediaTypeSupported(IUnknown pMediaType, out IUnknown ppMediaType);
+		int GetMediaTypeCount(out uint pdwTypeCount);
+		int GetMediaTypeByIndex(uint dwIndex, out IUnknown ppType);
+
 		int SetCurrentMediaType(IUnknown pMediaType);
-		
+
 		int GetCurrentMediaType(out IUnknown ppMediaType);
-		
+
 		int GetMajorType(out Guid pguidMajorType);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -391,50 +391,50 @@ namespace USBTool.MediaFoundation
 		int GetItemByIndex(uint unIndex, out Guid pguidKey, [In, Out] ref PropVariant pValue);
 		int CopyAllItems(IMFAttributes pDest);
 		//IMFMediaEvent
-		int GetType(out uint pmet);     
+		int GetType(out uint pmet);
 		int GetExtendedType(out Guid pguidExtendedType);
 		int GetStatus(out int phrStatus);
-		int GetValue(out PropVariant pvValue);		
+		int GetValue(out PropVariant pvValue);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("0a9ccdbc-d797-4563-9667-94ec5d79292d")]
 	public interface IMFRateSupport
 	{
-		int GetSlowestRate(uint eDirection,bool fThin, out float pflRate);
-		int GetFastestRate(uint eDirection,bool fThin,out float pflRate);	
-		int IsRateSupported(bool fThin, float flRate,out float pflNearestSupportedRate);
+		int GetSlowestRate(uint eDirection, bool fThin, out float pflRate);
+		int GetFastestRate(uint eDirection, bool fThin, out float pflRate);
+		int IsRateSupported(bool fThin, float flRate, out float pflNearestSupportedRate);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("88ddcd21-03c3-4275-91ed-55ee3929328f")]
-	public interface IMFRateControl 
+	public interface IMFRateControl
 	{
-		int SetRate(bool fThin,float flRate);
-		int GetRate(ref bool pfThin,ref float pflRate);
+		int SetRate(bool fThin, float flRate);
+		int GetRate(ref bool pfThin, ref float pflRate);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("76B1BBDB-4EC8-4f36-B106-70A9316DF593")]
-	public interface IMFStreamAudioVolume 
+	public interface IMFStreamAudioVolume
 	{
 		int GetChannelCount(out uint pdwCount);
 		int SetChannelVolume(uint dwIndex, float fLevel);
-		int GetChannelVolume(uint dwIndex,out float pfLevel);
-		int SetAllVolumes(uint dwCount,ref float[] pfVolumes);
-		int GetAllVolumes(uint dwCount,out float[] pfVolumes);
+		int GetChannelVolume(uint dwIndex, out float pfLevel);
+		int SetAllVolumes(uint dwCount, ref float[] pfVolumes);
+		int GetAllVolumes(uint dwCount, out float[] pfVolumes);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("a490b1e4-ab84-4d31-a1b2-181e03b1077a")]
-	public interface IMFVideoDisplayControl 
+	public interface IMFVideoDisplayControl
 	{
-		int GetNativeVideoSize(ref Size pszVideo,ref Size pszARVideo);        
-		int GetIdealVideoSize(ref Size pszMin,ref Size pszMax);       
-		int SetVideoPosition(IUnknown pnrcSource,ref Rectangle prcDest);
-		int GetVideoPosition( out RectangleF pnrcSource, out Rectangle prcDest);      
+		int GetNativeVideoSize(ref Size pszVideo, ref Size pszARVideo);
+		int GetIdealVideoSize(ref Size pszMin, ref Size pszMax);
+		int SetVideoPosition(IUnknown pnrcSource, ref Rectangle prcDest);
+		int GetVideoPosition(out RectangleF pnrcSource, out Rectangle prcDest);
 		int SetAspectRatioMode(uint dwAspectRatioMode);
 		int GetAspectRatioMode(out uint pdwAspectRatioMode);
 		int SetVideoWindow(IntPtr hwndVideo);
 		int GetVideoWindow(out IntPtr phwndVideo);
 		int RepaintVideo();
-		int GetCurrentImage(ref BITMAPINFOHEADER pBih, out Bitmap pDib,out uint pcbDib,ref long pTimeStamp);		
+		int GetCurrentImage(ref BITMAPINFOHEADER pBih, out Bitmap pDib, out uint pcbDib, ref long pTimeStamp);
 		int SetBorderColor(uint Clr);
 		int GetBorderColor(out uint pClr);
 		int SetRenderingPrefs(uint dwRenderFlags);
@@ -444,10 +444,10 @@ namespace USBTool.MediaFoundation
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("a0638c2b-6465-4395-9ae7-a321a9fd2856")]
-	public interface IMFAudioPolicy 
+	public interface IMFAudioPolicy
 	{
 		int SetGroupingParam(ref Guid rguidClass);
-		int GetGroupingParam(out Guid pguidClass);      
+		int GetGroupingParam(out Guid pguidClass);
 		int SetDisplayName(string pszName);
 		int GetDisplayName(out string pszName);
 		int SetIconPath(string pszPath);
@@ -455,17 +455,78 @@ namespace USBTool.MediaFoundation
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("a27003cf-2354-4f2a-8d6a-ab7cff15437e")]
-	public interface  IMFAsyncCallback{ 
-		uint GetParameters(ref uint pdwFlags,ref uint pdwQueue);
+	public interface IMFAsyncCallback
+	{
+		uint GetParameters(ref uint pdwFlags, ref uint pdwQueue);
 		uint Invoke(IUnknown pAsyncResult);
 	}
+	/*---------------Core Audio API---------------*/
+	public enum ERole
+	{
+		eConsole,
+		eMultimedia,
+		eCommunications,
+		ERole_enum_count
+	}
+	public enum EDataFlow
+	{
+		eRender,
+		eCapture,
+		eAll,
+		EDataFlow_enum_count
+	}
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("5CDF2C82-841E-4546-9722-0CF74078229A")]
+	public interface IAudioEndpointVolume
+	{
+		uint RegisterControlChangeNotify(IUnknown pNotify);
+		uint UnregisterControlChangeNotify(IUnknown pNotify);
+		uint GetChannelCount(out  uint pnChannelCount);
+		uint SetMasterVolumeLevel(float fLevelDB,ref Guid pguidEventContext);
+		uint SetMasterVolumeLevelScalar(float fLevel,ref Guid pguidEventContext);
+		uint GetMasterVolumeLevel(out  float pfLevelDB);
+		uint GetMasterVolumeLevelScalar(out  float pfLevel);
+		uint SetChannelVolumeLevel(uint nChannel,float fLevelDB,ref Guid pguidEventContext);
+		uint SetChannelVolumeLevelScalar(uint nChannel,float fLevel,ref Guid pguidEventContext);
+		uint GetChannelVolumeLevel(uint nChannel,out  float pfLevelDB);
+		uint GetChannelVolumeLevelScalar(uint nChannel,out  float pfLevel);
+		uint SetMute(bool bMute,ref Guid pguidEventContext);
+		uint GetMute(out bool pbMute);
+		uint GetVolumeStepInfo(out  uint pnStep,out  uint pnStepCount);
+		uint VolumeStepUp(ref Guid pguidEventContext);
+		uint VolumeStepDown(ref Guid pguidEventContext);
+		uint QueryHardwareSupport(out uint pdwHardwareSupportMask);     
+		uint GetVolumeRange(out  float pflVolumeMindB,out  float pflVolumeMaxdB,out  float pflVolumeIncrementdB);
+	}
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("D666063F-1587-4E43-81F1-B948E807363F")]
+	public interface IMMDevice
+    {
+		uint Activate(ref Guid iid, uint dwClsCtx, IntPtr pActivationParams, out IUnknown ppInterface);
+		uint OpenPropertyStore(uint stgmAccess, out IUnknown ppProperties);
+		uint GetId(out string ppstrId);
+		uint GetState(out uint pdwState);
+    }
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("A95664D2-9614-4F35-A746-DE8DB63617E6")]
+	public interface IMMDeviceEnumerator
+    {
+		uint EnumAudioEndpoints(EDataFlow dataFlow,uint dwStateMask,out IUnknown ppDevices);      
+        uint GetDefaultAudioEndpoint(EDataFlow dataFlow,ERole role,out IMMDevice ppEndpoint);     
+        uint GetDevice(string pwstrId,out IMMDevice ppDevice);
+        
+        uint RegisterEndpointNotificationCallback(IUnknown pClient);
+        
+        uint UnregisterEndpointNotificationCallback(IUnknown pClient);
+    }
+	/*---------------MediaFoundationPlayer---------------*/
 	public enum MFP_MEDIAPLAYER_STATE
 	{
-		EMPTY = 0,
-		STOPPED = 0x1,
-		PLAYING = 0x2,
-		PAUSED = 0x3,
-		SHUTDOWN = 0x4
+		EMPTY,
+		STOPPEDx1,
+		PLAYINGx2,
+		PAUSEDx3,
+		SHUTDOWNx4
 	}
 	public struct MFP_EVENT_HEADER
 	{

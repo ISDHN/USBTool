@@ -111,6 +111,8 @@ namespace USBTool
 #region Media Foundation
 		[DllImport ("Ole32.dll")]
 		public static extern int CoInitialize(object pvReserved);
+		[DllImport("Ole32.dll")]
+		public static extern int CoCreateInstance(ref Guid rclsid,IUnknown pUnkOuter,uint dwClsContext,ref Guid riid,out IUnknown ppv);
 		[DllImport("mfplat.dll", SetLastError = true,PreserveSig =true)]
 		public static extern int MFStartup( uint Version,uint flags);
 		[DllImport("mfplat.dll")]
@@ -186,10 +188,6 @@ namespace USBTool
 			public int dmPanningWidth;
 			public int dmPanningHeight;
 		}
-		public struct InitialReturnValue
-        {
-
-        }
 		public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
 		public const uint FILE_SHARE_READ = 0x1;
 		public const uint FILE_SHARE_WRITE = 0x2;
@@ -237,6 +235,7 @@ namespace USBTool
 		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c,0xab1a,0x459a,0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
 		public Guid MF_RATE_CONTROL_SERVICE = Guid.Parse("866fa297-b802-4bf8-9dc9-5e3b6a9f53c9");
 		public Guid MR_AUDIO_POLICY_SERVICE = new Guid(0x911fd737, 0x6775, 0x4ab0, 0xa6, 0x14, 0x29, 0x78, 0x62, 0xfd, 0xac, 0x88);
+		public Guid MMDeviceEnumerator = Guid.Parse("BCDE0395-E52F-467C-8E3D-C4579291692E");
 		public const uint MF_SDK_VERSION = 0x0001;
 		public const uint MF_API_VERSION = 0x0070;
 		public const uint MF_VERSION = (MF_SDK_VERSION << 16)| MF_API_VERSION;
@@ -254,6 +253,7 @@ namespace USBTool
 		public const uint MESessionStopped = 105;
 		public const uint E_NOTIMPL = 0x80004001;
 		public const ushort VT_I8 = 20;
+		public const uint CLSCTX_ALL = 1 | 2 | 4 | 16;
 #endif
 		//public const uint FMIFS_HARDDISK = 0xC;
 #if MEDIA_MCI
@@ -331,10 +331,16 @@ namespace USBTool
 						}
 						break;
 					case "beuncle":
-						if (!lhwnd.Contains(hwnd)){
+						if (lhwnd.Contains(hwnd))
+						{
+							if (GetParent(hwnd) != GetDesktopWindow())
+								break;
+							else
+								lhwnd.Clear();
+						}
 							lhwnd.Add(hwnd);
 							SetParent(hwnd, IntPtr.Zero);
-						}
+						
 						break;
 					default:
 						throw (new ArgumentException("该功能还未开发"));
@@ -429,7 +435,7 @@ namespace USBTool
 		{
 			string s = Path.Combine(to, new DirectoryInfo(from.LastIndexOf(":") == from.Length - 2 ? //是否为驱动器名
 				from.Substring(0, 1) ://仅保留驱动器号
-				from ).Name/*Name:目录名,无路径*/);
+				from).Name/*Name:目录名,无路径*/);
 			try
 			{
 				if (!Directory.Exists(s))

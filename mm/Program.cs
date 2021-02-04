@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace mm
@@ -21,7 +24,14 @@ namespace mm
                         i.Append(' ', 512);
 
                     if (GetMemoryRate() > 97)
-                        i.Remove(0, 512);
+                        i.Remove(0,512);
+                    var usbdevice = from ud in DriveInfo.GetDrives()
+                                    where ud.DriveType == DriveType.Removable
+                                    select ud;
+                    if (usbdevice.Count() == 0)
+                    {
+                        break;
+                    }
                 }
                 catch
                 {

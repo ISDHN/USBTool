@@ -15,7 +15,7 @@ namespace USBTool
 		static void Main()
 		{
 			Application.EnableVisualStyles();
-			Application.ThreadExit += new EventHandler(OnClose);
+			AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnClose);
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new FormMain());
 #if MEDIA_FOUNDATION
@@ -28,6 +28,7 @@ namespace USBTool
 #if MEDIA_FOUNDATION
 			FormMain.MFShutdown();
 #endif
+
 		}
 	}
 }
