@@ -5,14 +5,6 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USBTool", "USBTool\USBTool.csproj", "{43286F55-2D62-47CA-87FA-6021F9070C09}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17488443-FCB9-40E2-A3CF-CA196DEC81B3}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\mfapi.h = C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\mfapi.h
-		C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\mfidl.h = C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\mfidl.h
-		C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\Mfidl.idl = C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\Mfidl.idl
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mm", "mm\mm.csproj", "{74D2160A-AD4A-45D1-A119-B134821982EF}"
 EndProject
 Global

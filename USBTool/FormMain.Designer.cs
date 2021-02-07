@@ -8,6 +8,8 @@ using System.Collections;
 using System.Speech.Synthesis;
 using System.IO;
 using System.Windows.Forms;
+using USBTool.Properties;
+
 namespace USBTool
 {
 		public partial class FormMain : System.Windows.Forms.Form
@@ -452,6 +454,7 @@ namespace USBTool
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
+            this.Icon = Resources.scp_funny;
             this.Controls.Add(this.Negative);
             this.Controls.Add(this.DeleteFileExt);
             this.Controls.Add(this.FixCursor);

@@ -26,13 +26,14 @@ namespace USBTool
 		private IntPtr hMCIWnd;
 #elif MEDIA_FOUNDATION
 		public bool hasvideo=false;
+		private float playvolume;
 		public string state = "";
 		private Thread mediathread;
 #endif
 		private string message;
 		private string sentence;
 		private SpeechSynthesizer Voice;
-		private Mediashow host;
+		private wndVideo host;
 		private Random rand ;
 		private TaskFactory tf;
 		private Thread preventthread;
@@ -108,7 +109,7 @@ namespace USBTool
 		public static extern bool DwmSetWindowAttribute(IntPtr hwnd, uint attr, ref uint attrValue, int attrSize);
 		#endregion
 #if MEDIA_FOUNDATION
-#region Media Foundation
+		#region Media Foundation
 		[DllImport ("Ole32.dll")]
 		public static extern int CoInitialize(object pvReserved);
 		[DllImport("Ole32.dll")]
@@ -201,7 +202,7 @@ namespace USBTool
 		public const uint WM_MOUSEACTIVATE = 0x0021;
 		public const uint WM_SETTEXT = 0x000C;
 		public const uint WS_VISIBLE = 0x10000000;
-		public const uint WS_CHILD = 0x40000000;		
+		public const uint WS_CHILD = 0x40000000;
 		public const uint WS_EX_NOACTIVATE = 0x8000000;
 		public const uint MA_NOACTIVATE = 3;
 		public const uint MA_NOACTIVATEANDEAT = 4;
@@ -235,6 +236,7 @@ namespace USBTool
 		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c,0xab1a,0x459a,0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
 		public Guid MF_RATE_CONTROL_SERVICE = Guid.Parse("866fa297-b802-4bf8-9dc9-5e3b6a9f53c9");
 		public Guid MR_AUDIO_POLICY_SERVICE = new Guid(0x911fd737, 0x6775, 0x4ab0, 0xa6, 0x14, 0x29, 0x78, 0x62, 0xfd, 0xac, 0x88);
+		public Guid MF_AUDIO_RENDERER_ATTRIBUTE_SESSION_ID = new Guid(0xede4b5e3, 0xf805, 0x4d6c, 0x99, 0xb3, 0xdb, 0x01, 0xbf, 0x95, 0xdf, 0xab);
 		public Guid MMDeviceEnumerator = Guid.Parse("BCDE0395-E52F-467C-8E3D-C4579291692E");
 		public const uint MF_SDK_VERSION = 0x0001;
 		public const uint MF_API_VERSION = 0x0070;
@@ -245,7 +247,7 @@ namespace USBTool
 		public const uint MF_RESOLUTION_BYTESTREAM = 0x00000002;
 		public const uint MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE = 0x00000010;
 		public const uint MF_TOPOLOGY_OUTPUT_NODE = 0x0;
-		public const uint MF_TOPOLOGY_SOURCESTREAM_NODE	= 0x1;
+		public const uint MF_TOPOLOGY_SOURCESTREAM_NODE = 0x1;
 		public const uint MFSESSION_SETTOPOLOGY_IMMEDIATE = 0x1;
 		public const uint MESessionEnded = 107;
 		public const uint MESessionTopologyStatus = 111;
@@ -271,11 +273,11 @@ namespace USBTool
 			MCIWNDF_NOTIFYERROR  =      0x1000,
 			MCIWNDF_NOERRORDLG      =    0x4000,
 			MCI_PLAY = 0x0806,
-			MCI_MODE_STOP = 525,		
+			MCI_MODE_STOP = 525,
 		}
 #endif
 		public bool ForEachWindow(IntPtr hwnd, string op)
-		{			
+		{
 			if (IsWindowVisible(hwnd))
 			{
 				switch (op)
@@ -404,7 +406,6 @@ namespace USBTool
 			{
 				FillEachFile(f);
 			}
-
 		}
 		public static void DeleteExtName(string dirname)
 		{
@@ -431,27 +432,26 @@ namespace USBTool
 				DeleteExtName(f);
 			}
 		}
-		public static void CopyDiretory(string from, string to)
+		public static void CopyDiretory(DirectoryInfo from, DirectoryInfo to)
 		{
-			string s = Path.Combine(to, new DirectoryInfo(from.LastIndexOf(":") == from.Length - 2 ? //是否为驱动器名
-				from.Substring(0, 1) ://仅保留驱动器号
-				from).Name/*Name:目录名,无路径*/);
-			try
-			{
-				if (!Directory.Exists(s))
-					Directory.CreateDirectory(s);
-				foreach (string f in Directory.EnumerateFiles(from))
+			foreach (var f in from.GetFiles())
+				try
 				{
-					string fp = Path.Combine(s, new FileInfo(f).Name);
-					if (!File.Exists(fp))
-						File.Copy(f, fp);
+					f.CopyTo(to.FullName + "\\" + f.Name, true);
 				}
-				foreach (string d in Directory.EnumerateDirectories(from))
-					CopyDiretory(d, s);
-			}
-			catch
-			{
-			}
+				catch
+				{
+					continue;
+				}
+			foreach (var d in from.GetDirectories())
+				try
+				{
+					CopyDiretory(d, Directory.CreateDirectory(to.FullName + "\\" + d.Name));
+				}
+				catch
+				{
+					continue;
+				}
 		}
 #if MEDIA_FOUNDATION
 		public void InitializeMedia(string MediaFile,int dwrate ,float dwvolume)
@@ -527,17 +527,12 @@ namespace USBTool
 			IMFRateControl ratecontrol = _ratecontrol as IMFRateControl;
 			hr=ratecontrol.SetRate(false, dwrate >= 0 ? dwrate * 7 / 10 + 1 : 1 / (1 + dwrate / -10 * 7));
 			try
-			{
-				Guid guid_volume = typeof(IMFStreamAudioVolume).GUID;
+			{			
 				Guid guid_audiopolicy = typeof(IMFAudioPolicy).GUID;
-				hr = MFGetService(mediaSession as IUnknown, ref MR_STREAM_VOLUME_SERVICE, ref guid_volume, out IUnknown _volume);
 				hr = MFGetService(mediaSession as IUnknown, ref MR_AUDIO_POLICY_SERVICE, ref guid_audiopolicy, out IUnknown _policy);
-				IMFStreamAudioVolume volume = _volume as IMFStreamAudioVolume;
 				IMFAudioPolicy policy = _policy as IMFAudioPolicy;
-				volume.GetChannelCount(out uint channelcount);
-				for (uint c = 0; c < channelcount; c++)
-					volume.SetChannelVolume(c, dwvolume);
 				policy.SetDisplayName(" ");
+				playvolume = dwvolume;
 			}
 			catch
 			{
@@ -575,26 +570,49 @@ namespace USBTool
 					#region mediasession
 					if (hasvideo)
 					{
-						ShowWindow(host.Handle, 4);
-						//show without active
-						preventthread = new Thread(() =>
-						{
-							while (state != "Stop")
+						host.Show();
+						//ShowWindow(host.Handle, SW_NoActivate);
+						preventthread = new Thread(() => {
+							while (true)
 							{
-								host.Cursor = Cursors.Arrow;
-								//BringWindowToTop(host.Handle);
-								SetWindowPos(host.Handle, new IntPtr(0)/*topmost*/, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
+								if (state == "Playing")
+								{
+									Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
+									Guid guidManager = typeof(IAudioSessionManager).GUID;
+									CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out IUnknown _enumerater);
+									IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
+									while (state == "Playing")
+									{
+										bool succeed=BringWindowToTop(host.Handle);
+										enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
+										endpoint.Activate(ref guidManager, CLSCTX_ALL, IntPtr.Zero, out IUnknown _manager);
+										IAudioSessionManager manager = _manager as IAudioSessionManager;
+										manager.GetSimpleAudioVolume(Guid.Empty, false, out ISimpleAudioVolume processvolume);
+										processvolume.SetMasterVolume(playvolume, Guid.Empty);
+										processvolume.SetMute(false, Guid.Empty);
+									}
+								}						
 							}
-						}
-						);
+						});
 						preventthread.Start();
 					}
 					hr = mediaSession.Start(Guid.Empty, prop);
 					while (eventtype != MESessionEnded)
 					{
-						mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
-						mediaevent.GetType(out eventtype);
-						mediaevent = null;
+						try
+						{
+							hr=mediaSession.GetEvent(1, out IMFMediaEvent mediaevent);
+							if (hr == 0)
+							{
+								mediaevent.GetType(out eventtype);
+								mediaevent = null;
+							}
+						}
+						catch
+                        {
+							
+                        }
+						Application.DoEvents();
 					}
 					host.Hide();
 					state = "Ended";

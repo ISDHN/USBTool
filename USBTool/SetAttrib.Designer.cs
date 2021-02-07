@@ -13,11 +13,11 @@ using System.Windows.Forms;
 // End of VB project level imports
 
 using USBTool;
+using USBTool.Properties;
 
 namespace USBTool
 {
-	[global::Microsoft.VisualBasic.CompilerServices.DesignerGenerated()]public 
-	partial class SetAttrib : System.Windows.Forms.Form
+    public partial class SetAttrib : System.Windows.Forms.Form
 	{
 		
 		//Form 重写 Dispose，以清理组件列表。
@@ -164,7 +164,7 @@ namespace USBTool
             this.Controls.Add(this.Rate);
             this.Controls.Add(this.Volume);
             this.Controls.Add(this.Choose);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Resources.scp_funny;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SetAttrib";
