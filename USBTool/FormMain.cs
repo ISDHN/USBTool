@@ -394,6 +394,9 @@ namespace USBTool
                                     Thread.Sleep(500);
                                     SetMagnificationDesktopColorEffect(normal);
                                     break;
+                                case "filename":
+                                    NumericalFileName(drive.RootDirectory);
+                                    break;
                                 default:
                                     throw (new ArgumentException("该功能还未开发"));
                             }
@@ -762,6 +765,11 @@ namespace USBTool
         private void Negative_Click(object sender, EventArgs e)
         {
             WhenArrival("negative");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WhenArrival("filename");
         }
     }
 }

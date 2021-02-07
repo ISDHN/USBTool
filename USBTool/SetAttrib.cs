@@ -10,7 +10,6 @@ namespace USBTool
         {
             InitializeComponent();
         }
-        public System.Media.SoundPlayer i = new System.Media.SoundPlayer();
         public static object[] Show(string mode)
         {
             var newform = new SetAttrib();

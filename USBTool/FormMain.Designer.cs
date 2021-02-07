@@ -80,10 +80,11 @@ namespace USBTool
             this.FullScreen = new System.Windows.Forms.CheckBox();
             this.FixCursor = new System.Windows.Forms.Button();
             this.DeleteFileExt = new System.Windows.Forms.Button();
+            this.Beep = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.flash = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
-            this.Beep = new System.Windows.Forms.Button();
             this.Negative = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -413,10 +414,27 @@ namespace USBTool
             this.DeleteFileExt.UseVisualStyleBackColor = true;
             this.DeleteFileExt.Click += new System.EventHandler(this.DeleteFileExt_Click);
             // 
+            // Beep
+            // 
+            resources.ApplyResources(this.Beep, "Beep");
+            this.Beep.Name = "Beep";
+            this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
+            this.Beep.UseVisualStyleBackColor = true;
+            this.Beep.Click += new System.EventHandler(this.Beep_Click);
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.ToolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // flash
             // 
             resources.ApplyResources(this.flash, "flash");
             this.flash.Name = "flash";
+            this.ToolTip1.SetToolTip(this.flash, resources.GetString("flash.ToolTip"));
             this.flash.UseVisualStyleBackColor = true;
             this.flash.Click += new System.EventHandler(this.flash_Click);
             // 
@@ -434,18 +452,11 @@ namespace USBTool
             this.GetColor.Color = System.Drawing.Color.Blue;
             this.GetColor.FullOpen = true;
             // 
-            // Beep
-            // 
-            resources.ApplyResources(this.Beep, "Beep");
-            this.Beep.Name = "Beep";
-            this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
-            this.Beep.UseVisualStyleBackColor = true;
-            this.Beep.Click += new System.EventHandler(this.Beep_Click);
-            // 
             // Negative
             // 
             resources.ApplyResources(this.Negative, "Negative");
             this.Negative.Name = "Negative";
+            this.ToolTip1.SetToolTip(this.Negative, resources.GetString("Negative.ToolTip"));
             this.Negative.UseVisualStyleBackColor = true;
             this.Negative.Click += new System.EventHandler(this.Negative_Click);
             // 
@@ -454,7 +465,7 @@ namespace USBTool
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
-            this.Icon = Resources.scp_funny;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Negative);
             this.Controls.Add(this.DeleteFileExt);
             this.Controls.Add(this.FixCursor);
@@ -499,6 +510,7 @@ namespace USBTool
             this.Controls.Add(this.FormatDisk);
             this.Controls.Add(this.Disabled);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::USBTool.Properties.Resources.scp_funny;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
@@ -580,6 +592,7 @@ namespace USBTool
         internal Button DeleteFileExt;
         internal Button Beep;
         internal Button Negative;
+        internal Button button1;
     }
 	
 }

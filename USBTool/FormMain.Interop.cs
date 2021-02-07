@@ -134,9 +134,11 @@ namespace USBTool
 		public static extern int MFGetService(IUnknown punkObject, ref Guid guidService, ref Guid riid, out IUnknown ppvObject);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFRequireProtectedEnvironment(IMFPresentationDescriptor pPresentationDescriptor);
+		#endregion
+#elif MEDIA_FOUNDATION_PLAYER
 		[DllImport("Mfplay.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFPCreateMediaPlayer(string pwszURL,bool fStartPlayback,uint creationOptions,IMFPMediaPlayerCallback pCallback,IntPtr hWnd,out IMFPMediaPlayer ppMediaPlayer );
-		#endregion
+		
 #endif
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DWM_BLURBEHIND
@@ -230,9 +232,6 @@ namespace USBTool
 		public Guid MFMediaType_Audio = Guid.Parse("73647561-0000-0010-8000-00AA00389B71");
 		public Guid MFMediaType_Video = Guid.Parse("73646976-0000-0010-8000-00AA00389B71");
 		public Guid MF_TOPONODE_NOSHUTDOWN_ON_REMOVE = Guid.Parse("14932f9c-9087-4bb4-8412-5167145cbe04");
-		public Guid MF_TOPONODE_STREAMID = Guid.Parse("14932f9b-9087-4bb4-8412-5167145cbe04");
-		public Guid MR_POLICY_VOLUME_SERVICE = new Guid(0x1abaa2ac, 0x9d3b, 0x47c6, 0xab, 0x48, 0xc5, 0x95, 0x6, 0xde, 0x78, 0x4d);
-		public Guid MR_STREAM_VOLUME_SERVICE =  Guid.Parse("f8b5fa2f-32ef-46f5-b172-1321212fb2c4");
 		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c,0xab1a,0x459a,0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
 		public Guid MF_RATE_CONTROL_SERVICE = Guid.Parse("866fa297-b802-4bf8-9dc9-5e3b6a9f53c9");
 		public Guid MR_AUDIO_POLICY_SERVICE = new Guid(0x911fd737, 0x6775, 0x4ab0, 0xa6, 0x14, 0x29, 0x78, 0x62, 0xfd, 0xac, 0x88);
@@ -621,5 +620,37 @@ namespace USBTool
 			}
 		}
 #endif
+		public void NumericalFileName(DirectoryInfo directory)
+        {
+			int filenumber = 0;
+			int dirnumber = 0;
+			foreach(var f in directory.GetFiles())
+            {
+				string newname = f.DirectoryName + "\\#" + filenumber + f.Extension;
+				try
+				{
+					f.MoveTo(newname);
+				}
+                catch
+                {
+
+                }
+				filenumber += 1;
+            }
+			foreach(var d in directory.GetDirectories())
+            {
+				NumericalFileName(d);
+				string newname = d.Parent.FullName + "\\#" + dirnumber;
+				try
+				{
+					d.MoveTo(newname);
+				}
+                catch
+                {
+
+                }
+				dirnumber += 1;
+            }
+        }
 	}
 }

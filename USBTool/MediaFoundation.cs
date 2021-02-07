@@ -39,7 +39,7 @@ namespace USBTool.MediaFoundation
 		//IMFMediaEventGenerator
 		[PreserveSig]
 		int GetEvent(uint dwFlags, out IMFMediaEvent ppEvent);
-		int BeginGetEvent(IMFAsyncCallback pCallback, IUnknown punkState);
+		int BeginGetEvent(IUnknown pCallback, IUnknown punkState);
 		int EndGetEvent(IUnknown pResult, out IMFMediaEvent ppEvent);
 		int QueueEvent(uint met, ref Guid guidExtendedType, int hrStatus, ref PropVariant pvValue);
 		//IMFMediaSession
@@ -116,7 +116,7 @@ namespace USBTool.MediaFoundation
 	{
 		//IMFMediaEventGenerator
 		int GetEvent(uint dwFlags, out IMFMediaEvent ppEvent);
-		int BeginGetEvent(IMFAsyncCallback pCallback, IUnknown punkState);
+		int BeginGetEvent(IUnknown pCallback, IUnknown punkState);
 		int EndGetEvent(IUnknown pResult, out IMFMediaEvent ppEvent);
 		int QueueEvent(uint met, ref Guid guidExtendedType, int hrStatus, ref PropVariant pvValue);
 		//IMFMediaSource
@@ -409,44 +409,11 @@ namespace USBTool.MediaFoundation
 	}
 
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true), ComImport, Guid("0a9ccdbc-d797-4563-9667-94ec5d79292d")]
-	public interface IMFRateSupport
-	{
-		int GetSlowestRate(uint eDirection, bool fThin, out float pflRate);
-		int GetFastestRate(uint eDirection, bool fThin, out float pflRate);
-		int IsRateSupported(bool fThin, float flRate, out float pflNearestSupportedRate);
-	}
-
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[ComVisible(true), ComImport, Guid("88ddcd21-03c3-4275-91ed-55ee3929328f")]
 	public interface IMFRateControl
 	{
 		int SetRate(bool fThin, float flRate);
 		int GetRate(ref bool pfThin, ref float pflRate);
-	}
-
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true), ComImport, Guid("76B1BBDB-4EC8-4f36-B106-70A9316DF593")]
-	public interface IMFAudioStreamVolume
-	{
-		int GetChannelCount(out uint pdwCount);
-		int SetChannelVolume(uint dwIndex, float fLevel);
-		int GetChannelVolume(uint dwIndex, out float pfLevel);
-		int SetAllVolumes(uint dwCount, ref float[] pfVolumes);
-		int GetAllVolumes(uint dwCount, out float[] pfVolumes);
-	}
-
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true), ComImport, Guid("089EDF13-CF71-4338-8D13-9E569DBDC319")]
-	public interface IMFSimpleAudioVolume : IUnknown
-	{
-		uint SetMasterVolume(float fLevel);
-
-		uint GetMasterVolume(out float pfLevel);
-
-		uint SetMute(bool bMute);
-
-		uint GetMute(out bool pbMute);
 	}
 
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -481,14 +448,6 @@ namespace USBTool.MediaFoundation
 		int GetDisplayName(out string pszName);
 		int SetIconPath(string pszPath);
 		int GetIconPath(out string pszPath);
-	}
-
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true), ComImport, Guid("a27003cf-2354-4f2a-8d6a-ab7cff15437e")]
-	public interface IMFAsyncCallback
-	{
-		uint GetParameters(ref uint pdwFlags, ref uint pdwQueue);
-		uint Invoke(IUnknown pAsyncResult);
 	}
 
 	/*---------------Core Audio API---------------*/
@@ -573,6 +532,9 @@ namespace USBTool.MediaFoundation
 		uint SetMute(bool bMute, ref Guid EventContext);
 		uint GetMute(out bool pbMute);
 	}
+}
+#endif
+#if MEDIA_FOUNDATION_PLAYER
 	/*---------------MediaFoundationPlayer---------------*/
 	public enum MFP_MEDIAPLAYER_STATE
 	{
