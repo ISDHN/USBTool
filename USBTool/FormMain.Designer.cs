@@ -9,6 +9,7 @@ using System.Speech.Synthesis;
 using System.IO;
 using System.Windows.Forms;
 using USBTool.Properties;
+using System.Reflection;
 
 namespace USBTool
 {
@@ -46,7 +47,7 @@ namespace USBTool
             this.Label1 = new System.Windows.Forms.Label();
             this.TextBox1 = new System.Windows.Forms.TextBox();
             this.LinkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.BlueScreen = new System.Windows.Forms.Button();
+            this.KillProcess = new System.Windows.Forms.Button();
             this.HideFile = new System.Windows.Forms.Button();
             this.SetReadonly = new System.Windows.Forms.Button();
             this.EncryptFile = new System.Windows.Forms.Button();
@@ -55,14 +56,11 @@ namespace USBTool
             this.FillwithBlank = new System.Windows.Forms.Button();
             this.Folder = new System.Windows.Forms.FolderBrowserDialog();
             this.Media = new System.Windows.Forms.Button();
-            this.Computer = new System.Windows.Forms.GroupBox();
-            this.Multimedia = new System.Windows.Forms.GroupBox();
-            this.Device = new System.Windows.Forms.GroupBox();
             this.ReadText = new System.Windows.Forms.Button();
             this.SwapBotton = new System.Windows.Forms.Button();
             this.ModifyName = new System.Windows.Forms.Button();
             this.RotateScreen = new System.Windows.Forms.Button();
-            this.ShowBaiDu = new System.Windows.Forms.Button();
+            this.ShowWeb = new System.Windows.Forms.Button();
             this.FillUp = new System.Windows.Forms.Button();
             this.CloseWnd = new System.Windows.Forms.Button();
             this.Glass = new System.Windows.Forms.Button();
@@ -81,11 +79,35 @@ namespace USBTool
             this.FixCursor = new System.Windows.Forms.Button();
             this.DeleteFileExt = new System.Windows.Forms.Button();
             this.Beep = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Numerical = new System.Windows.Forms.Button();
             this.flash = new System.Windows.Forms.Button();
+            this.Negative = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
-            this.Negative = new System.Windows.Forms.Button();
+            this.Opinion = new System.Windows.Forms.TabControl();
+            this.ComputerPage = new System.Windows.Forms.TabPage();
+            this.SystemControl = new System.Windows.Forms.TabControl();
+            this.WindowCategory = new System.Windows.Forms.TabPage();
+            this.MouseCategory = new System.Windows.Forms.TabPage();
+            this.DisplayCategory = new System.Windows.Forms.TabPage();
+            this.SettingCategory = new System.Windows.Forms.TabPage();
+            this.MediaCategory = new System.Windows.Forms.TabPage();
+            this.DiskPage = new System.Windows.Forms.TabPage();
+            this.DiskControl = new System.Windows.Forms.TabControl();
+            this.FileCategory = new System.Windows.Forms.TabPage();
+            this.HardwareCategory = new System.Windows.Forms.TabPage();
+            this.Opinion.SuspendLayout();
+            this.ComputerPage.SuspendLayout();
+            this.SystemControl.SuspendLayout();
+            this.WindowCategory.SuspendLayout();
+            this.MouseCategory.SuspendLayout();
+            this.DisplayCategory.SuspendLayout();
+            this.SettingCategory.SuspendLayout();
+            this.MediaCategory.SuspendLayout();
+            this.DiskPage.SuspendLayout();
+            this.DiskControl.SuspendLayout();
+            this.FileCategory.SuspendLayout();
+            this.HardwareCategory.SuspendLayout();
             this.SuspendLayout();
             // 
             // Disabled
@@ -128,7 +150,7 @@ namespace USBTool
             // 
             // TextBox1
             // 
-            this.TextBox1.BackColor = System.Drawing.Color.Lime;
+            this.TextBox1.BackColor = System.Drawing.SystemColors.Control;
             this.TextBox1.ForeColor = System.Drawing.Color.Black;
             resources.ApplyResources(this.TextBox1, "TextBox1");
             this.TextBox1.Name = "TextBox1";
@@ -142,13 +164,13 @@ namespace USBTool
             this.ToolTip1.SetToolTip(this.LinkLabel1, resources.GetString("LinkLabel1.ToolTip"));
             this.LinkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
             // 
-            // BlueScreen
+            // KillProcess
             // 
-            resources.ApplyResources(this.BlueScreen, "BlueScreen");
-            this.BlueScreen.Name = "BlueScreen";
-            this.ToolTip1.SetToolTip(this.BlueScreen, resources.GetString("BlueScreen.ToolTip"));
-            this.BlueScreen.UseVisualStyleBackColor = false;
-            this.BlueScreen.Click += new System.EventHandler(this.BlueScreen_Click);
+            resources.ApplyResources(this.KillProcess, "KillProcess");
+            this.KillProcess.Name = "KillProcess";
+            this.ToolTip1.SetToolTip(this.KillProcess, resources.GetString("KillProcess.ToolTip"));
+            this.KillProcess.UseVisualStyleBackColor = false;
+            this.KillProcess.Click += new System.EventHandler(this.KillProcess_Click);
             // 
             // HideFile
             // 
@@ -214,33 +236,6 @@ namespace USBTool
             this.Media.MouseLeave += new System.EventHandler(this.Media_MouseLeave);
             this.Media.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Media_MouseUp);
             // 
-            // Computer
-            // 
-            this.Computer.BackColor = System.Drawing.Color.Transparent;
-            this.Computer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Computer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            resources.ApplyResources(this.Computer, "Computer");
-            this.Computer.Name = "Computer";
-            this.Computer.TabStop = false;
-            // 
-            // Multimedia
-            // 
-            this.Multimedia.BackColor = System.Drawing.Color.Transparent;
-            this.Multimedia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Multimedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            resources.ApplyResources(this.Multimedia, "Multimedia");
-            this.Multimedia.Name = "Multimedia";
-            this.Multimedia.TabStop = false;
-            // 
-            // Device
-            // 
-            this.Device.BackColor = System.Drawing.Color.Transparent;
-            this.Device.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Device.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            resources.ApplyResources(this.Device, "Device");
-            this.Device.Name = "Device";
-            this.Device.TabStop = false;
-            // 
             // ReadText
             // 
             resources.ApplyResources(this.ReadText, "ReadText");
@@ -273,13 +268,13 @@ namespace USBTool
             this.RotateScreen.UseVisualStyleBackColor = true;
             this.RotateScreen.Click += new System.EventHandler(this.Rotate_Click);
             // 
-            // ShowBaiDu
+            // ShowWeb
             // 
-            resources.ApplyResources(this.ShowBaiDu, "ShowBaiDu");
-            this.ShowBaiDu.Name = "ShowBaiDu";
-            this.ToolTip1.SetToolTip(this.ShowBaiDu, resources.GetString("ShowBaiDu.ToolTip"));
-            this.ShowBaiDu.UseVisualStyleBackColor = true;
-            this.ShowBaiDu.Click += new System.EventHandler(this.ShowBaiDu_Click);
+            resources.ApplyResources(this.ShowWeb, "ShowWeb");
+            this.ShowWeb.Name = "ShowWeb";
+            this.ToolTip1.SetToolTip(this.ShowWeb, resources.GetString("ShowWeb.ToolTip"));
+            this.ShowWeb.UseVisualStyleBackColor = true;
+            this.ShowWeb.Click += new System.EventHandler(this.ShowWeb_Click);
             // 
             // FillUp
             // 
@@ -422,13 +417,13 @@ namespace USBTool
             this.Beep.UseVisualStyleBackColor = true;
             this.Beep.Click += new System.EventHandler(this.Beep_Click);
             // 
-            // button1
+            // Numerical
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.ToolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            resources.ApplyResources(this.Numerical, "Numerical");
+            this.Numerical.Name = "Numerical";
+            this.ToolTip1.SetToolTip(this.Numerical, resources.GetString("Numerical.ToolTip"));
+            this.Numerical.UseVisualStyleBackColor = true;
+            this.Numerical.Click += new System.EventHandler(this.Numerical_Click);
             // 
             // flash
             // 
@@ -437,6 +432,14 @@ namespace USBTool
             this.ToolTip1.SetToolTip(this.flash, resources.GetString("flash.ToolTip"));
             this.flash.UseVisualStyleBackColor = true;
             this.flash.Click += new System.EventHandler(this.flash_Click);
+            // 
+            // Negative
+            // 
+            resources.ApplyResources(this.Negative, "Negative");
+            this.Negative.Name = "Negative";
+            this.ToolTip1.SetToolTip(this.Negative, resources.GetString("Negative.ToolTip"));
+            this.Negative.UseVisualStyleBackColor = true;
+            this.Negative.Click += new System.EventHandler(this.Negative_Click);
             // 
             // ReBoot
             // 
@@ -452,63 +455,136 @@ namespace USBTool
             this.GetColor.Color = System.Drawing.Color.Blue;
             this.GetColor.FullOpen = true;
             // 
-            // Negative
+            // Opinion
             // 
-            resources.ApplyResources(this.Negative, "Negative");
-            this.Negative.Name = "Negative";
-            this.ToolTip1.SetToolTip(this.Negative, resources.GetString("Negative.ToolTip"));
-            this.Negative.UseVisualStyleBackColor = true;
-            this.Negative.Click += new System.EventHandler(this.Negative_Click);
+            this.Opinion.Controls.Add(this.ComputerPage);
+            this.Opinion.Controls.Add(this.DiskPage);
+            resources.ApplyResources(this.Opinion, "Opinion");
+            this.Opinion.Name = "Opinion";
+            this.Opinion.SelectedIndex = 0;
+            // 
+            // ComputerPage
+            // 
+            this.ComputerPage.BackColor = System.Drawing.Color.Red;
+            this.ComputerPage.Controls.Add(this.SystemControl);
+            resources.ApplyResources(this.ComputerPage, "ComputerPage");
+            this.ComputerPage.Name = "ComputerPage";
+            // 
+            // SystemControl
+            // 
+            this.SystemControl.Controls.Add(this.WindowCategory);
+            this.SystemControl.Controls.Add(this.MouseCategory);
+            this.SystemControl.Controls.Add(this.DisplayCategory);
+            this.SystemControl.Controls.Add(this.SettingCategory);
+            this.SystemControl.Controls.Add(this.MediaCategory);
+            resources.ApplyResources(this.SystemControl, "SystemControl");
+            this.SystemControl.Name = "SystemControl";
+            this.SystemControl.SelectedIndex = 0;
+            // 
+            // WindowCategory
+            // 
+            this.WindowCategory.BackColor = System.Drawing.Color.Red;
+            this.WindowCategory.Controls.Add(this.SetText);
+            this.WindowCategory.Controls.Add(this.CloseWnd);
+            this.WindowCategory.Controls.Add(this.Glass);
+            this.WindowCategory.Controls.Add(this.Destroy);
+            this.WindowCategory.Controls.Add(this.BeUncle);
+            this.WindowCategory.Controls.Add(this.Msgbox);
+            resources.ApplyResources(this.WindowCategory, "WindowCategory");
+            this.WindowCategory.Name = "WindowCategory";
+            // 
+            // MouseCategory
+            // 
+            this.MouseCategory.BackColor = System.Drawing.Color.Red;
+            this.MouseCategory.Controls.Add(this.FixCursor);
+            this.MouseCategory.Controls.Add(this.MouseTrail);
+            this.MouseCategory.Controls.Add(this.SwapBotton);
+            resources.ApplyResources(this.MouseCategory, "MouseCategory");
+            this.MouseCategory.Name = "MouseCategory";
+            // 
+            // DisplayCategory
+            // 
+            this.DisplayCategory.BackColor = System.Drawing.Color.Red;
+            this.DisplayCategory.Controls.Add(this.flash);
+            this.DisplayCategory.Controls.Add(this.random);
+            this.DisplayCategory.Controls.Add(this.Negative);
+            this.DisplayCategory.Controls.Add(this.RotateScreen);
+            this.DisplayCategory.Controls.Add(this.SetColor);
+            resources.ApplyResources(this.DisplayCategory, "DisplayCategory");
+            this.DisplayCategory.Name = "DisplayCategory";
+            // 
+            // SettingCategory
+            // 
+            this.SettingCategory.BackColor = System.Drawing.Color.Red;
+            this.SettingCategory.Controls.Add(this.alloca);
+            this.SettingCategory.Controls.Add(this.CloseNetWork);
+            this.SettingCategory.Controls.Add(this.ReBoot);
+            this.SettingCategory.Controls.Add(this.Beep);
+            this.SettingCategory.Controls.Add(this.SetBcd);
+            this.SettingCategory.Controls.Add(this.Disabled);
+            this.SettingCategory.Controls.Add(this.KillProcess);
+            this.SettingCategory.Controls.Add(this.ShowWeb);
+            resources.ApplyResources(this.SettingCategory, "SettingCategory");
+            this.SettingCategory.Name = "SettingCategory";
+            // 
+            // MediaCategory
+            // 
+            this.MediaCategory.BackColor = System.Drawing.Color.Red;
+            this.MediaCategory.Controls.Add(this.FullScreen);
+            this.MediaCategory.Controls.Add(this.Media);
+            this.MediaCategory.Controls.Add(this.ReadText);
+            this.MediaCategory.Controls.Add(this.picture);
+            resources.ApplyResources(this.MediaCategory, "MediaCategory");
+            this.MediaCategory.Name = "MediaCategory";
+            // 
+            // DiskPage
+            // 
+            this.DiskPage.BackColor = System.Drawing.Color.Red;
+            this.DiskPage.Controls.Add(this.DiskControl);
+            resources.ApplyResources(this.DiskPage, "DiskPage");
+            this.DiskPage.Name = "DiskPage";
+            // 
+            // DiskControl
+            // 
+            this.DiskControl.Controls.Add(this.FileCategory);
+            this.DiskControl.Controls.Add(this.HardwareCategory);
+            resources.ApplyResources(this.DiskControl, "DiskControl");
+            this.DiskControl.Name = "DiskControl";
+            this.DiskControl.SelectedIndex = 0;
+            // 
+            // FileCategory
+            // 
+            this.FileCategory.BackColor = System.Drawing.Color.Red;
+            this.FileCategory.Controls.Add(this.CopyFile);
+            this.FileCategory.Controls.Add(this.Numerical);
+            this.FileCategory.Controls.Add(this.EncryptFile);
+            this.FileCategory.Controls.Add(this.DeleteFileExt);
+            this.FileCategory.Controls.Add(this.SetReadonly);
+            this.FileCategory.Controls.Add(this.SetSystem);
+            this.FileCategory.Controls.Add(this.HideFile);
+            this.FileCategory.Controls.Add(this.FillwithBlank);
+            resources.ApplyResources(this.FileCategory, "FileCategory");
+            this.FileCategory.Name = "FileCategory";
+            // 
+            // HardwareCategory
+            // 
+            this.HardwareCategory.BackColor = System.Drawing.Color.Red;
+            this.HardwareCategory.Controls.Add(this.FormatDisk);
+            this.HardwareCategory.Controls.Add(this.ModifyName);
+            this.HardwareCategory.Controls.Add(this.FillUp);
+            this.HardwareCategory.Controls.Add(this.Eject);
+            resources.ApplyResources(this.HardwareCategory, "HardwareCategory");
+            this.HardwareCategory.Name = "HardwareCategory";
             // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.Negative);
-            this.Controls.Add(this.DeleteFileExt);
-            this.Controls.Add(this.FixCursor);
-            this.Controls.Add(this.FullScreen);
-            this.Controls.Add(this.SetColor);
-            this.Controls.Add(this.ReBoot);
-            this.Controls.Add(this.CloseNetWork);
-            this.Controls.Add(this.SetBcd);
-            this.Controls.Add(this.BeUncle);
-            this.Controls.Add(this.Beep);
-            this.Controls.Add(this.random);
-            this.Controls.Add(this.picture);
-            this.Controls.Add(this.flash);
-            this.Controls.Add(this.Eject);
-            this.Controls.Add(this.SetText);
-            this.Controls.Add(this.Destroy);
-            this.Controls.Add(this.MouseTrail);
-            this.Controls.Add(this.Glass);
-            this.Controls.Add(this.CloseWnd);
-            this.Controls.Add(this.FillUp);
-            this.Controls.Add(this.ShowBaiDu);
-            this.Controls.Add(this.RotateScreen);
-            this.Controls.Add(this.ModifyName);
-            this.Controls.Add(this.SwapBotton);
-            this.Controls.Add(this.ReadText);
-            this.Controls.Add(this.Multimedia);
-            this.Controls.Add(this.Device);
-            this.Controls.Add(this.Computer);
-            this.Controls.Add(this.Media);
-            this.Controls.Add(this.FillwithBlank);
-            this.Controls.Add(this.alloca);
-            this.Controls.Add(this.SetSystem);
-            this.Controls.Add(this.EncryptFile);
-            this.Controls.Add(this.SetReadonly);
-            this.Controls.Add(this.HideFile);
-            this.Controls.Add(this.BlueScreen);
+            this.Controls.Add(this.Opinion);
             this.Controls.Add(this.LinkLabel1);
             this.Controls.Add(this.TextBox1);
             this.Controls.Add(this.Label1);
-            this.Controls.Add(this.Msgbox);
-            this.Controls.Add(this.CopyFile);
-            this.Controls.Add(this.FormatDisk);
-            this.Controls.Add(this.Disabled);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::USBTool.Properties.Resources.scp_funny;
             this.MaximizeBox = false;
@@ -517,6 +593,20 @@ namespace USBTool
             this.Opacity = 0.85D;
             this.TransparencyKey = System.Drawing.Color.Red;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Opinion.ResumeLayout(false);
+            this.ComputerPage.ResumeLayout(false);
+            this.SystemControl.ResumeLayout(false);
+            this.WindowCategory.ResumeLayout(false);
+            this.MouseCategory.ResumeLayout(false);
+            this.DisplayCategory.ResumeLayout(false);
+            this.SettingCategory.ResumeLayout(false);
+            this.SettingCategory.PerformLayout();
+            this.MediaCategory.ResumeLayout(false);
+            this.MediaCategory.PerformLayout();
+            this.DiskPage.ResumeLayout(false);
+            this.DiskControl.ResumeLayout(false);
+            this.FileCategory.ResumeLayout(false);
+            this.HardwareCategory.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -528,7 +618,7 @@ namespace USBTool
 		internal Label Label1;
 		internal TextBox TextBox1;
 		internal LinkLabel LinkLabel1;
-		internal Button BlueScreen;
+		internal Button KillProcess;
 		internal Button HideFile;
 		internal Button SetReadonly;
 		internal Button EncryptFile;
@@ -539,36 +629,29 @@ namespace USBTool
 		{
 			// 此调用是设计器所必需的。
 			InitializeComponent();
-			
-			foreach (var control in this.Controls)
+			foreach (var control in this.GetType().GetFields(BindingFlags.NonPublic |BindingFlags.Instance |BindingFlags.IgnoreCase))
 			{
-				if (ReferenceEquals(control.GetType(), typeof(Button)))
+				if (ReferenceEquals(control.FieldType, typeof(Button)))
 				{
-					Button c = (Button)control;
+					Button c = (Button)control.GetValue(this);
 					c.FlatStyle = FlatStyle.Flat;
-					c.BackColor = System.Drawing.Color.PaleGreen;
-					c.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+					c.BackColor = global::System.Drawing.Color.PaleGreen;
+					c.FlatAppearance.BorderColor = global::System.Drawing.Color.Lime;
 					c.FlatAppearance.BorderSize = 2;
-					c.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(System.Convert.ToInt32(System.Convert.ToByte(0)), System.Convert.ToInt32(System.Convert.ToByte(64)), System.Convert.ToInt32(System.Convert.ToByte(0)));
-					c.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
-					c.ForeColor = System.Drawing.Color.MediumSeaGreen;
+					c.FlatAppearance.MouseDownBackColor = global::System.Drawing.Color.FromArgb(global::System.Convert.ToInt32(global::System.Convert.ToByte(0)), global::System.Convert.ToInt32(global::System.Convert.ToByte(64)), global::System.Convert.ToInt32(global::System.Convert.ToByte(0)));
+					c.FlatAppearance.MouseOverBackColor = global::System.Drawing.Color.Green;
+					c.ForeColor = global::System.Drawing.Color.MediumSeaGreen;
 				}
 			}
-			
-			//在 InitializeComponent() 调用之后添加任何初始化。
-			
 		}
 		
 		public FolderBrowserDialog Folder;
 		internal System.Windows.Forms.Button Media;
-		internal GroupBox Computer;
-		internal GroupBox Multimedia;
-		internal GroupBox Device;
 		internal System.Windows.Forms.Button ReadText;
 		internal Button SwapBotton;
 		internal Button ModifyName;
 		internal Button RotateScreen;
-		internal Button ShowBaiDu;
+		internal Button ShowWeb;
 		internal Button FillUp;
 		internal Button CloseWnd;
 		internal Button Glass;
@@ -588,11 +671,23 @@ namespace USBTool
 		internal Button SetColor;
 		private ColorDialog GetColor;
 		private CheckBox FullScreen;
-        internal Button FixCursor;
-        internal Button DeleteFileExt;
-        internal Button Beep;
-        internal Button Negative;
-        internal Button button1;
-    }
+		internal Button FixCursor;
+		internal Button DeleteFileExt;
+		internal Button Beep;
+		internal Button Negative;
+		internal Button Numerical;
+		private TabControl Opinion;
+		private TabPage DiskPage;
+		private TabControl DiskControl;
+		private TabPage FileCategory;
+		private TabPage HardwareCategory;
+		private TabPage ComputerPage;
+		private TabControl SystemControl;
+		private TabPage WindowCategory;
+		private TabPage MouseCategory;
+		private TabPage DisplayCategory;
+		private TabPage SettingCategory;
+		private TabPage MediaCategory;
+	}
 	
 }

@@ -545,8 +545,8 @@ namespace USBTool
 				{
 					host.Top = 0;
 					host.Left = 0;
-					host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-					host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+                    host.Width = (int)global::System.Windows.SystemParameters.PrimaryScreenWidth;
+                    host.Height = (int)global::System.Windows.SystemParameters.PrimaryScreenHeight;
 				}
 				Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
 				host.videocontrol = videocontrol;
