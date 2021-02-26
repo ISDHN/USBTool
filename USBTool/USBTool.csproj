@@ -81,6 +81,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreAudioApi.cs" />
     <Compile Include="DirectShow.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>

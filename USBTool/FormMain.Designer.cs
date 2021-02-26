@@ -78,10 +78,10 @@ namespace USBTool
             this.FullScreen = new System.Windows.Forms.CheckBox();
             this.FixCursor = new System.Windows.Forms.Button();
             this.DeleteFileExt = new System.Windows.Forms.Button();
-            this.Beep = new System.Windows.Forms.Button();
             this.Numerical = new System.Windows.Forms.Button();
             this.flash = new System.Windows.Forms.Button();
             this.Negative = new System.Windows.Forms.Button();
+            this.Mute = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -96,6 +96,8 @@ namespace USBTool
             this.DiskControl = new System.Windows.Forms.TabControl();
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
+            this.Clip = new System.Windows.Forms.Button();
+            this.Beep = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -150,9 +152,9 @@ namespace USBTool
             // 
             // TextBox1
             // 
-            this.TextBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.TextBox1.ForeColor = System.Drawing.Color.Black;
+            this.TextBox1.BackColor = System.Drawing.Color.PaleGreen;
             resources.ApplyResources(this.TextBox1, "TextBox1");
+            this.TextBox1.ForeColor = System.Drawing.Color.DarkGreen;
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.ReadOnly = true;
             // 
@@ -409,14 +411,6 @@ namespace USBTool
             this.DeleteFileExt.UseVisualStyleBackColor = true;
             this.DeleteFileExt.Click += new System.EventHandler(this.DeleteFileExt_Click);
             // 
-            // Beep
-            // 
-            resources.ApplyResources(this.Beep, "Beep");
-            this.Beep.Name = "Beep";
-            this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
-            this.Beep.UseVisualStyleBackColor = true;
-            this.Beep.Click += new System.EventHandler(this.Beep_Click);
-            // 
             // Numerical
             // 
             resources.ApplyResources(this.Numerical, "Numerical");
@@ -440,6 +434,14 @@ namespace USBTool
             this.ToolTip1.SetToolTip(this.Negative, resources.GetString("Negative.ToolTip"));
             this.Negative.UseVisualStyleBackColor = true;
             this.Negative.Click += new System.EventHandler(this.Negative_Click);
+            // 
+            // Mute
+            // 
+            resources.ApplyResources(this.Mute, "Mute");
+            this.Mute.Name = "Mute";
+            this.ToolTip1.SetToolTip(this.Mute, resources.GetString("Mute.ToolTip"));
+            this.Mute.UseVisualStyleBackColor = true;
+            this.Mute.Click += new System.EventHandler(this.Mute_Click);
             // 
             // ReBoot
             // 
@@ -496,6 +498,7 @@ namespace USBTool
             // MouseCategory
             // 
             this.MouseCategory.BackColor = System.Drawing.Color.Red;
+            this.MouseCategory.Controls.Add(this.Clip);
             this.MouseCategory.Controls.Add(this.FixCursor);
             this.MouseCategory.Controls.Add(this.MouseTrail);
             this.MouseCategory.Controls.Add(this.SwapBotton);
@@ -516,10 +519,10 @@ namespace USBTool
             // SettingCategory
             // 
             this.SettingCategory.BackColor = System.Drawing.Color.Red;
+            this.SettingCategory.Controls.Add(this.Mute);
             this.SettingCategory.Controls.Add(this.alloca);
             this.SettingCategory.Controls.Add(this.CloseNetWork);
             this.SettingCategory.Controls.Add(this.ReBoot);
-            this.SettingCategory.Controls.Add(this.Beep);
             this.SettingCategory.Controls.Add(this.SetBcd);
             this.SettingCategory.Controls.Add(this.Disabled);
             this.SettingCategory.Controls.Add(this.KillProcess);
@@ -530,6 +533,7 @@ namespace USBTool
             // MediaCategory
             // 
             this.MediaCategory.BackColor = System.Drawing.Color.Red;
+            this.MediaCategory.Controls.Add(this.Beep);
             this.MediaCategory.Controls.Add(this.FullScreen);
             this.MediaCategory.Controls.Add(this.Media);
             this.MediaCategory.Controls.Add(this.ReadText);
@@ -575,6 +579,21 @@ namespace USBTool
             this.HardwareCategory.Controls.Add(this.Eject);
             resources.ApplyResources(this.HardwareCategory, "HardwareCategory");
             this.HardwareCategory.Name = "HardwareCategory";
+            // 
+            // Clip
+            // 
+            resources.ApplyResources(this.Clip, "Clip");
+            this.Clip.Name = "Clip";
+            this.ToolTip1.SetToolTip(this.Clip, resources.GetString("Clip.ToolTip"));
+            this.Clip.UseVisualStyleBackColor = true;
+            this.Clip.Click += new System.EventHandler(this.Clip_Click);
+            // 
+            // Beep
+            // 
+            resources.ApplyResources(this.Beep, "Beep");
+            this.Beep.Name = "Beep";
+            this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
+            this.Beep.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -673,7 +692,6 @@ namespace USBTool
 		private CheckBox FullScreen;
 		internal Button FixCursor;
 		internal Button DeleteFileExt;
-		internal Button Beep;
 		internal Button Negative;
 		internal Button Numerical;
 		private TabControl Opinion;
@@ -688,6 +706,9 @@ namespace USBTool
 		private TabPage DisplayCategory;
 		private TabPage SettingCategory;
 		private TabPage MediaCategory;
-	}
+        internal Button Mute;
+        internal Button Clip;
+        internal Button Beep;
+    }
 	
 }

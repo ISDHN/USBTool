@@ -233,11 +233,14 @@
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="Label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 9pt, style=Bold</value>
+  </data>
   <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 9</value>
   </data>
   <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 12</value>
+    <value>85, 12</value>
   </data>
   <data name="Label1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -256,6 +259,9 @@
   </data>
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="TextBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 9pt, style=Bold</value>
   </data>
   <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 481</value>
@@ -288,7 +294,7 @@
     <value>True</value>
   </data>
   <data name="LinkLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>616, 484</value>
+    <value>600, 485</value>
   </data>
   <data name="LinkLabel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>29, 12</value>
@@ -496,7 +502,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;alloca.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="FillwithBlank.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -562,7 +568,7 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;Media.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ReadText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -592,13 +598,13 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;ReadText.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="SwapBotton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="SwapBotton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>274, 7</value>
+    <value>269, 7</value>
   </data>
   <data name="SwapBotton.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 59</value>
@@ -622,7 +628,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;SwapBotton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ModifyName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -829,7 +835,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;MouseTrail.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Destroy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -949,7 +955,7 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;picture.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="random.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1018,7 +1024,7 @@
     <value>105, 59</value>
   </data>
   <data name="SetBcd.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="SetBcd.Text" xml:space="preserve">
     <value>无法启动</value>
@@ -1066,7 +1072,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;CloseNetWork.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="SetColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1132,7 +1138,7 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;FullScreen.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="FixCursor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1162,7 +1168,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;FixCursor.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="DeleteFileExt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1192,36 +1198,6 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;DeleteFileExt.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Beep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 71</value>
-  </data>
-  <data name="Beep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="Beep.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="Beep.Text" xml:space="preserve">
-    <value>逼逼</value>
-  </data>
-  <data name="Beep.ToolTip" xml:space="preserve">
-    <value>让耳朵怀孕</value>
-  </data>
-  <data name="&gt;&gt;Beep.Name" xml:space="preserve">
-    <value>Beep</value>
-  </data>
-  <data name="&gt;&gt;Beep.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Beep.Parent" xml:space="preserve">
-    <value>SettingCategory</value>
-  </data>
-  <data name="&gt;&gt;Beep.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="Numerical.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -1311,6 +1287,36 @@
   <data name="&gt;&gt;Negative.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="Mute.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Mute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 71</value>
+  </data>
+  <data name="Mute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Mute.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="Mute.Text" xml:space="preserve">
+    <value>静音</value>
+  </data>
+  <data name="Mute.ToolTip" xml:space="preserve">
+    <value>静音系统</value>
+  </data>
+  <data name="&gt;&gt;Mute.Name" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="&gt;&gt;Mute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Mute.Parent" xml:space="preserve">
+    <value>SettingCategory</value>
+  </data>
+  <data name="&gt;&gt;Mute.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1339,191 +1345,11 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;ReBoot.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>199, 17</value>
   </metadata>
-  <data name="&gt;&gt;SystemControl.Name" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;SystemControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SystemControl.Parent" xml:space="preserve">
-    <value>ComputerPage</value>
-  </data>
-  <data name="&gt;&gt;SystemControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ComputerPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="ComputerPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="ComputerPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>863, 425</value>
-  </data>
-  <data name="ComputerPage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ComputerPage.Text" xml:space="preserve">
-    <value>电脑方面</value>
-  </data>
-  <data name="&gt;&gt;ComputerPage.Name" xml:space="preserve">
-    <value>ComputerPage</value>
-  </data>
-  <data name="&gt;&gt;ComputerPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ComputerPage.Parent" xml:space="preserve">
-    <value>Opinion</value>
-  </data>
-  <data name="&gt;&gt;ComputerPage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;DiskControl.Name" xml:space="preserve">
-    <value>DiskControl</value>
-  </data>
-  <data name="&gt;&gt;DiskControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DiskControl.Parent" xml:space="preserve">
-    <value>DiskPage</value>
-  </data>
-  <data name="&gt;&gt;DiskControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="DiskPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="DiskPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="DiskPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>863, 425</value>
-  </data>
-  <data name="DiskPage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="DiskPage.Text" xml:space="preserve">
-    <value>U盘方面</value>
-  </data>
-  <data name="&gt;&gt;DiskPage.Name" xml:space="preserve">
-    <value>DiskPage</value>
-  </data>
-  <data name="&gt;&gt;DiskPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DiskPage.Parent" xml:space="preserve">
-    <value>Opinion</value>
-  </data>
-  <data name="&gt;&gt;DiskPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="Opinion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 30</value>
-  </data>
-  <data name="Opinion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>871, 451</value>
-  </data>
-  <data name="Opinion.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;Opinion.Name" xml:space="preserve">
-    <value>Opinion</value>
-  </data>
-  <data name="&gt;&gt;Opinion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Opinion.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Opinion.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.Name" xml:space="preserve">
-    <value>WindowCategory</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.Name" xml:space="preserve">
-    <value>MouseCategory</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.Name" xml:space="preserve">
-    <value>DisplayCategory</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.Name" xml:space="preserve">
-    <value>SettingCategory</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.Name" xml:space="preserve">
-    <value>MediaCategory</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="SystemControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-1, 1</value>
-  </data>
-  <data name="SystemControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>867, 427</value>
-  </data>
-  <data name="SystemControl.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;SystemControl.Name" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;SystemControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SystemControl.Parent" xml:space="preserve">
-    <value>ComputerPage</value>
-  </data>
-  <data name="&gt;&gt;SystemControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="WindowCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -1549,6 +1375,36 @@
     <value>SystemControl</value>
   </data>
   <data name="&gt;&gt;WindowCategory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Clip.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Clip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>399, 7</value>
+  </data>
+  <data name="Clip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Clip.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="Clip.Text" xml:space="preserve">
+    <value>限制鼠标活动</value>
+  </data>
+  <data name="Clip.ToolTip" xml:space="preserve">
+    <value>把鼠标限制在屏幕中央</value>
+  </data>
+  <data name="&gt;&gt;Clip.Name" xml:space="preserve">
+    <value>Clip</value>
+  </data>
+  <data name="&gt;&gt;Clip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Clip.Parent" xml:space="preserve">
+    <value>MouseCategory</value>
+  </data>
+  <data name="&gt;&gt;Clip.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="MouseCategory.Location" type="System.Drawing.Point, System.Drawing">
@@ -1632,6 +1488,36 @@
   <data name="&gt;&gt;SettingCategory.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Beep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>395, 6</value>
+  </data>
+  <data name="Beep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Beep.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="Beep.Text" xml:space="preserve">
+    <value>逼逼</value>
+  </data>
+  <data name="Beep.ToolTip" xml:space="preserve">
+    <value>让耳朵怀孕</value>
+  </data>
+  <data name="&gt;&gt;Beep.Name" xml:space="preserve">
+    <value>Beep</value>
+  </data>
+  <data name="&gt;&gt;Beep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Beep.Parent" xml:space="preserve">
+    <value>MediaCategory</value>
+  </data>
+  <data name="&gt;&gt;Beep.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="MediaCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -1659,49 +1545,52 @@
   <data name="&gt;&gt;MediaCategory.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;FileCategory.Name" xml:space="preserve">
-    <value>FileCategory</value>
-  </data>
-  <data name="&gt;&gt;FileCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FileCategory.Parent" xml:space="preserve">
-    <value>DiskControl</value>
-  </data>
-  <data name="&gt;&gt;FileCategory.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;HardwareCategory.Name" xml:space="preserve">
-    <value>HardwareCategory</value>
-  </data>
-  <data name="&gt;&gt;HardwareCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HardwareCategory.Parent" xml:space="preserve">
-    <value>DiskControl</value>
-  </data>
-  <data name="&gt;&gt;HardwareCategory.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="DiskControl.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SystemControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>-1, 1</value>
   </data>
-  <data name="DiskControl.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SystemControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>867, 427</value>
   </data>
-  <data name="DiskControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="SystemControl.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;DiskControl.Name" xml:space="preserve">
-    <value>DiskControl</value>
+  <data name="&gt;&gt;SystemControl.Name" xml:space="preserve">
+    <value>SystemControl</value>
   </data>
-  <data name="&gt;&gt;DiskControl.Type" xml:space="preserve">
+  <data name="&gt;&gt;SystemControl.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DiskControl.Parent" xml:space="preserve">
-    <value>DiskPage</value>
+  <data name="&gt;&gt;SystemControl.Parent" xml:space="preserve">
+    <value>ComputerPage</value>
   </data>
-  <data name="&gt;&gt;DiskControl.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SystemControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ComputerPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="ComputerPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="ComputerPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>863, 425</value>
+  </data>
+  <data name="ComputerPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ComputerPage.Text" xml:space="preserve">
+    <value>电脑方面</value>
+  </data>
+  <data name="&gt;&gt;ComputerPage.Name" xml:space="preserve">
+    <value>ComputerPage</value>
+  </data>
+  <data name="&gt;&gt;ComputerPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComputerPage.Parent" xml:space="preserve">
+    <value>Opinion</value>
+  </data>
+  <data name="&gt;&gt;ComputerPage.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="FileCategory.Location" type="System.Drawing.Point, System.Drawing">
@@ -1757,6 +1646,75 @@
   </data>
   <data name="&gt;&gt;HardwareCategory.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="DiskControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-1, 1</value>
+  </data>
+  <data name="DiskControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>867, 427</value>
+  </data>
+  <data name="DiskControl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DiskControl.Name" xml:space="preserve">
+    <value>DiskControl</value>
+  </data>
+  <data name="&gt;&gt;DiskControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DiskControl.Parent" xml:space="preserve">
+    <value>DiskPage</value>
+  </data>
+  <data name="&gt;&gt;DiskControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DiskPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="DiskPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="DiskPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>863, 425</value>
+  </data>
+  <data name="DiskPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="DiskPage.Text" xml:space="preserve">
+    <value>U盘方面</value>
+  </data>
+  <data name="&gt;&gt;DiskPage.Name" xml:space="preserve">
+    <value>DiskPage</value>
+  </data>
+  <data name="&gt;&gt;DiskPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DiskPage.Parent" xml:space="preserve">
+    <value>Opinion</value>
+  </data>
+  <data name="&gt;&gt;DiskPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Opinion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 30</value>
+  </data>
+  <data name="Opinion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>871, 451</value>
+  </data>
+  <data name="Opinion.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Opinion.Name" xml:space="preserve">
+    <value>Opinion</value>
+  </data>
+  <data name="&gt;&gt;Opinion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Opinion.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Opinion.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

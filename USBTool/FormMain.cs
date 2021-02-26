@@ -12,6 +12,7 @@ using System.Speech.Synthesis;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using USBTool.CoreAudioApi;
 #if MEDIA_DSHOW
 using USBTool.DShow;
 #elif MEDIA_FOUNDATION
@@ -184,11 +185,11 @@ namespace USBTool
 									{
 										try
 										{
-											enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
-											endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _volume);
-											IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
-											systemvolume.SetMasterVolumeLevelScalar(1, Guid.Empty);
-											systemvolume.SetMute(false, Guid.Empty);
+											enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice Endpoint);
+											Endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _Volume);
+											IAudioEndpointVolume Systemvolume = _Volume as IAudioEndpointVolume;
+											Systemvolume.SetMasterVolumeLevelScalar(1, Guid.Empty);
+											Systemvolume.SetMute(false, Guid.Empty);
 											
 										}
 										catch
@@ -396,6 +397,25 @@ namespace USBTool
 									break;
 								case "filename":
 									NumericalFileName(drive.RootDirectory);
+									break;
+								case "mute":
+									guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
+									guidVolume = typeof(IAudioEndpointVolume).GUID;
+									CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out _enumerater);
+									enumerator = _enumerater as IMMDeviceEnumerator;
+									enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
+									endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _volume);
+									IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
+									systemvolume.SetMasterVolumeLevelScalar(0, Guid.Empty);
+									systemvolume.SetMute(true, Guid.Empty);
+									break;
+								case "clip":
+									int width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+									int height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+									Rectangle r = new Rectangle(width / 4, height / 4, width * 3 / 4, height * 3 / 4);
+									//tagrect : left,top,right,bottom
+									ClipCursor(ref r);
+									Thread.Sleep(100);
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -790,5 +810,15 @@ namespace USBTool
 		{
 			WhenArrival("filename");
 		}
-	}
+
+        private void Mute_Click(object sender, EventArgs e)
+        {
+			WhenArrival("mute");
+		}
+
+        private void Clip_Click(object sender, EventArgs e)
+        {
+			WhenArrival("clip");
+		}
+    }
 }

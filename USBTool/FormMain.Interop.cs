@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using USBTool.CoreAudioApi;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
 #endif
@@ -85,10 +86,9 @@ namespace USBTool
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool EnumChildWindows(IntPtr hWndParent,EnumWindowsCallBack lpEnumFunc,string lParam);
 		[DllImport("user32.dll", SetLastError = true)]
-		public extern static IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle,
-			int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lParam);
-		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool BringWindowToTop(IntPtr hWnd);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static bool ClipCursor(ref Rectangle lpRect);
 		#endregion
 		#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -545,8 +545,8 @@ namespace USBTool
 				{
 					host.Top = 0;
 					host.Left = 0;
-                    host.Width = (int)global::System.Windows.SystemParameters.PrimaryScreenWidth;
-                    host.Height = (int)global::System.Windows.SystemParameters.PrimaryScreenHeight;
+                    host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+                    host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
 				}
 				Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
 				host.videocontrol = videocontrol;
@@ -582,7 +582,7 @@ namespace USBTool
 									IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
 									while (state == "Playing")
 									{
-										bool succeed=BringWindowToTop(host.Handle);
+										BringWindowToTop(host.Handle);
 										enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
 										endpoint.Activate(ref guidManager, CLSCTX_ALL, IntPtr.Zero, out IUnknown _manager);
 										IAudioSessionManager manager = _manager as IAudioSessionManager;
