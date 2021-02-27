@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 
@@ -19,9 +19,9 @@ namespace USBTool
                 case "media":
                     newform.Open.Filter =
 #if MEDIA_FOUNDATION
-                    "媒体文件|*.3g2;*.3gp;*.3gp2;*.3gpp;*.asf;*.wma;*.wmv;*.aac;*.adts;*.avi;*.mp3;*.m4a;*.m4v;*.mov;*.mp4;*.sami;*.smi;*.wav"
+                    "媒体文件|*.3g2;*.3gp;*.3gp2;*.3gpp;*.asf;*.wma;*.wmv;*.wm;*.aac;*.adts;*.avi;*.mp3;*.m4a;*.m4v;*.mov;*.mp4;*.sami;*.smi;*.wav;*.dvr-ms"
 #else
-                        "媒体文件|*.mp3;*.wma;*.wmv;*.m3u;*.wav;*.avi;*.dvr-ms;*.gif;*.wtv"
+                    "媒体文件|*.mp3;*.wma;*.wmv;*.m3u;*.wav;*.avi;*.dvr-ms;*.gif;*.wtv"
 #endif
                         ;
                     newform.SpeechVoice.Hide();

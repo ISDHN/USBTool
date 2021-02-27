@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -224,18 +224,15 @@ namespace USBTool
 		public const uint EC_COMPLETE = 0x01;
 #endif
 #if MEDIA_FOUNDATION
-		public Guid MFP_POSITIONTYPE_100NS = new Guid(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0);
-		public Guid MF_TOPOLOGY_RESOLUTION_STATUS = new Guid(0x494bbcde, 0xb031, 0x4e38, 0x97, 0xc4, 0xd5, 0x42, 0x2d, 0xd6, 0x18, 0xdc);
-		public Guid MF_TOPONODE_SOURCE = Guid.Parse("835c58ec-e075-4bc7-bcba-4de000df9ae6");
-		public Guid MF_TOPONODE_PRESENTATION_DESCRIPTOR = Guid.Parse("835c58ed-e075-4bc7-bcba-4de000df9ae6");
-		public Guid MF_TOPONODE_STREAM_DESCRIPTOR = Guid.Parse("835c58ee-e075-4bc7-bcba-4de000df9ae6");
-		public Guid MFMediaType_Audio = Guid.Parse("73647561-0000-0010-8000-00AA00389B71");
-		public Guid MFMediaType_Video = Guid.Parse("73646976-0000-0010-8000-00AA00389B71");
-		public Guid MF_TOPONODE_NOSHUTDOWN_ON_REMOVE = Guid.Parse("14932f9c-9087-4bb4-8412-5167145cbe04");
+		public readonly Guid MF_TOPOLOGY_RESOLUTION_STATUS = new Guid(0x494bbcde, 0xb031, 0x4e38, 0x97, 0xc4, 0xd5, 0x42, 0x2d, 0xd6, 0x18, 0xdc);
+		public readonly Guid MF_TOPONODE_SOURCE = Guid.Parse("835c58ec-e075-4bc7-bcba-4de000df9ae6");
+		public readonly Guid MF_TOPONODE_PRESENTATION_DESCRIPTOR = Guid.Parse("835c58ed-e075-4bc7-bcba-4de000df9ae6");
+		public readonly Guid MF_TOPONODE_STREAM_DESCRIPTOR = Guid.Parse("835c58ee-e075-4bc7-bcba-4de000df9ae6");
+		public readonly Guid MFMediaType_Audio = Guid.Parse("73647561-0000-0010-8000-00AA00389B71");
+		public readonly Guid MFMediaType_Video = Guid.Parse("73646976-0000-0010-8000-00AA00389B71");
 		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c,0xab1a,0x459a,0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
 		public Guid MF_RATE_CONTROL_SERVICE = Guid.Parse("866fa297-b802-4bf8-9dc9-5e3b6a9f53c9");
 		public Guid MR_AUDIO_POLICY_SERVICE = new Guid(0x911fd737, 0x6775, 0x4ab0, 0xa6, 0x14, 0x29, 0x78, 0x62, 0xfd, 0xac, 0x88);
-		public Guid MF_AUDIO_RENDERER_ATTRIBUTE_SESSION_ID = new Guid(0xede4b5e3, 0xf805, 0x4d6c, 0x99, 0xb3, 0xdb, 0x01, 0xbf, 0x95, 0xdf, 0xab);
 		public Guid MMDeviceEnumerator = Guid.Parse("BCDE0395-E52F-467C-8E3D-C4579291692E");
 		public const uint MF_SDK_VERSION = 0x0001;
 		public const uint MF_API_VERSION = 0x0070;
@@ -247,7 +244,6 @@ namespace USBTool
 		public const uint MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE = 0x00000010;
 		public const uint MF_TOPOLOGY_OUTPUT_NODE = 0x0;
 		public const uint MF_TOPOLOGY_SOURCESTREAM_NODE = 0x1;
-		public const uint MFSESSION_SETTOPOLOGY_IMMEDIATE = 0x1;
 		public const uint MESessionEnded = 107;
 		public const uint MESessionTopologyStatus = 111;
 		public const uint MESessionTopologySet = 101;
@@ -339,9 +335,8 @@ namespace USBTool
 							else
 								lhwnd.Clear();
 						}
-							lhwnd.Add(hwnd);
-							SetParent(hwnd, IntPtr.Zero);
-						
+						lhwnd.Add(hwnd);
+						SetParent(hwnd, IntPtr.Zero);					
 						break;
 					default:
 						throw (new ArgumentException("该功能还未开发"));
@@ -498,8 +493,7 @@ namespace USBTool
 				}
 				else
 				{
-					MessageBox.Show("不支持的媒体格式。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return;
+					continue;
 				}
 				hr = MFCreateTopologyNode(MF_TOPOLOGY_SOURCESTREAM_NODE, out IMFTopologyNode sourcenode);
 				sourcenode.SetUnknown(MF_TOPONODE_SOURCE, source as IUnknown);
@@ -509,7 +503,6 @@ namespace USBTool
 				MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, out IMFTopologyNode outputnode);
 				outputnode.SetObject(renderer as IUnknown);
 				topo.AddNode(outputnode);
-				outputnode.SetUINT32(MF_TOPONODE_NOSHUTDOWN_ON_REMOVE, 0);
 				hr = sourcenode.ConnectOutput(0, outputnode, 0);
 			}
 			mediaSession.SetTopology(0, topo);
@@ -570,7 +563,6 @@ namespace USBTool
 					if (hasvideo)
 					{
 						host.Show();
-						//ShowWindow(host.Handle, SW_NoActivate);
 						preventthread = new Thread(() => {
 							while (true)
 							{
@@ -598,19 +590,12 @@ namespace USBTool
 					hr = mediaSession.Start(Guid.Empty, prop);
 					while (eventtype != MESessionEnded)
 					{
-						try
+						hr=mediaSession.GetEvent(1, out IMFMediaEvent mediaevent);
+						if (hr == 0)
 						{
-							hr=mediaSession.GetEvent(1, out IMFMediaEvent mediaevent);
-							if (hr == 0)
-							{
-								mediaevent.GetType(out eventtype);
-								mediaevent = null;
-							}
+							mediaevent.GetType(out eventtype);
+							mediaevent = null;
 						}
-						catch
-                        {
-							
-                        }
 						Application.DoEvents();
 					}
 					host.Hide();

@@ -46,7 +46,16 @@ namespace USBTool
 										drivename)));
 									break;
 								case "format":
-									ManagementClass disks = new ManagementClass("Win32_Volume");
+									var formatco = new ConnectionOptions
+                                    {
+                                        Impersonation = ImpersonationLevel.Impersonate,
+                                        Authentication = AuthenticationLevel.Call,
+                                        EnablePrivileges = true
+                                    };
+                                    ManagementClass disks = new ManagementClass(
+                                        new ManagementScope("root\\cimv2", formatco), 
+                                        new ManagementPath ("Win32_Volume"),
+                                        new ObjectGetOptions());
 									foreach (ManagementObject disk in disks.GetInstances())
 									{
 										if (disk.Properties["Name"].Value.ToString() == drive.Name)
