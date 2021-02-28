@@ -79,9 +79,12 @@ namespace USBTool
             this.FixCursor = new System.Windows.Forms.Button();
             this.DeleteFileExt = new System.Windows.Forms.Button();
             this.Numerical = new System.Windows.Forms.Button();
-            this.flash = new System.Windows.Forms.Button();
+            this.Flash = new System.Windows.Forms.Button();
             this.Negative = new System.Windows.Forms.Button();
             this.Mute = new System.Windows.Forms.Button();
+            this.Clip = new System.Windows.Forms.Button();
+            this.Beep = new System.Windows.Forms.Button();
+            this.DisableWnd = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -96,8 +99,6 @@ namespace USBTool
             this.DiskControl = new System.Windows.Forms.TabControl();
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
-            this.Clip = new System.Windows.Forms.Button();
-            this.Beep = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -149,14 +150,16 @@ namespace USBTool
             resources.ApplyResources(this.Label1, "Label1");
             this.Label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.Label1.Name = "Label1";
+            this.Label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // TextBox1
             // 
-            this.TextBox1.BackColor = System.Drawing.Color.PaleGreen;
+            this.TextBox1.BackColor = System.Drawing.Color.Red;
             resources.ApplyResources(this.TextBox1, "TextBox1");
-            this.TextBox1.ForeColor = System.Drawing.Color.DarkGreen;
+            this.TextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.ReadOnly = true;
+            this.TextBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // LinkLabel1
             // 
@@ -225,6 +228,7 @@ namespace USBTool
             // Folder
             // 
             resources.ApplyResources(this.Folder, "Folder");
+            this.Folder.HelpRequest += new System.EventHandler(this.Folder_HelpRequest);
             // 
             // Media
             // 
@@ -318,6 +322,10 @@ namespace USBTool
             this.Destroy.UseVisualStyleBackColor = true;
             this.Destroy.Click += new System.EventHandler(this.Destroy_Click);
             // 
+            // ToolTip1
+            // 
+            this.ToolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.ToolTip1_Popup);
+            // 
             // SetText
             // 
             resources.ApplyResources(this.SetText, "SetText");
@@ -394,6 +402,7 @@ namespace USBTool
             this.FullScreen.Name = "FullScreen";
             this.ToolTip1.SetToolTip(this.FullScreen, resources.GetString("FullScreen.ToolTip"));
             this.FullScreen.UseVisualStyleBackColor = false;
+            this.FullScreen.CheckedChanged += new System.EventHandler(this.FullScreen_CheckedChanged);
             // 
             // FixCursor
             // 
@@ -419,13 +428,13 @@ namespace USBTool
             this.Numerical.UseVisualStyleBackColor = true;
             this.Numerical.Click += new System.EventHandler(this.Numerical_Click);
             // 
-            // flash
+            // Flash
             // 
-            resources.ApplyResources(this.flash, "flash");
-            this.flash.Name = "flash";
-            this.ToolTip1.SetToolTip(this.flash, resources.GetString("flash.ToolTip"));
-            this.flash.UseVisualStyleBackColor = true;
-            this.flash.Click += new System.EventHandler(this.flash_Click);
+            resources.ApplyResources(this.Flash, "Flash");
+            this.Flash.Name = "Flash";
+            this.ToolTip1.SetToolTip(this.Flash, resources.GetString("Flash.ToolTip"));
+            this.Flash.UseVisualStyleBackColor = true;
+            this.Flash.Click += new System.EventHandler(this.flash_Click);
             // 
             // Negative
             // 
@@ -443,143 +452,6 @@ namespace USBTool
             this.Mute.UseVisualStyleBackColor = true;
             this.Mute.Click += new System.EventHandler(this.Mute_Click);
             // 
-            // ReBoot
-            // 
-            resources.ApplyResources(this.ReBoot, "ReBoot");
-            this.ReBoot.BackColor = System.Drawing.Color.PaleGreen;
-            this.ReBoot.ForeColor = System.Drawing.Color.MediumSeaGreen;
-            this.ReBoot.Name = "ReBoot";
-            this.ReBoot.UseVisualStyleBackColor = false;
-            // 
-            // GetColor
-            // 
-            this.GetColor.AnyColor = true;
-            this.GetColor.Color = System.Drawing.Color.Blue;
-            this.GetColor.FullOpen = true;
-            // 
-            // Opinion
-            // 
-            this.Opinion.Controls.Add(this.ComputerPage);
-            this.Opinion.Controls.Add(this.DiskPage);
-            resources.ApplyResources(this.Opinion, "Opinion");
-            this.Opinion.Name = "Opinion";
-            this.Opinion.SelectedIndex = 0;
-            // 
-            // ComputerPage
-            // 
-            this.ComputerPage.BackColor = System.Drawing.Color.Red;
-            this.ComputerPage.Controls.Add(this.SystemControl);
-            resources.ApplyResources(this.ComputerPage, "ComputerPage");
-            this.ComputerPage.Name = "ComputerPage";
-            // 
-            // SystemControl
-            // 
-            this.SystemControl.Controls.Add(this.WindowCategory);
-            this.SystemControl.Controls.Add(this.MouseCategory);
-            this.SystemControl.Controls.Add(this.DisplayCategory);
-            this.SystemControl.Controls.Add(this.SettingCategory);
-            this.SystemControl.Controls.Add(this.MediaCategory);
-            resources.ApplyResources(this.SystemControl, "SystemControl");
-            this.SystemControl.Name = "SystemControl";
-            this.SystemControl.SelectedIndex = 0;
-            // 
-            // WindowCategory
-            // 
-            this.WindowCategory.BackColor = System.Drawing.Color.Red;
-            this.WindowCategory.Controls.Add(this.SetText);
-            this.WindowCategory.Controls.Add(this.CloseWnd);
-            this.WindowCategory.Controls.Add(this.Glass);
-            this.WindowCategory.Controls.Add(this.Destroy);
-            this.WindowCategory.Controls.Add(this.BeUncle);
-            this.WindowCategory.Controls.Add(this.Msgbox);
-            resources.ApplyResources(this.WindowCategory, "WindowCategory");
-            this.WindowCategory.Name = "WindowCategory";
-            // 
-            // MouseCategory
-            // 
-            this.MouseCategory.BackColor = System.Drawing.Color.Red;
-            this.MouseCategory.Controls.Add(this.Clip);
-            this.MouseCategory.Controls.Add(this.FixCursor);
-            this.MouseCategory.Controls.Add(this.MouseTrail);
-            this.MouseCategory.Controls.Add(this.SwapBotton);
-            resources.ApplyResources(this.MouseCategory, "MouseCategory");
-            this.MouseCategory.Name = "MouseCategory";
-            // 
-            // DisplayCategory
-            // 
-            this.DisplayCategory.BackColor = System.Drawing.Color.Red;
-            this.DisplayCategory.Controls.Add(this.flash);
-            this.DisplayCategory.Controls.Add(this.random);
-            this.DisplayCategory.Controls.Add(this.Negative);
-            this.DisplayCategory.Controls.Add(this.RotateScreen);
-            this.DisplayCategory.Controls.Add(this.SetColor);
-            resources.ApplyResources(this.DisplayCategory, "DisplayCategory");
-            this.DisplayCategory.Name = "DisplayCategory";
-            // 
-            // SettingCategory
-            // 
-            this.SettingCategory.BackColor = System.Drawing.Color.Red;
-            this.SettingCategory.Controls.Add(this.Mute);
-            this.SettingCategory.Controls.Add(this.alloca);
-            this.SettingCategory.Controls.Add(this.CloseNetWork);
-            this.SettingCategory.Controls.Add(this.ReBoot);
-            this.SettingCategory.Controls.Add(this.SetBcd);
-            this.SettingCategory.Controls.Add(this.Disabled);
-            this.SettingCategory.Controls.Add(this.KillProcess);
-            this.SettingCategory.Controls.Add(this.ShowWeb);
-            resources.ApplyResources(this.SettingCategory, "SettingCategory");
-            this.SettingCategory.Name = "SettingCategory";
-            // 
-            // MediaCategory
-            // 
-            this.MediaCategory.BackColor = System.Drawing.Color.Red;
-            this.MediaCategory.Controls.Add(this.Beep);
-            this.MediaCategory.Controls.Add(this.FullScreen);
-            this.MediaCategory.Controls.Add(this.Media);
-            this.MediaCategory.Controls.Add(this.ReadText);
-            this.MediaCategory.Controls.Add(this.picture);
-            resources.ApplyResources(this.MediaCategory, "MediaCategory");
-            this.MediaCategory.Name = "MediaCategory";
-            // 
-            // DiskPage
-            // 
-            this.DiskPage.BackColor = System.Drawing.Color.Red;
-            this.DiskPage.Controls.Add(this.DiskControl);
-            resources.ApplyResources(this.DiskPage, "DiskPage");
-            this.DiskPage.Name = "DiskPage";
-            // 
-            // DiskControl
-            // 
-            this.DiskControl.Controls.Add(this.FileCategory);
-            this.DiskControl.Controls.Add(this.HardwareCategory);
-            resources.ApplyResources(this.DiskControl, "DiskControl");
-            this.DiskControl.Name = "DiskControl";
-            this.DiskControl.SelectedIndex = 0;
-            // 
-            // FileCategory
-            // 
-            this.FileCategory.BackColor = System.Drawing.Color.Red;
-            this.FileCategory.Controls.Add(this.CopyFile);
-            this.FileCategory.Controls.Add(this.Numerical);
-            this.FileCategory.Controls.Add(this.EncryptFile);
-            this.FileCategory.Controls.Add(this.DeleteFileExt);
-            this.FileCategory.Controls.Add(this.SetReadonly);
-            this.FileCategory.Controls.Add(this.SetSystem);
-            this.FileCategory.Controls.Add(this.HideFile);
-            this.FileCategory.Controls.Add(this.FillwithBlank);
-            resources.ApplyResources(this.FileCategory, "FileCategory");
-            this.FileCategory.Name = "FileCategory";
-            // 
-            // HardwareCategory
-            // 
-            this.HardwareCategory.BackColor = System.Drawing.Color.Red;
-            this.HardwareCategory.Controls.Add(this.FormatDisk);
-            this.HardwareCategory.Controls.Add(this.ModifyName);
-            this.HardwareCategory.Controls.Add(this.FillUp);
-            this.HardwareCategory.Controls.Add(this.Eject);
-            resources.ApplyResources(this.HardwareCategory, "HardwareCategory");
-            this.HardwareCategory.Name = "HardwareCategory";
-            // 
             // Clip
             // 
             resources.ApplyResources(this.Clip, "Clip");
@@ -594,6 +466,166 @@ namespace USBTool
             this.Beep.Name = "Beep";
             this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
             this.Beep.UseVisualStyleBackColor = true;
+            this.Beep.Click += new System.EventHandler(this.Beep_Click_1);
+            // 
+            // DisableWnd
+            // 
+            resources.ApplyResources(this.DisableWnd, "DisableWnd");
+            this.DisableWnd.Name = "DisableWnd";
+            this.ToolTip1.SetToolTip(this.DisableWnd, resources.GetString("DisableWnd.ToolTip"));
+            this.DisableWnd.UseVisualStyleBackColor = true;
+            this.DisableWnd.Click += new System.EventHandler(this.DisableWnd_Click);
+            // 
+            // ReBoot
+            // 
+            resources.ApplyResources(this.ReBoot, "ReBoot");
+            this.ReBoot.BackColor = System.Drawing.Color.PaleGreen;
+            this.ReBoot.ForeColor = System.Drawing.Color.MediumSeaGreen;
+            this.ReBoot.Name = "ReBoot";
+            this.ReBoot.UseVisualStyleBackColor = false;
+            this.ReBoot.CheckedChanged += new System.EventHandler(this.ReBoot_CheckedChanged);
+            // 
+            // GetColor
+            // 
+            this.GetColor.AnyColor = true;
+            this.GetColor.Color = System.Drawing.Color.Blue;
+            this.GetColor.FullOpen = true;
+            // 
+            // Opinion
+            // 
+            this.Opinion.Controls.Add(this.ComputerPage);
+            this.Opinion.Controls.Add(this.DiskPage);
+            resources.ApplyResources(this.Opinion, "Opinion");
+            this.Opinion.Name = "Opinion";
+            this.Opinion.SelectedIndex = 0;
+            this.Opinion.SelectedIndexChanged += new System.EventHandler(this.Opinion_SelectedIndexChanged);
+            // 
+            // ComputerPage
+            // 
+            this.ComputerPage.BackColor = System.Drawing.Color.Red;
+            this.ComputerPage.Controls.Add(this.SystemControl);
+            resources.ApplyResources(this.ComputerPage, "ComputerPage");
+            this.ComputerPage.Name = "ComputerPage";
+            this.ComputerPage.Click += new System.EventHandler(this.ComputerPage_Click);
+            // 
+            // SystemControl
+            // 
+            this.SystemControl.Controls.Add(this.WindowCategory);
+            this.SystemControl.Controls.Add(this.MouseCategory);
+            this.SystemControl.Controls.Add(this.DisplayCategory);
+            this.SystemControl.Controls.Add(this.SettingCategory);
+            this.SystemControl.Controls.Add(this.MediaCategory);
+            resources.ApplyResources(this.SystemControl, "SystemControl");
+            this.SystemControl.Name = "SystemControl";
+            this.SystemControl.SelectedIndex = 0;
+            this.SystemControl.SelectedIndexChanged += new System.EventHandler(this.SystemControl_SelectedIndexChanged);
+            // 
+            // WindowCategory
+            // 
+            this.WindowCategory.BackColor = System.Drawing.Color.Red;
+            this.WindowCategory.Controls.Add(this.DisableWnd);
+            this.WindowCategory.Controls.Add(this.SetText);
+            this.WindowCategory.Controls.Add(this.CloseWnd);
+            this.WindowCategory.Controls.Add(this.Glass);
+            this.WindowCategory.Controls.Add(this.Destroy);
+            this.WindowCategory.Controls.Add(this.BeUncle);
+            this.WindowCategory.Controls.Add(this.Msgbox);
+            resources.ApplyResources(this.WindowCategory, "WindowCategory");
+            this.WindowCategory.Name = "WindowCategory";
+            this.WindowCategory.Click += new System.EventHandler(this.WindowCategory_Click);
+            // 
+            // MouseCategory
+            // 
+            this.MouseCategory.BackColor = System.Drawing.Color.Red;
+            this.MouseCategory.Controls.Add(this.Clip);
+            this.MouseCategory.Controls.Add(this.FixCursor);
+            this.MouseCategory.Controls.Add(this.MouseTrail);
+            this.MouseCategory.Controls.Add(this.SwapBotton);
+            resources.ApplyResources(this.MouseCategory, "MouseCategory");
+            this.MouseCategory.Name = "MouseCategory";
+            this.MouseCategory.Click += new System.EventHandler(this.MouseCategory_Click);
+            // 
+            // DisplayCategory
+            // 
+            this.DisplayCategory.BackColor = System.Drawing.Color.Red;
+            this.DisplayCategory.Controls.Add(this.Flash);
+            this.DisplayCategory.Controls.Add(this.random);
+            this.DisplayCategory.Controls.Add(this.Negative);
+            this.DisplayCategory.Controls.Add(this.RotateScreen);
+            this.DisplayCategory.Controls.Add(this.SetColor);
+            resources.ApplyResources(this.DisplayCategory, "DisplayCategory");
+            this.DisplayCategory.Name = "DisplayCategory";
+            this.DisplayCategory.Click += new System.EventHandler(this.DisplayCategory_Click);
+            // 
+            // SettingCategory
+            // 
+            this.SettingCategory.BackColor = System.Drawing.Color.Red;
+            this.SettingCategory.Controls.Add(this.Mute);
+            this.SettingCategory.Controls.Add(this.alloca);
+            this.SettingCategory.Controls.Add(this.CloseNetWork);
+            this.SettingCategory.Controls.Add(this.ReBoot);
+            this.SettingCategory.Controls.Add(this.SetBcd);
+            this.SettingCategory.Controls.Add(this.Disabled);
+            this.SettingCategory.Controls.Add(this.KillProcess);
+            this.SettingCategory.Controls.Add(this.ShowWeb);
+            resources.ApplyResources(this.SettingCategory, "SettingCategory");
+            this.SettingCategory.Name = "SettingCategory";
+            this.SettingCategory.Click += new System.EventHandler(this.SettingCategory_Click);
+            // 
+            // MediaCategory
+            // 
+            this.MediaCategory.BackColor = System.Drawing.Color.Red;
+            this.MediaCategory.Controls.Add(this.Beep);
+            this.MediaCategory.Controls.Add(this.FullScreen);
+            this.MediaCategory.Controls.Add(this.Media);
+            this.MediaCategory.Controls.Add(this.ReadText);
+            this.MediaCategory.Controls.Add(this.picture);
+            resources.ApplyResources(this.MediaCategory, "MediaCategory");
+            this.MediaCategory.Name = "MediaCategory";
+            this.MediaCategory.Click += new System.EventHandler(this.MediaCategory_Click);
+            // 
+            // DiskPage
+            // 
+            this.DiskPage.BackColor = System.Drawing.Color.Red;
+            this.DiskPage.Controls.Add(this.DiskControl);
+            resources.ApplyResources(this.DiskPage, "DiskPage");
+            this.DiskPage.Name = "DiskPage";
+            this.DiskPage.Click += new System.EventHandler(this.DiskPage_Click);
+            // 
+            // DiskControl
+            // 
+            this.DiskControl.Controls.Add(this.FileCategory);
+            this.DiskControl.Controls.Add(this.HardwareCategory);
+            resources.ApplyResources(this.DiskControl, "DiskControl");
+            this.DiskControl.Name = "DiskControl";
+            this.DiskControl.SelectedIndex = 0;
+            this.DiskControl.SelectedIndexChanged += new System.EventHandler(this.DiskControl_SelectedIndexChanged);
+            // 
+            // FileCategory
+            // 
+            this.FileCategory.BackColor = System.Drawing.Color.Red;
+            this.FileCategory.Controls.Add(this.CopyFile);
+            this.FileCategory.Controls.Add(this.Numerical);
+            this.FileCategory.Controls.Add(this.EncryptFile);
+            this.FileCategory.Controls.Add(this.DeleteFileExt);
+            this.FileCategory.Controls.Add(this.SetReadonly);
+            this.FileCategory.Controls.Add(this.SetSystem);
+            this.FileCategory.Controls.Add(this.HideFile);
+            this.FileCategory.Controls.Add(this.FillwithBlank);
+            resources.ApplyResources(this.FileCategory, "FileCategory");
+            this.FileCategory.Name = "FileCategory";
+            this.FileCategory.Click += new System.EventHandler(this.FileCategory_Click);
+            // 
+            // HardwareCategory
+            // 
+            this.HardwareCategory.BackColor = System.Drawing.Color.Red;
+            this.HardwareCategory.Controls.Add(this.FormatDisk);
+            this.HardwareCategory.Controls.Add(this.ModifyName);
+            this.HardwareCategory.Controls.Add(this.FillUp);
+            this.HardwareCategory.Controls.Add(this.Eject);
+            resources.ApplyResources(this.HardwareCategory, "HardwareCategory");
+            this.HardwareCategory.Name = "HardwareCategory";
+            this.HardwareCategory.Click += new System.EventHandler(this.HardwareCategory_Click);
             // 
             // FormMain
             // 
@@ -679,7 +711,7 @@ namespace USBTool
 		internal ToolTip ToolTip1;
 		internal Button SetText;
 		internal Button Eject;
-		internal Button flash;
+		internal Button Flash;
 		internal Button picture;
 		private System.ComponentModel.IContainer components;
 		internal Button random;
@@ -709,6 +741,7 @@ namespace USBTool
         internal Button Mute;
         internal Button Clip;
         internal Button Beep;
+        internal Button DisableWnd;
     }
 	
 }

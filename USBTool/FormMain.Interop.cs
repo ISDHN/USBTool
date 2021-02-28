@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using USBTool.CoreAudioApi;
+using System.ComponentModel;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
 #endif
@@ -89,6 +90,9 @@ namespace USBTool
 		public extern static bool BringWindowToTop(IntPtr hWnd);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool ClipCursor(ref Rectangle lpRect);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static bool EnableWindow(IntPtr hWnd, bool bEnable);
+
 		#endregion
 		#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -156,6 +160,7 @@ namespace USBTool
 			public int cyTopHeight;
 			public int cyBottomHeight;
 		}
+		[StructLayout(LayoutKind.Sequential)]
 		public struct DEVMODE
 		{
 			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
@@ -210,12 +215,8 @@ namespace USBTool
 		public const uint MA_NOACTIVATEANDEAT = 4;
 		public const uint SW_NORMAL = 1;
 		public const uint SW_NoActivate = 4;
-		public const uint MS_SHOWMAGNIFIEDCURSOR = 0x0001;
-		public const uint MS_INVERTCOLORS = 0x0004;
-		public const uint HWND_TOP = 0;
-		public const uint SWP_NOACTIVATE = 0x0010;
-		public const uint SWP_NOMOVE = 0x0002;
-		public const uint SWP_NOSIZE = 0x0001;
+		public const uint FLASHW_ALL = 0x00000003;
+		public const uint FLASHW_TIMER = 0x00000004;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
@@ -338,8 +339,11 @@ namespace USBTool
 						lhwnd.Add(hwnd);
 						SetParent(hwnd, IntPtr.Zero);					
 						break;
+					case "disable":
+						EnableWindow(hwnd, false);
+						break;
 					default:
-						throw (new ArgumentException("该功能还未开发"));
+						throw new ArgumentException("该功能还未开发");
 				}
 				EnumChildWindows(hwnd, ForEachWindow, op);
 			}

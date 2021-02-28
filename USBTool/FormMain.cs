@@ -426,6 +426,9 @@ namespace USBTool
 									ClipCursor(ref r);
 									Thread.Sleep(100);
 									break;
+								case "disable":
+									ForEachWindow(GetDesktopWindow(), "disable");
+									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
 							}
@@ -488,7 +491,7 @@ namespace USBTool
 		public void KillProcess_Click(object sender, EventArgs e)
 		{
 			string i;
-			if ((i = Interaction.InputBox("输入进程名称。", "输入", "csrss")).Length == 0)
+			if ((i = Interaction.InputBox("输入进程名称。", "输入", "explorer")).Length == 0)
 			{
 				return;
 			}
@@ -703,6 +706,12 @@ namespace USBTool
 		}
 		public void flash_Click(object sender, EventArgs e)
 		{
+			DEVMODE1 = new DEVMODE()
+			{
+				dmDeviceName = new string(new char[33]),
+				dmFormName = new string(new char[33]),
+				dmSize = (short)(Marshal.SizeOf(DEVMODE1))
+			};
 			EnumDisplaySettings(null, -1, ref DEVMODE1);
 			WhenArrival("flash");
 		}
@@ -829,5 +838,105 @@ namespace USBTool
         {
 			WhenArrival("clip");
 		}
+
+        private void DisableWnd_Click(object sender, EventArgs e)
+        {
+			WhenArrival("disable");
+		}
+
+        private void SystemControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Folder_HelpRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void WindowCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Beep_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ReBoot_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Opinion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ComputerPage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MediaCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MouseCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SettingCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FullScreen_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DiskPage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DiskControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FileCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HardwareCategory_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
