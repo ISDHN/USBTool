@@ -69,7 +69,6 @@ namespace USBTool
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SetText = new System.Windows.Forms.Button();
             this.Eject = new System.Windows.Forms.Button();
-            this.picture = new System.Windows.Forms.Button();
             this.random = new System.Windows.Forms.Button();
             this.BeUncle = new System.Windows.Forms.Button();
             this.SetBcd = new System.Windows.Forms.Button();
@@ -85,6 +84,9 @@ namespace USBTool
             this.Clip = new System.Windows.Forms.Button();
             this.Beep = new System.Windows.Forms.Button();
             this.DisableWnd = new System.Windows.Forms.Button();
+            this.WndPicture = new System.Windows.Forms.Button();
+            this.Picture = new System.Windows.Forms.Button();
+            this.DrawText = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -99,6 +101,7 @@ namespace USBTool
             this.DiskControl = new System.Windows.Forms.TabControl();
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
+            this.WindMouse = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -150,7 +153,6 @@ namespace USBTool
             resources.ApplyResources(this.Label1, "Label1");
             this.Label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.Label1.Name = "Label1";
-            this.Label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // TextBox1
             // 
@@ -159,7 +161,6 @@ namespace USBTool
             this.TextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.ReadOnly = true;
-            this.TextBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // LinkLabel1
             // 
@@ -228,7 +229,6 @@ namespace USBTool
             // Folder
             // 
             resources.ApplyResources(this.Folder, "Folder");
-            this.Folder.HelpRequest += new System.EventHandler(this.Folder_HelpRequest);
             // 
             // Media
             // 
@@ -322,10 +322,6 @@ namespace USBTool
             this.Destroy.UseVisualStyleBackColor = true;
             this.Destroy.Click += new System.EventHandler(this.Destroy_Click);
             // 
-            // ToolTip1
-            // 
-            this.ToolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.ToolTip1_Popup);
-            // 
             // SetText
             // 
             resources.ApplyResources(this.SetText, "SetText");
@@ -341,14 +337,6 @@ namespace USBTool
             this.ToolTip1.SetToolTip(this.Eject, resources.GetString("Eject.ToolTip"));
             this.Eject.UseVisualStyleBackColor = true;
             this.Eject.Click += new System.EventHandler(this.Eject_Click);
-            // 
-            // picture
-            // 
-            resources.ApplyResources(this.picture, "picture");
-            this.picture.Name = "picture";
-            this.ToolTip1.SetToolTip(this.picture, resources.GetString("picture.ToolTip"));
-            this.picture.UseVisualStyleBackColor = true;
-            this.picture.Click += new System.EventHandler(this.picture_Click);
             // 
             // random
             // 
@@ -402,7 +390,6 @@ namespace USBTool
             this.FullScreen.Name = "FullScreen";
             this.ToolTip1.SetToolTip(this.FullScreen, resources.GetString("FullScreen.ToolTip"));
             this.FullScreen.UseVisualStyleBackColor = false;
-            this.FullScreen.CheckedChanged += new System.EventHandler(this.FullScreen_CheckedChanged);
             // 
             // FixCursor
             // 
@@ -466,7 +453,7 @@ namespace USBTool
             this.Beep.Name = "Beep";
             this.ToolTip1.SetToolTip(this.Beep, resources.GetString("Beep.ToolTip"));
             this.Beep.UseVisualStyleBackColor = true;
-            this.Beep.Click += new System.EventHandler(this.Beep_Click_1);
+            this.Beep.Click += new System.EventHandler(this.Beep_Click);
             // 
             // DisableWnd
             // 
@@ -476,6 +463,30 @@ namespace USBTool
             this.DisableWnd.UseVisualStyleBackColor = true;
             this.DisableWnd.Click += new System.EventHandler(this.DisableWnd_Click);
             // 
+            // WndPicture
+            // 
+            resources.ApplyResources(this.WndPicture, "WndPicture");
+            this.WndPicture.Name = "WndPicture";
+            this.ToolTip1.SetToolTip(this.WndPicture, resources.GetString("WndPicture.ToolTip"));
+            this.WndPicture.UseVisualStyleBackColor = true;
+            this.WndPicture.Click += new System.EventHandler(this.WndPicture_Click);
+            // 
+            // Picture
+            // 
+            resources.ApplyResources(this.Picture, "Picture");
+            this.Picture.Name = "Picture";
+            this.ToolTip1.SetToolTip(this.Picture, resources.GetString("Picture.ToolTip"));
+            this.Picture.UseVisualStyleBackColor = true;
+            this.Picture.Click += new System.EventHandler(this.Picture_Click);
+            // 
+            // DrawText
+            // 
+            resources.ApplyResources(this.DrawText, "DrawText");
+            this.DrawText.Name = "DrawText";
+            this.ToolTip1.SetToolTip(this.DrawText, resources.GetString("DrawText.ToolTip"));
+            this.DrawText.UseVisualStyleBackColor = true;
+            this.DrawText.Click += new System.EventHandler(this.DrawText_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -483,7 +494,6 @@ namespace USBTool
             this.ReBoot.ForeColor = System.Drawing.Color.MediumSeaGreen;
             this.ReBoot.Name = "ReBoot";
             this.ReBoot.UseVisualStyleBackColor = false;
-            this.ReBoot.CheckedChanged += new System.EventHandler(this.ReBoot_CheckedChanged);
             // 
             // GetColor
             // 
@@ -498,7 +508,6 @@ namespace USBTool
             resources.ApplyResources(this.Opinion, "Opinion");
             this.Opinion.Name = "Opinion";
             this.Opinion.SelectedIndex = 0;
-            this.Opinion.SelectedIndexChanged += new System.EventHandler(this.Opinion_SelectedIndexChanged);
             // 
             // ComputerPage
             // 
@@ -506,7 +515,6 @@ namespace USBTool
             this.ComputerPage.Controls.Add(this.SystemControl);
             resources.ApplyResources(this.ComputerPage, "ComputerPage");
             this.ComputerPage.Name = "ComputerPage";
-            this.ComputerPage.Click += new System.EventHandler(this.ComputerPage_Click);
             // 
             // SystemControl
             // 
@@ -518,11 +526,12 @@ namespace USBTool
             resources.ApplyResources(this.SystemControl, "SystemControl");
             this.SystemControl.Name = "SystemControl";
             this.SystemControl.SelectedIndex = 0;
-            this.SystemControl.SelectedIndexChanged += new System.EventHandler(this.SystemControl_SelectedIndexChanged);
             // 
             // WindowCategory
             // 
             this.WindowCategory.BackColor = System.Drawing.Color.Red;
+            this.WindowCategory.Controls.Add(this.DrawText);
+            this.WindowCategory.Controls.Add(this.WndPicture);
             this.WindowCategory.Controls.Add(this.DisableWnd);
             this.WindowCategory.Controls.Add(this.SetText);
             this.WindowCategory.Controls.Add(this.CloseWnd);
@@ -532,18 +541,17 @@ namespace USBTool
             this.WindowCategory.Controls.Add(this.Msgbox);
             resources.ApplyResources(this.WindowCategory, "WindowCategory");
             this.WindowCategory.Name = "WindowCategory";
-            this.WindowCategory.Click += new System.EventHandler(this.WindowCategory_Click);
             // 
             // MouseCategory
             // 
             this.MouseCategory.BackColor = System.Drawing.Color.Red;
+            this.MouseCategory.Controls.Add(this.WindMouse);
             this.MouseCategory.Controls.Add(this.Clip);
             this.MouseCategory.Controls.Add(this.FixCursor);
             this.MouseCategory.Controls.Add(this.MouseTrail);
             this.MouseCategory.Controls.Add(this.SwapBotton);
             resources.ApplyResources(this.MouseCategory, "MouseCategory");
             this.MouseCategory.Name = "MouseCategory";
-            this.MouseCategory.Click += new System.EventHandler(this.MouseCategory_Click);
             // 
             // DisplayCategory
             // 
@@ -555,7 +563,6 @@ namespace USBTool
             this.DisplayCategory.Controls.Add(this.SetColor);
             resources.ApplyResources(this.DisplayCategory, "DisplayCategory");
             this.DisplayCategory.Name = "DisplayCategory";
-            this.DisplayCategory.Click += new System.EventHandler(this.DisplayCategory_Click);
             // 
             // SettingCategory
             // 
@@ -570,19 +577,17 @@ namespace USBTool
             this.SettingCategory.Controls.Add(this.ShowWeb);
             resources.ApplyResources(this.SettingCategory, "SettingCategory");
             this.SettingCategory.Name = "SettingCategory";
-            this.SettingCategory.Click += new System.EventHandler(this.SettingCategory_Click);
             // 
             // MediaCategory
             // 
             this.MediaCategory.BackColor = System.Drawing.Color.Red;
+            this.MediaCategory.Controls.Add(this.Picture);
             this.MediaCategory.Controls.Add(this.Beep);
             this.MediaCategory.Controls.Add(this.FullScreen);
             this.MediaCategory.Controls.Add(this.Media);
             this.MediaCategory.Controls.Add(this.ReadText);
-            this.MediaCategory.Controls.Add(this.picture);
             resources.ApplyResources(this.MediaCategory, "MediaCategory");
             this.MediaCategory.Name = "MediaCategory";
-            this.MediaCategory.Click += new System.EventHandler(this.MediaCategory_Click);
             // 
             // DiskPage
             // 
@@ -590,7 +595,6 @@ namespace USBTool
             this.DiskPage.Controls.Add(this.DiskControl);
             resources.ApplyResources(this.DiskPage, "DiskPage");
             this.DiskPage.Name = "DiskPage";
-            this.DiskPage.Click += new System.EventHandler(this.DiskPage_Click);
             // 
             // DiskControl
             // 
@@ -599,7 +603,6 @@ namespace USBTool
             resources.ApplyResources(this.DiskControl, "DiskControl");
             this.DiskControl.Name = "DiskControl";
             this.DiskControl.SelectedIndex = 0;
-            this.DiskControl.SelectedIndexChanged += new System.EventHandler(this.DiskControl_SelectedIndexChanged);
             // 
             // FileCategory
             // 
@@ -614,7 +617,6 @@ namespace USBTool
             this.FileCategory.Controls.Add(this.FillwithBlank);
             resources.ApplyResources(this.FileCategory, "FileCategory");
             this.FileCategory.Name = "FileCategory";
-            this.FileCategory.Click += new System.EventHandler(this.FileCategory_Click);
             // 
             // HardwareCategory
             // 
@@ -625,7 +627,13 @@ namespace USBTool
             this.HardwareCategory.Controls.Add(this.Eject);
             resources.ApplyResources(this.HardwareCategory, "HardwareCategory");
             this.HardwareCategory.Name = "HardwareCategory";
-            this.HardwareCategory.Click += new System.EventHandler(this.HardwareCategory_Click);
+            // 
+            // WindMouse
+            // 
+            resources.ApplyResources(this.WindMouse, "WindMouse");
+            this.WindMouse.Name = "WindMouse";
+            this.WindMouse.UseVisualStyleBackColor = true;
+            this.WindMouse.Click += new System.EventHandler(this.WindMouse_Click);
             // 
             // FormMain
             // 
@@ -712,7 +720,6 @@ namespace USBTool
 		internal Button SetText;
 		internal Button Eject;
 		internal Button Flash;
-		internal Button picture;
 		private System.ComponentModel.IContainer components;
 		internal Button random;
 		internal Button BeUncle;
@@ -742,6 +749,10 @@ namespace USBTool
         internal Button Clip;
         internal Button Beep;
         internal Button DisableWnd;
+        internal Button WndPicture;
+        internal Button Picture;
+        internal Button DrawText;
+        internal Button WindMouse;
     }
 	
 }

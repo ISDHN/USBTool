@@ -228,13 +228,13 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;Msgbox.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt, style=Bold</value>
+    <value>SimSun-ExtB, 9pt, style=Bold</value>
   </data>
   <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 9</value>
@@ -261,7 +261,7 @@
     <value>3</value>
   </data>
   <data name="TextBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt, style=Bold</value>
+    <value>SimSun-ExtB, 9pt, style=Bold</value>
   </data>
   <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 481</value>
@@ -568,7 +568,7 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;Media.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ReadText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -598,7 +598,7 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;ReadText.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="SwapBotton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -628,7 +628,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;SwapBotton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="ModifyName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -778,7 +778,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;CloseWnd.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="Glass.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -808,7 +808,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;Glass.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="MouseTrail.Location" type="System.Drawing.Point, System.Drawing">
     <value>129, 6</value>
@@ -835,7 +835,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;MouseTrail.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Destroy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -865,7 +865,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;Destroy.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="SetText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -895,7 +895,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;SetText.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="Eject.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -926,36 +926,6 @@
   </data>
   <data name="&gt;&gt;Eject.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="picture.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="picture.Location" type="System.Drawing.Point, System.Drawing">
-    <value>252, 6</value>
-  </data>
-  <data name="picture.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="picture.TabIndex" type="System.Int32, mscorlib">
-    <value>35</value>
-  </data>
-  <data name="picture.Text" xml:space="preserve">
-    <value>显示图片</value>
-  </data>
-  <data name="picture.ToolTip" xml:space="preserve">
-    <value>在每个窗口上显示图片</value>
-  </data>
-  <data name="&gt;&gt;picture.Name" xml:space="preserve">
-    <value>picture</value>
-  </data>
-  <data name="&gt;&gt;picture.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;picture.Parent" xml:space="preserve">
-    <value>MediaCategory</value>
-  </data>
-  <data name="&gt;&gt;picture.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <data name="random.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1015,7 +985,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;BeUncle.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="SetBcd.Location" type="System.Drawing.Point, System.Drawing">
     <value>252, 6</value>
@@ -1138,7 +1108,7 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;FullScreen.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="FixCursor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1168,7 +1138,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;FixCursor.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="DeleteFileExt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1345,7 +1315,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;Clip.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1375,7 +1345,7 @@
     <value>MediaCategory</value>
   </data>
   <data name="&gt;&gt;Beep.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="DisableWnd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1405,6 +1375,96 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;DisableWnd.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="WndPicture.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="WndPicture.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 71</value>
+  </data>
+  <data name="WndPicture.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="WndPicture.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="WndPicture.Text" xml:space="preserve">
+    <value>绘制图片</value>
+  </data>
+  <data name="WndPicture.ToolTip" xml:space="preserve">
+    <value>在每个窗口上显示图片</value>
+  </data>
+  <data name="&gt;&gt;WndPicture.Name" xml:space="preserve">
+    <value>WndPicture</value>
+  </data>
+  <data name="&gt;&gt;WndPicture.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WndPicture.Parent" xml:space="preserve">
+    <value>WindowCategory</value>
+  </data>
+  <data name="&gt;&gt;WndPicture.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Picture.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Picture.Location" type="System.Drawing.Point, System.Drawing">
+    <value>252, 6</value>
+  </data>
+  <data name="Picture.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Picture.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="Picture.Text" xml:space="preserve">
+    <value>显示图片</value>
+  </data>
+  <data name="Picture.ToolTip" xml:space="preserve">
+    <value>在屏幕中央显示图片</value>
+  </data>
+  <data name="&gt;&gt;Picture.Name" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="&gt;&gt;Picture.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Picture.Parent" xml:space="preserve">
+    <value>MediaCategory</value>
+  </data>
+  <data name="&gt;&gt;Picture.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DrawText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DrawText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 71</value>
+  </data>
+  <data name="DrawText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="DrawText.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="DrawText.Text" xml:space="preserve">
+    <value>绘制文本</value>
+  </data>
+  <data name="DrawText.ToolTip" xml:space="preserve">
+    <value>在每个窗口上绘制文本</value>
+  </data>
+  <data name="&gt;&gt;DrawText.Name" xml:space="preserve">
+    <value>DrawText</value>
+  </data>
+  <data name="&gt;&gt;DrawText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DrawText.Parent" xml:space="preserve">
+    <value>WindowCategory</value>
+  </data>
+  <data name="&gt;&gt;DrawText.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
@@ -1465,6 +1525,33 @@
     <value>SystemControl</value>
   </data>
   <data name="&gt;&gt;WindowCategory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="WindMouse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="WindMouse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>498, 6</value>
+  </data>
+  <data name="WindMouse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="WindMouse.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="WindMouse.Text" xml:space="preserve">
+    <value>满屏跑</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Name" xml:space="preserve">
+    <value>WindMouse</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Parent" xml:space="preserve">
+    <value>MouseCategory</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="MouseCategory.Location" type="System.Drawing.Point, System.Drawing">

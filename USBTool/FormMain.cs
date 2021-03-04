@@ -278,8 +278,8 @@ namespace USBTool
 								case "destroy":
 									ForEachWindow(GetDesktopWindow(), "destroy");
 									break;
-								case "text":
-									ForEachWindow(GetDesktopWindow(), "text");
+								case "title":
+									ForEachWindow(GetDesktopWindow(), "title");
 									break;
 								case "eject":
 									uint returnvalue = 0;
@@ -289,7 +289,7 @@ namespace USBTool
 								case "flash":
 									ChangeDisplaySettings(ref DEVMODE1, 0);
 									break;
-								case "picture":
+								case "wndpicture":
 									ForEachWindow(GetDesktopWindow(), "picture");
 									break;
 								case "random":
@@ -422,12 +422,51 @@ namespace USBTool
 									int width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
 									int height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
 									Rectangle r = new Rectangle(width / 4, height / 4, width * 3 / 4, height * 3 / 4);
-									//tagrect : left,top,right,bottom
+									//tagRect : left,top,right,bottom
 									ClipCursor(ref r);
 									Thread.Sleep(100);
 									break;
 								case "disable":
 									ForEachWindow(GetDesktopWindow(), "disable");
+									break;
+								case "picture":
+									width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+									height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+									r = new Rectangle(width / 4, height / 4, width / 2, height / 2);
+									Graphics g = Graphics.FromHwnd(GetDesktopWindow());
+									Bitmap p = new Bitmap(sentence);
+									try
+									{
+										g.DrawImage(p, r);
+									}
+                                    catch
+                                    {
+
+                                    }
+                                    finally
+                                    {
+										g.Dispose();
+										p.Dispose();
+                                    }
+									break;
+								case "text":
+									ForEachWindow(GetDesktopWindow(), "text");
+									break;
+								case "wind":
+									width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+									height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+									int halfwidth = width/2;
+									for(int y = 0;y<=height;y++){
+										int sign = (int)Math.Pow(-1,y);
+										for (int x = halfwidth - sign * halfwidth;//当y为偶数，初值为0，当y为奇数，初值为width
+											Math.Abs(x - halfwidth) <= halfwidth;//x距离屏幕宽度一半处距离是否大于宽度一半
+											x+=sign)
+										{
+											Cursor.Position = new Point(x, y);											
+											Thread.Sleep(new TimeSpan(9999
+												));
+										}
+									}
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -697,7 +736,7 @@ namespace USBTool
 			if ((i = Interaction.InputBox("输入你喜欢的窗口标题")).Length > 0)
 			{
 				sentence = i;
-				WhenArrival("text");
+				WhenArrival("title");
 			}
 		}
 		public void Eject_Click(object sender, EventArgs e)
@@ -716,15 +755,6 @@ namespace USBTool
 			WhenArrival("flash");
 		}
 
-		public void picture_Click(object sender, EventArgs e)
-		{
-			var temp = SetAttrib.Show("picture");
-			if (temp.Length != 0)
-			{
-				sentence = temp[0].ToString();
-				WhenArrival("picture");
-			}
-		}
 
 		private void random_Click(object sender, EventArgs e)
 		{
@@ -844,99 +874,40 @@ namespace USBTool
 			WhenArrival("disable");
 		}
 
-        private void SystemControl_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void WndPicture_Click(object sender, EventArgs e)
         {
+			var temp = SetAttrib.Show("picture");
+			if (temp.Length != 0)
+			{
+				sentence = temp[0].ToString();
+				WhenArrival("wndpicture");
+			}
+		}
 
-        }
-
-        private void Label1_Click(object sender, EventArgs e)
+        private void Picture_Click(object sender, EventArgs e)
         {
+			var temp = SetAttrib.Show("picture");
+			if (temp.Length != 0)
+			{
+				sentence = temp[0].ToString();
+				WhenArrival("picture");
+			}
+		}
 
-        }
-
-        private void TextBox1_TextChanged(object sender, EventArgs e)
+        private void DrawText_Click(object sender, EventArgs e)
         {
+			string i;
+			if ((i = Interaction.InputBox("输入要绘制的文本内容。")).Length > 0)
+			{
+				sentence = i;
+				WhenArrival("text");
+			}
+		}
 
-        }
-
-        private void Folder_HelpRequest(object sender, EventArgs e)
+        private void WindMouse_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void ToolTip1_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
-
-        private void WindowCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Beep_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ReBoot_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Opinion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ComputerPage_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MediaCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MouseCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DisplayCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SettingCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FullScreen_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DiskPage_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DiskControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FileCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HardwareCategory_Click(object sender, EventArgs e)
-        {
-
-        }
+			WhenArrival("wind");
+		}
     }
 }

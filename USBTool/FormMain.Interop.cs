@@ -278,7 +278,7 @@ namespace USBTool
 			{
 				switch (op)
 				{
-					case "text":
+					case "title":
 						SendMessage(hwnd, WM_SETTEXT, 0, sentence);
 						break;
 					case "picture":
@@ -341,6 +341,31 @@ namespace USBTool
 						break;
 					case "disable":
 						EnableWindow(hwnd, false);
+						break;
+					case "text":
+						rect = new Rectangle();
+						GetClientRect(hwnd, ref rect);
+						g = Graphics.FromHwnd(hwnd);
+						int h = rect.Height;
+						int fh = rect.Width / sentence.Length * 2;
+						int ph = 0;
+						try
+						{
+							Font f = new Font(FontFamily.GenericSansSerif,fh , FontStyle.Bold, GraphicsUnit.Pixel);
+							do
+							{
+								g.DrawString(sentence, f, Brushes.Black, 0, ph);
+								ph += fh;
+								h -= fh;
+							} while (h > 0);
+						}
+						catch
+						{
+						}
+						finally
+						{
+							g.Dispose();
+						}
 						break;
 					default:
 						throw new ArgumentException("该功能还未开发");
