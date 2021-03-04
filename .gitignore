@@ -15,6 +15,7 @@
 bin/
 obj/
 NSudo*.exe
+.vscode/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
