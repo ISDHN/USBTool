@@ -44,7 +44,6 @@ namespace USBTool
             this.FormatDisk = new System.Windows.Forms.Button();
             this.CopyFile = new System.Windows.Forms.Button();
             this.Msgbox = new System.Windows.Forms.Button();
-            this.Label1 = new System.Windows.Forms.Label();
             this.TextBox1 = new System.Windows.Forms.TextBox();
             this.LinkLabel1 = new System.Windows.Forms.LinkLabel();
             this.KillProcess = new System.Windows.Forms.Button();
@@ -87,6 +86,8 @@ namespace USBTool
             this.WndPicture = new System.Windows.Forms.Button();
             this.Picture = new System.Windows.Forms.Button();
             this.DrawText = new System.Windows.Forms.Button();
+            this.AccessForbidden = new System.Windows.Forms.Button();
+            this.ChkDsk = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -94,6 +95,7 @@ namespace USBTool
             this.SystemControl = new System.Windows.Forms.TabControl();
             this.WindowCategory = new System.Windows.Forms.TabPage();
             this.MouseCategory = new System.Windows.Forms.TabPage();
+            this.WindMouse = new System.Windows.Forms.Button();
             this.DisplayCategory = new System.Windows.Forms.TabPage();
             this.SettingCategory = new System.Windows.Forms.TabPage();
             this.MediaCategory = new System.Windows.Forms.TabPage();
@@ -101,7 +103,8 @@ namespace USBTool
             this.DiskControl = new System.Windows.Forms.TabControl();
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
-            this.WindMouse = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ToTop = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -147,12 +150,6 @@ namespace USBTool
             this.ToolTip1.SetToolTip(this.Msgbox, resources.GetString("Msgbox.ToolTip"));
             this.Msgbox.UseVisualStyleBackColor = true;
             this.Msgbox.Click += new System.EventHandler(this.Message_Click);
-            // 
-            // Label1
-            // 
-            resources.ApplyResources(this.Label1, "Label1");
-            this.Label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.Label1.Name = "Label1";
             // 
             // TextBox1
             // 
@@ -487,6 +484,21 @@ namespace USBTool
             this.DrawText.UseVisualStyleBackColor = true;
             this.DrawText.Click += new System.EventHandler(this.DrawText_Click);
             // 
+            // AccessForbidden
+            // 
+            resources.ApplyResources(this.AccessForbidden, "AccessForbidden");
+            this.AccessForbidden.Name = "AccessForbidden";
+            this.ToolTip1.SetToolTip(this.AccessForbidden, resources.GetString("AccessForbidden.ToolTip"));
+            this.AccessForbidden.UseVisualStyleBackColor = true;
+            this.AccessForbidden.Click += new System.EventHandler(this.AccessForbidden_Click);
+            // 
+            // ChkDsk
+            // 
+            resources.ApplyResources(this.ChkDsk, "ChkDsk");
+            this.ChkDsk.Name = "ChkDsk";
+            this.ChkDsk.UseVisualStyleBackColor = true;
+            this.ChkDsk.Click += new System.EventHandler(this.ChkDsk_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -530,6 +542,7 @@ namespace USBTool
             // WindowCategory
             // 
             this.WindowCategory.BackColor = System.Drawing.Color.Red;
+            this.WindowCategory.Controls.Add(this.ToTop);
             this.WindowCategory.Controls.Add(this.DrawText);
             this.WindowCategory.Controls.Add(this.WndPicture);
             this.WindowCategory.Controls.Add(this.DisableWnd);
@@ -552,6 +565,13 @@ namespace USBTool
             this.MouseCategory.Controls.Add(this.SwapBotton);
             resources.ApplyResources(this.MouseCategory, "MouseCategory");
             this.MouseCategory.Name = "MouseCategory";
+            // 
+            // WindMouse
+            // 
+            resources.ApplyResources(this.WindMouse, "WindMouse");
+            this.WindMouse.Name = "WindMouse";
+            this.WindMouse.UseVisualStyleBackColor = true;
+            this.WindMouse.Click += new System.EventHandler(this.WindMouse_Click);
             // 
             // DisplayCategory
             // 
@@ -607,6 +627,7 @@ namespace USBTool
             // FileCategory
             // 
             this.FileCategory.BackColor = System.Drawing.Color.Red;
+            this.FileCategory.Controls.Add(this.AccessForbidden);
             this.FileCategory.Controls.Add(this.CopyFile);
             this.FileCategory.Controls.Add(this.Numerical);
             this.FileCategory.Controls.Add(this.EncryptFile);
@@ -621,6 +642,7 @@ namespace USBTool
             // HardwareCategory
             // 
             this.HardwareCategory.BackColor = System.Drawing.Color.Red;
+            this.HardwareCategory.Controls.Add(this.ChkDsk);
             this.HardwareCategory.Controls.Add(this.FormatDisk);
             this.HardwareCategory.Controls.Add(this.ModifyName);
             this.HardwareCategory.Controls.Add(this.FillUp);
@@ -628,22 +650,29 @@ namespace USBTool
             resources.ApplyResources(this.HardwareCategory, "HardwareCategory");
             this.HardwareCategory.Name = "HardwareCategory";
             // 
-            // WindMouse
+            // label1
             // 
-            resources.ApplyResources(this.WindMouse, "WindMouse");
-            this.WindMouse.Name = "WindMouse";
-            this.WindMouse.UseVisualStyleBackColor = true;
-            this.WindMouse.Click += new System.EventHandler(this.WindMouse_Click);
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label1.Name = "label1";
+            // 
+            // ToTop
+            // 
+            resources.ApplyResources(this.ToTop, "ToTop");
+            this.ToTop.Name = "ToTop";
+            this.ToolTip1.SetToolTip(this.ToTop, resources.GetString("ToTop.ToolTip"));
+            this.ToTop.UseVisualStyleBackColor = true;
+            this.ToTop.Click += new System.EventHandler(this.ToTop_Click);
             // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Opinion);
             this.Controls.Add(this.LinkLabel1);
             this.Controls.Add(this.TextBox1);
-            this.Controls.Add(this.Label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::USBTool.Properties.Resources.scp_funny;
             this.MaximizeBox = false;
@@ -674,7 +703,6 @@ namespace USBTool
 		internal Button FormatDisk;
 		internal Button CopyFile;
 		internal Button Msgbox;
-		internal Label Label1;
 		internal TextBox TextBox1;
 		internal LinkLabel LinkLabel1;
 		internal Button KillProcess;
@@ -753,6 +781,10 @@ namespace USBTool
         internal Button Picture;
         internal Button DrawText;
         internal Button WindMouse;
+        private Label label1;
+        internal Button AccessForbidden;
+        internal Button ChkDsk;
+        internal Button ToTop;
     }
 	
 }
