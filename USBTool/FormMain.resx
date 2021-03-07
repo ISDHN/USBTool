@@ -174,7 +174,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;FormatDisk.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="CopyFile.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -628,7 +628,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;ModifyName.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="RotateScreen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -718,7 +718,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;FillUp.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="CloseWnd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -895,7 +895,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;Eject.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="random.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1467,6 +1467,36 @@
   <data name="&gt;&gt;AccessForbidden.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="ToTop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ToTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>252, 71</value>
+  </data>
+  <data name="ToTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="ToTop.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="ToTop.Text" xml:space="preserve">
+    <value>轮流置顶</value>
+  </data>
+  <data name="ToTop.ToolTip" xml:space="preserve">
+    <value>把窗口逐个置顶</value>
+  </data>
+  <data name="&gt;&gt;ToTop.Name" xml:space="preserve">
+    <value>ToTop</value>
+  </data>
+  <data name="&gt;&gt;ToTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToTop.Parent" xml:space="preserve">
+    <value>WindowCategory</value>
+  </data>
+  <data name="&gt;&gt;ToTop.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ChkDsk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1482,6 +1512,9 @@
   <data name="ChkDsk.Text" xml:space="preserve">
     <value>磁盘检查</value>
   </data>
+  <data name="ChkDsk.ToolTip" xml:space="preserve">
+    <value>检查时磁盘无法使用</value>
+  </data>
   <data name="&gt;&gt;ChkDsk.Name" xml:space="preserve">
     <value>ChkDsk</value>
   </data>
@@ -1492,7 +1525,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;ChkDsk.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1527,36 +1560,6 @@
   <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>199, 17</value>
   </metadata>
-  <data name="ToTop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ToTop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>252, 71</value>
-  </data>
-  <data name="ToTop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="ToTop.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="ToTop.Text" xml:space="preserve">
-    <value>轮流置顶</value>
-  </data>
-  <data name="ToTop.ToolTip" xml:space="preserve">
-    <value>把窗口逐个置顶</value>
-  </data>
-  <data name="&gt;&gt;ToTop.Name" xml:space="preserve">
-    <value>ToTop</value>
-  </data>
-  <data name="&gt;&gt;ToTop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ToTop.Parent" xml:space="preserve">
-    <value>WindowCategory</value>
-  </data>
-  <data name="&gt;&gt;ToTop.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="WindowCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -1792,6 +1795,36 @@
     <value>DiskControl</value>
   </data>
   <data name="&gt;&gt;FileCategory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="RemoveMbr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="RemoveMbr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>621, 6</value>
+  </data>
+  <data name="RemoveMbr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="RemoveMbr.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="RemoveMbr.Text" xml:space="preserve">
+    <value>删除引导信息</value>
+  </data>
+  <data name="RemoveMbr.ToolTip" xml:space="preserve">
+    <value>删除硬盘前512字节</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.Name" xml:space="preserve">
+    <value>RemoveMbr</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.Parent" xml:space="preserve">
+    <value>HardwareCategory</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="HardwareCategory.Location" type="System.Drawing.Point, System.Drawing">

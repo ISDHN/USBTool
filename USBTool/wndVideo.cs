@@ -3,9 +3,9 @@ using USBTool.MediaFoundation;
 
 namespace USBTool
 {
-    public partial class wndVideo : Form
+    public partial class WndVideo : Form
     {
-        public wndVideo()
+        public WndVideo()
         {
             InitializeComponent();
             Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth / 2;
@@ -30,7 +30,7 @@ namespace USBTool
 #elif MEDIA_FOUNDATION
         public IMFVideoDisplayControl videocontrol;
 
-        private void wndVideo_Paint(object sender, PaintEventArgs e)
+        private void WndVideo_Paint(object sender, PaintEventArgs e)
         {
 			videocontrol.RepaintVideo();
         }

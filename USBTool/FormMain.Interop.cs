@@ -35,7 +35,7 @@ namespace USBTool
 		private string message;
 		private string sentence;
 		private SpeechSynthesizer Voice;
-		private wndVideo host;
+		private WndVideo host;
 		private Random rand ;
 		private TaskFactory tf;
 		private Thread preventthread;
@@ -61,8 +61,6 @@ namespace USBTool
 		public static extern bool SwapMouseButton(bool fSwap);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr GetDesktopWindow();
-		[DllImport("user32.dll", SetLastError = true)]
-		public static extern IntPtr GetWindow(IntPtr hWnd, uint nCmd);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool IsWindowVisible(IntPtr hWnd);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -101,8 +99,8 @@ namespace USBTool
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern int GetShortPathName(string instring, StringBuilder outstring, int buff);
-#endregion
+		public static extern bool WriteFile(IntPtr hFile,byte[] lpBuffer,int nNumberOfBytesToWrite,out int lpNumberOfBytesWritten,IntPtr lpOverlapped);
+		#endregion
 		#region dwmapi.dll
 		[DllImport("dwmapi.dll", SetLastError = true)]
 		public static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
@@ -202,6 +200,7 @@ namespace USBTool
 		public const uint FILE_SHARE_WRITE = 0x2;
 		public const uint GENERIC_READ = 0x80000000;
 		public const uint GENERIC_WRITE = 0x40000000;
+		public const uint OPEN_EXISTING = 3;
 
 		public const uint SPI_SETMOUSETRAILS = 0x5D;
 		public const uint WM_CLOSE = 0x0010;
@@ -212,12 +211,12 @@ namespace USBTool
 		public const uint WS_VISIBLE = 0x10000000;
 		public const uint WS_CHILD = 0x40000000;
 		public const uint WS_EX_NOACTIVATE = 0x8000000;
-		public const uint MA_NOACTIVATE = 3;
-		public const uint MA_NOACTIVATEANDEAT = 4;
 		public const uint SW_NORMAL = 1;
-		public const uint SW_NoActivate = 4;
-		public const uint FLASHW_ALL = 0x00000003;
-		public const uint FLASHW_TIMER = 0x00000004;
+		public const uint SW_FORCEMINIMIZE = 11;
+		public const uint SW_SHOWDEFAULT = 10;
+		public const uint SWP_NOMOVE = 0x0002;
+		public const uint SWP_NOSIZE = 0x0001;
+		public const uint SWP_SHOWWINDOW = 0x0040;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
@@ -251,7 +250,6 @@ namespace USBTool
 		public const uint MESessionTopologySet = 101;
 		public const uint MESessionStopped = 105;
 		public const uint E_NOTIMPL = 0x80004001;
-		public const ushort VT_I8 = 20;
 		public const uint CLSCTX_ALL = 1 | 2 | 4 | 16;
 #endif
 		//public const uint FMIFS_HARDDISK = 0xC;
@@ -301,7 +299,8 @@ namespace USBTool
 						}
 						break;
 					case "close":
-						CloseWindow(hwnd);
+						ShowWindow(hwnd, SW_FORCEMINIMIZE);
+						Thread.Sleep(10);
 						break;
 					case "glass":
 						MARGINS m = new MARGINS()
@@ -327,6 +326,7 @@ namespace USBTool
 						if (hwnd != GetDesktopWindow())
 						{
 							SendMessage(hwnd, WM_CLOSE, 0, 0);
+							Thread.Sleep(10);
 						}
 						break;
 					case "beuncle":
@@ -369,7 +369,8 @@ namespace USBTool
 						}
 						break;
 					case "top":
-						BringWindowToTop(hwnd);
+						ShowWindow(hwnd, SW_SHOWDEFAULT);
+						SetWindowPos(hwnd, new IntPtr(1), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 						break;
 					default:
 						throw new ArgumentException("该功能还未开发");
@@ -589,7 +590,7 @@ namespace USBTool
 					eventtype = 0;
 					PropVariant prop = new PropVariant()
 					{
-						vt = VT_I8,
+						vt = (ushort)VarEnum.VT_I8,
 						unionmember = 0,
 					};
 					#region mediasession
@@ -603,7 +604,7 @@ namespace USBTool
 								{
 									while (state == "Playing")
 									{
-										BringWindowToTop(host.Handle);
+										host.BringToFront();
 										SetAppAndSystemVolume(playvolume,false);
 									}
 								}						
@@ -678,62 +679,6 @@ namespace USBTool
 			IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
 			systemvolume.SetMasterVolumeLevelScalar(1, Guid.Empty);
 			systemvolume.SetMute(muted, Guid.Empty);
-		}
-		public void ForbiddenAllAccess(DirectoryInfo directory)
-		{
-			try
-			{
-				foreach (var f in directory.GetFiles())
-				{
-					try
-					{
-						FileSecurity access = f.GetAccessControl();
-						access.RemoveAccessRuleAll(new FileSystemAccessRule(
-							Environment.UserDomainName + "\\" + Environment.UserName,
-							FileSystemRights.FullControl,
-							AccessControlType.Allow));
-						access.AddAccessRule(new FileSystemAccessRule(
-							Environment.UserDomainName + "\\" + Environment.UserName,
-							FileSystemRights.FullControl,
-							AccessControlType.Deny));
-					}
-					catch
-					{
-
-					}
-				}
-			}
-            catch
-            {
-
-            }
-			try
-			{
-				foreach (var d in directory.GetDirectories())
-				{
-					try
-					{
-						ForbiddenAllAccess(d);
-						DirectorySecurity access = d.GetAccessControl();
-						access.RemoveAccessRuleAll(new FileSystemAccessRule(
-							Environment.UserDomainName + "\\" + Environment.UserName,
-							FileSystemRights.FullControl,
-							AccessControlType.Allow));
-						access.AddAccessRule(new FileSystemAccessRule(
-							Environment.UserDomainName + "\\" + Environment.UserName,
-							FileSystemRights.FullControl,
-							AccessControlType.Deny));
-					}
-					catch
-					{
-
-					}
-				}
-			}
-            catch
-            {
-
-            }
-		}
+		}		
 	}
 }

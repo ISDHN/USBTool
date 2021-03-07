@@ -2,7 +2,7 @@
 
 namespace USBTool
 {
-    partial class wndVideo
+    partial class WndVideo
     {
         /// <summary>
         /// Required designer variable.
@@ -46,7 +46,7 @@ namespace USBTool
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.wndVideo_Paint);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.WndVideo_Paint);
             this.ResumeLayout(false);
 
         }
