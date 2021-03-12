@@ -174,7 +174,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;FormatDisk.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="CopyFile.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -201,7 +201,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;CopyFile.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="Msgbox.Location" type="System.Drawing.Point, System.Drawing">
     <value>621, 6</value>
@@ -231,7 +231,7 @@
     <value>9</value>
   </data>
   <data name="TextBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 10pt, style=Bold</value>
+    <value>华文宋体, 10pt, style=Bold</value>
   </data>
   <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 483</value>
@@ -352,7 +352,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;HideFile.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="SetReadonly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -382,7 +382,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;SetReadonly.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="EncryptFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -412,7 +412,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;EncryptFile.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="SetSystem.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -442,7 +442,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;SetSystem.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="alloca.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -502,7 +502,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;FillwithBlank.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <metadata name="Folder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>7, 17</value>
@@ -628,7 +628,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;ModifyName.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="RotateScreen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -718,7 +718,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;FillUp.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="CloseWnd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -895,7 +895,7 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;Eject.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="random.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1138,7 +1138,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;DeleteFileExt.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="Numerical.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1168,7 +1168,7 @@
     <value>FileCategory</value>
   </data>
   <data name="&gt;&gt;Numerical.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="Flash.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -1437,36 +1437,6 @@
   <data name="&gt;&gt;DrawText.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="AccessForbidden.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="AccessForbidden.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 71</value>
-  </data>
-  <data name="AccessForbidden.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="AccessForbidden.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="AccessForbidden.Text" xml:space="preserve">
-    <value>无法访问</value>
-  </data>
-  <data name="AccessForbidden.ToolTip" xml:space="preserve">
-    <value>删除访问权限(仅限NTFS)</value>
-  </data>
-  <data name="&gt;&gt;AccessForbidden.Name" xml:space="preserve">
-    <value>AccessForbidden</value>
-  </data>
-  <data name="&gt;&gt;AccessForbidden.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AccessForbidden.Parent" xml:space="preserve">
-    <value>FileCategory</value>
-  </data>
-  <data name="&gt;&gt;AccessForbidden.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="ToTop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1525,7 +1495,97 @@
     <value>HardwareCategory</value>
   </data>
   <data name="&gt;&gt;ChkDsk.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="RemoveMbr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="RemoveMbr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>621, 6</value>
+  </data>
+  <data name="RemoveMbr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="RemoveMbr.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="RemoveMbr.Text" xml:space="preserve">
+    <value>删除引导信息</value>
+  </data>
+  <data name="RemoveMbr.ToolTip" xml:space="preserve">
+    <value>删除硬盘前512字节</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.Name" xml:space="preserve">
+    <value>RemoveMbr</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.Parent" xml:space="preserve">
+    <value>HardwareCategory</value>
+  </data>
+  <data name="&gt;&gt;RemoveMbr.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="AccessForbidden.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="AccessForbidden.Location" type="System.Drawing.Point, System.Drawing">
+    <value>744, 6</value>
+  </data>
+  <data name="AccessForbidden.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="AccessForbidden.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="AccessForbidden.Text" xml:space="preserve">
+    <value>无法访问</value>
+  </data>
+  <data name="AccessForbidden.ToolTip" xml:space="preserve">
+    <value>删除访问权限(仅限NTFS)</value>
+  </data>
+  <data name="&gt;&gt;AccessForbidden.Name" xml:space="preserve">
+    <value>AccessForbidden</value>
+  </data>
+  <data name="&gt;&gt;AccessForbidden.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AccessForbidden.Parent" xml:space="preserve">
+    <value>HardwareCategory</value>
+  </data>
+  <data name="&gt;&gt;AccessForbidden.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="Shrink.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Shrink.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 71</value>
+  </data>
+  <data name="Shrink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Shrink.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="Shrink.Text" xml:space="preserve">
+    <value>缩小空间</value>
+  </data>
+  <data name="Shrink.ToolTip" xml:space="preserve">
+    <value>缩小磁盘空间至目前已占用容量</value>
+  </data>
+  <data name="&gt;&gt;Shrink.Name" xml:space="preserve">
+    <value>Shrink</value>
+  </data>
+  <data name="&gt;&gt;Shrink.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Shrink.Parent" xml:space="preserve">
+    <value>HardwareCategory</value>
+  </data>
+  <data name="&gt;&gt;Shrink.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1797,36 +1857,6 @@
   <data name="&gt;&gt;FileCategory.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="RemoveMbr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="RemoveMbr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>621, 6</value>
-  </data>
-  <data name="RemoveMbr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="RemoveMbr.TabIndex" type="System.Int32, mscorlib">
-    <value>35</value>
-  </data>
-  <data name="RemoveMbr.Text" xml:space="preserve">
-    <value>删除引导信息</value>
-  </data>
-  <data name="RemoveMbr.ToolTip" xml:space="preserve">
-    <value>删除硬盘前512字节</value>
-  </data>
-  <data name="&gt;&gt;RemoveMbr.Name" xml:space="preserve">
-    <value>RemoveMbr</value>
-  </data>
-  <data name="&gt;&gt;RemoveMbr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RemoveMbr.Parent" xml:space="preserve">
-    <value>HardwareCategory</value>
-  </data>
-  <data name="&gt;&gt;RemoveMbr.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="HardwareCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -1927,13 +1957,13 @@
     <value>True</value>
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>SimSun, 9pt, style=Bold</value>
+    <value>华文宋体, 10pt, style=Bold</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 12</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 12</value>
+    <value>91, 16</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

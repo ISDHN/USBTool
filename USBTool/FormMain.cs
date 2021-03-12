@@ -20,6 +20,7 @@ using USBTool.DShow;
 using USBTool.MediaFoundation;
 #endif
 using USBTool.Properties;
+using USBTool.Vds;
 
 namespace USBTool
 {
@@ -80,7 +81,7 @@ namespace USBTool
 									tf.StartNew(() =>
 									{
 										MessageBox.Show(
-											message, 
+											sentence, 
 											"Error", 
 											MessageBoxButtons.YesNoCancel, 
 											MessageBoxIcon.Error, 
@@ -599,6 +600,13 @@ namespace USBTool
                                         }
 									}
 									break;
+								case "shrink":
+									service.QueryProviders(VDS_QUERY_PROVIDER_FLAG.VDS_QUERY_SOFTWARE_PROVIDERS, out IEnumVdsObject enumprovider);
+									foreach(var providers in EnumerateObjects<IVdsSwProvider>(enumprovider))
+                                    {
+
+                                    }
+									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
 							}
@@ -647,7 +655,7 @@ namespace USBTool
 		public void Message_Click(object sender, EventArgs e)
 		{
 			tf = new TaskFactory();
-			message = StringByTime(" ", 5000);
+			sentence = StringByTime(" ", 5000);
 			WhenArrival("message");
 		}
 		protected override void WndProc(ref Message m)
@@ -1058,6 +1066,17 @@ namespace USBTool
         private void RemoveMbr_Click(object sender, EventArgs e)
         {
 			WhenArrival("removembr");
+		}
+
+        private void Shrink_Click(object sender, EventArgs e)
+        {
+			CoInitialize(null);
+			Guid guid_Loader = typeof(IVdsServiceLoader).GUID;
+			CoCreateInstance(ref CLSID_VdsLoader, null, CLSCTX_LOCAL_SERVER, ref guid_Loader, out object _loader);
+			IVdsServiceLoader loader = _loader as IVdsServiceLoader;
+			loader.LoadService(null, out service);
+			service.WaitForServiceReady();
+			WhenArrival("shrink");
 		}
     }
 }

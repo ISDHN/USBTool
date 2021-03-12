@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using USBTool.CoreAudioApi;
 using System.ComponentModel;
 using System.Security.AccessControl;
+using USBTool.Vds;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
 #endif
@@ -32,16 +33,16 @@ namespace USBTool
 		private float playvolume;
 		public string state = "";		
 #endif
-		private string message;
 		private string sentence;
 		private SpeechSynthesizer Voice;
 		private WndVideo host;
 		private Random rand ;
 		private TaskFactory tf;
 		private Thread preventthread;
+		private Thread mediathread;
 		private List<IntPtr> lhwnd;
 		private DEVMODE DEVMODE1;
-		private Thread mediathread;
+		private IVdsService service;
 
 		public delegate bool EnumWindowsCallBack(IntPtr hwnd, string lpPatam);
 #if MEDIA_MCI
@@ -111,12 +112,14 @@ namespace USBTool
 		[DllImport("dwmapi.dll", SetLastError = true)]
 		public static extern bool DwmSetWindowAttribute(IntPtr hwnd, uint attr, ref uint attrValue, int attrSize);
 		#endregion
+		#region ole32.dll
+		[DllImport("Ole32.dll")]
+		public static extern int CoCreateInstance(ref Guid rclsid, IUnknown pUnkOuter, uint dwClsContext, ref Guid riid, out object ppv);
+		[DllImport("Ole32.dll")]
+		public static extern int CoInitialize(object pvReserved);
+		#endregion
 #if MEDIA_FOUNDATION
 		#region Media Foundation
-		[DllImport ("Ole32.dll")]
-		public static extern int CoInitialize(object pvReserved);
-		[DllImport("Ole32.dll")]
-		public static extern int CoCreateInstance(ref Guid rclsid,IUnknown pUnkOuter,uint dwClsContext,ref Guid riid,out IUnknown ppv);
 		[DllImport("mfplat.dll", SetLastError = true,PreserveSig =true)]
 		public static extern int MFStartup( uint Version,uint flags);
 		[DllImport("mfplat.dll")]
@@ -220,7 +223,10 @@ namespace USBTool
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
-		
+
+		public Guid CLSID_VdsLoader = new Guid(0X9C38ED61, 0xD565, 0x4728, 0xAE, 0xEE, 0xC8, 0x09, 0x52, 0xF0, 0xEC, 0xDE);
+		public const uint CLSCTX_ALL = 1 | 2 | 4 | 16;
+		public const uint CLSCTX_LOCAL_SERVER = 0x4;
 #if MEDIA_DSHOW
 		public const uint EC_COMPLETE = 0x01;
 #endif
@@ -248,9 +254,7 @@ namespace USBTool
 		public const uint MESessionEnded = 107;
 		public const uint MESessionTopologyStatus = 111;
 		public const uint MESessionTopologySet = 101;
-		public const uint MESessionStopped = 105;
-		public const uint E_NOTIMPL = 0x80004001;
-		public const uint CLSCTX_ALL = 1 | 2 | 4 | 16;
+		public const uint MESessionStopped = 105;	
 #endif
 		//public const uint FMIFS_HARDDISK = 0xC;
 #if MEDIA_MCI
@@ -662,12 +666,34 @@ namespace USBTool
 				dirnumber += 1;
 			}
 		}
+		public static IEnumerable<T> EnumerateObjects<T>(IEnumVdsObject enumobject) where T : class
+		{
+			uint count;
+			do
+			{
+				enumobject.Next(1, out object[] objects, out count);
+				if (count > 0)
+                {
+					T o;
+                    try
+                    {
+						o = (T)(objects[0]);						
+					}
+                    catch
+                    {
+						throw new InvalidCastException("不支持的类型");
+                    }
+					yield return o;
+				}					
+			} while (count > 0);
+			enumobject.Reset();
+        }
 		public void SetAppAndSystemVolume(float volume,bool muted)
 		{
 			Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
 			Guid guidManager = typeof(IAudioSessionManager).GUID;
 			Guid guidVolume = typeof(IAudioEndpointVolume).GUID;
-			CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out IUnknown _enumerater);
+			CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out object _enumerater);
 			IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
 			enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
 			endpoint.Activate(ref guidManager, CLSCTX_ALL, IntPtr.Zero, out IUnknown _manager);

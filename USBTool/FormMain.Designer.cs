@@ -86,9 +86,11 @@ namespace USBTool
             this.WndPicture = new System.Windows.Forms.Button();
             this.Picture = new System.Windows.Forms.Button();
             this.DrawText = new System.Windows.Forms.Button();
-            this.AccessForbidden = new System.Windows.Forms.Button();
             this.ToTop = new System.Windows.Forms.Button();
             this.ChkDsk = new System.Windows.Forms.Button();
+            this.RemoveMbr = new System.Windows.Forms.Button();
+            this.AccessForbidden = new System.Windows.Forms.Button();
+            this.Shrink = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -105,7 +107,6 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.RemoveMbr = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -485,14 +486,6 @@ namespace USBTool
             this.DrawText.UseVisualStyleBackColor = true;
             this.DrawText.Click += new System.EventHandler(this.DrawText_Click);
             // 
-            // AccessForbidden
-            // 
-            resources.ApplyResources(this.AccessForbidden, "AccessForbidden");
-            this.AccessForbidden.Name = "AccessForbidden";
-            this.ToolTip1.SetToolTip(this.AccessForbidden, resources.GetString("AccessForbidden.ToolTip"));
-            this.AccessForbidden.UseVisualStyleBackColor = true;
-            this.AccessForbidden.Click += new System.EventHandler(this.AccessForbidden_Click);
-            // 
             // ToTop
             // 
             resources.ApplyResources(this.ToTop, "ToTop");
@@ -508,6 +501,29 @@ namespace USBTool
             this.ToolTip1.SetToolTip(this.ChkDsk, resources.GetString("ChkDsk.ToolTip"));
             this.ChkDsk.UseVisualStyleBackColor = true;
             this.ChkDsk.Click += new System.EventHandler(this.ChkDsk_Click);
+            // 
+            // RemoveMbr
+            // 
+            resources.ApplyResources(this.RemoveMbr, "RemoveMbr");
+            this.RemoveMbr.Name = "RemoveMbr";
+            this.ToolTip1.SetToolTip(this.RemoveMbr, resources.GetString("RemoveMbr.ToolTip"));
+            this.RemoveMbr.UseVisualStyleBackColor = true;
+            this.RemoveMbr.Click += new System.EventHandler(this.RemoveMbr_Click);
+            // 
+            // AccessForbidden
+            // 
+            resources.ApplyResources(this.AccessForbidden, "AccessForbidden");
+            this.AccessForbidden.Name = "AccessForbidden";
+            this.ToolTip1.SetToolTip(this.AccessForbidden, resources.GetString("AccessForbidden.ToolTip"));
+            this.AccessForbidden.UseVisualStyleBackColor = true;
+            // 
+            // Shrink
+            // 
+            resources.ApplyResources(this.Shrink, "Shrink");
+            this.Shrink.Name = "Shrink";
+            this.ToolTip1.SetToolTip(this.Shrink, resources.GetString("Shrink.ToolTip"));
+            this.Shrink.UseVisualStyleBackColor = true;
+            this.Shrink.Click += new System.EventHandler(this.Shrink_Click);
             // 
             // ReBoot
             // 
@@ -637,7 +653,6 @@ namespace USBTool
             // FileCategory
             // 
             this.FileCategory.BackColor = System.Drawing.Color.Red;
-            this.FileCategory.Controls.Add(this.AccessForbidden);
             this.FileCategory.Controls.Add(this.CopyFile);
             this.FileCategory.Controls.Add(this.Numerical);
             this.FileCategory.Controls.Add(this.EncryptFile);
@@ -652,6 +667,8 @@ namespace USBTool
             // HardwareCategory
             // 
             this.HardwareCategory.BackColor = System.Drawing.Color.Red;
+            this.HardwareCategory.Controls.Add(this.Shrink);
+            this.HardwareCategory.Controls.Add(this.AccessForbidden);
             this.HardwareCategory.Controls.Add(this.RemoveMbr);
             this.HardwareCategory.Controls.Add(this.ChkDsk);
             this.HardwareCategory.Controls.Add(this.FormatDisk);
@@ -666,14 +683,6 @@ namespace USBTool
             resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
-            // 
-            // RemoveMbr
-            // 
-            resources.ApplyResources(this.RemoveMbr, "RemoveMbr");
-            this.RemoveMbr.Name = "RemoveMbr";
-            this.ToolTip1.SetToolTip(this.RemoveMbr, resources.GetString("RemoveMbr.ToolTip"));
-            this.RemoveMbr.UseVisualStyleBackColor = true;
-            this.RemoveMbr.Click += new System.EventHandler(this.RemoveMbr_Click);
             // 
             // FormMain
             // 
@@ -793,10 +802,11 @@ namespace USBTool
         internal Button DrawText;
         internal Button WindMouse;
         private Label label1;
-        internal Button AccessForbidden;
         internal Button ChkDsk;
         internal Button ToTop;
         internal Button RemoveMbr;
+        internal Button AccessForbidden;
+        internal Button Shrink;
     }
 	
 }
