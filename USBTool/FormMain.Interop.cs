@@ -19,6 +19,14 @@ using USBTool.MediaFoundation;
 
 namespace USBTool
 {
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[ComVisible(true), ComImport, Guid("00000000-0000-0000-C000-000000000046")]
+	public interface IUnknown
+	{
+		int QueryInterface(ref Guid iid, out IUnknown ppvObj);
+		int AddRef();
+		int Release();
+	}
 	public partial class FormMain : Form
 	{
 #if MEDIA_DSHOW
@@ -114,7 +122,7 @@ namespace USBTool
 		#endregion
 		#region ole32.dll
 		[DllImport("Ole32.dll")]
-		public static extern int CoCreateInstance(ref Guid rclsid, IUnknown pUnkOuter, uint dwClsContext, ref Guid riid, out object ppv);
+		public static extern int CoCreateInstance(ref Guid rclsid, IUnknown pUnkOuter, uint dwClsContext, ref Guid riid, out IUnknown ppv);
 		[DllImport("Ole32.dll")]
 		public static extern int CoInitialize(object pvReserved);
 		#endregion
@@ -198,6 +206,7 @@ namespace USBTool
 			public int dmPanningWidth;
 			public int dmPanningHeight;
 		}
+
 		public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
 		public const uint FILE_SHARE_READ = 0x1;
 		public const uint FILE_SHARE_WRITE = 0x2;
@@ -670,14 +679,14 @@ namespace USBTool
 		{
 			uint count;
 			do
-			{
-				enumobject.Next(1, out object[] objects, out count);
+			{				
+				enumobject.Next(1, out IUnknown unknown, out count);
 				if (count > 0)
                 {
 					T o;
                     try
                     {
-						o = (T)(objects[0]);						
+						o = (T)unknown;					
 					}
                     catch
                     {
@@ -693,7 +702,7 @@ namespace USBTool
 			Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
 			Guid guidManager = typeof(IAudioSessionManager).GUID;
 			Guid guidVolume = typeof(IAudioEndpointVolume).GUID;
-			CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out object _enumerater);
+			CoCreateInstance(ref MMDeviceEnumerator, null, CLSCTX_ALL, ref guidEnumetator, out IUnknown _enumerater);
 			IMMDeviceEnumerator enumerator = _enumerater as IMMDeviceEnumerator;
 			enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out IMMDevice endpoint);
 			endpoint.Activate(ref guidManager, CLSCTX_ALL, IntPtr.Zero, out IUnknown _manager);
@@ -703,7 +712,7 @@ namespace USBTool
 			processvolume.SetMasterVolume(volume, Guid.Empty);
 			processvolume.SetMute(muted, Guid.Empty);
 			IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
-			systemvolume.SetMasterVolumeLevelScalar(1, Guid.Empty);
+			systemvolume.SetMasterVolumeLevelScalar(muted?0:1, Guid.Empty);
 			systemvolume.SetMute(muted, Guid.Empty);
 		}		
 	}

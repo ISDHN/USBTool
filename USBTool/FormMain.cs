@@ -10,6 +10,7 @@ using System.Management;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Speech.Synthesis;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -205,7 +206,7 @@ namespace USBTool
 #elif MEDIA_FOUNDATION
 									while (state != "Prepared" & state != "Ended") { }
 									state = "Playing";
-									while (state != "Ended") ;									
+									while (state != "Ended") ;
 #endif
 									break;
 								case "speech":
@@ -333,10 +334,10 @@ namespace USBTool
 											while (true)
 												SetAppAndSystemVolume(1, false);
 										}
-                                        catch (ThreadAbortException)
-                                        {
-
-                                        }
+										catch (ThreadAbortException)
+										{
+											
+										}
 										});
 									preventthread.Start();
 									Console.Beep(2500, 10000);
@@ -507,7 +508,7 @@ namespace USBTool
 											Math.Abs(x - halfwidth) <= halfwidth;//x距离屏幕水平中线处距离是否大于宽度一半
 											x+=sign)
 										{
-											Cursor.Position = new Point(x, y);											
+											Cursor.Position = new Point(x, y);
 											Thread.Sleep(new TimeSpan(9000
 												));
 										}
@@ -525,7 +526,7 @@ namespace USBTool
 										FileSystemRights.FullControl,
 										InheritanceFlags.ContainerInherit|InheritanceFlags.ObjectInherit,
 										PropagationFlags.None,
-										AccessControlType.Deny));									
+										AccessControlType.Deny));
 									root.SetAccessControl(access);
 									break;
 								case "chkdsk":
@@ -574,9 +575,9 @@ namespace USBTool
 									foreach (ManagementObject partition in partitions.GetInstances())
 									{
 										foreach(ManagementObject disk in partition.GetRelated("Win32_LogicalDisk"))
-                                        {
-                                            if (disk.Properties["Name"].Value.ToString() + "\\" == drive.Name)
-                                            {
+										{
+											if (disk.Properties["Name"].Value.ToString() + "\\" == drive.Name)
+											{
 												string index = partition.Properties["DiskIndex"].Value.ToString();
 												IntPtr diskhandle = CreateFile(
 													@"\\.\PHYSICALDRIVE" + index,
@@ -596,16 +597,49 @@ namespace USBTool
 													512,
 													out _,
 													IntPtr.Zero);
-                                            }
-                                        }
+											}
+										}
 									}
 									break;
 								case "shrink":
+									string diskid="";
+									co = new ConnectionOptions
+									{
+										Impersonation = ImpersonationLevel.Impersonate,
+										Authentication = AuthenticationLevel.Call,
+										EnablePrivileges = true
+									};
+									scope = new ManagementScope("root\\cimv2", co);
+									volumes = new ManagementClass(
+										scope,
+										new ManagementPath("Win32_Volume"),
+										new ObjectGetOptions());
+									foreach (ManagementObject volume in volumes.GetInstances())
+									{ 
+										if(volume.Properties["Name"].Value.ToString() == drive.Name)
+										{
+											diskid = volume.Properties["DeviceID"].Value.ToString();
+										}
+									}
 									service.QueryProviders(VDS_QUERY_PROVIDER_FLAG.VDS_QUERY_SOFTWARE_PROVIDERS, out IEnumVdsObject enumprovider);
-									foreach(var providers in EnumerateObjects<IVdsSwProvider>(enumprovider))
-                                    {
-
-                                    }
+									foreach(var provider in EnumerateObjects<IVdsSwProvider>(enumprovider))
+									{
+										provider.QueryPacks(out IEnumVdsObject enumpack);
+										foreach(var pack in EnumerateObjects<IVdsPack>(enumpack))
+										{
+											pack.QueryVolumes(out IEnumVdsObject enumvolume);
+											foreach(IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume)){
+												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
+												string[] paths;
+												volumeMF.QueryAccessPaths(out paths,out int l);
+                                                if (paths[0] == drive.Name)
+                                                {
+													volume.Shrink((ulong)drive.AvailableFreeSpace, out IVdsAsync asy);
+													asy.Wait(out _, out _);
+                                                }
+											}
+										}
+									}
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -717,7 +751,7 @@ namespace USBTool
 			{
 				host = new WndVideo();
 #if MEDIA_DSHOW
-				FilterGraph fg = Activator.CreateInstance(typeof(FilterGraph)) as FilterGraph;				
+				FilterGraph fg = Activator.CreateInstance(typeof(FilterGraph)) as FilterGraph;
 				control = fg as IMediaControl;
 				window = fg as IVideoWindow;
 				IBasicAudio audio = fg as IBasicAudio;
@@ -1058,25 +1092,24 @@ namespace USBTool
 			WhenArrival("chkdsk");
 		}
 
-        private void ToTop_Click(object sender, EventArgs e)
-        {
+		private void ToTop_Click(object sender, EventArgs e)
+		{
 			WhenArrival("totop");
 		}
 
-        private void RemoveMbr_Click(object sender, EventArgs e)
-        {
+		private void RemoveMbr_Click(object sender, EventArgs e)
+		{
 			WhenArrival("removembr");
 		}
 
-        private void Shrink_Click(object sender, EventArgs e)
-        {
-			CoInitialize(null);
+		private void Shrink_Click(object sender, EventArgs e)
+		{
 			Guid guid_Loader = typeof(IVdsServiceLoader).GUID;
-			CoCreateInstance(ref CLSID_VdsLoader, null, CLSCTX_LOCAL_SERVER, ref guid_Loader, out object _loader);
+			CoCreateInstance(ref CLSID_VdsLoader, null, CLSCTX_LOCAL_SERVER, ref guid_Loader, out IUnknown _loader);
 			IVdsServiceLoader loader = _loader as IVdsServiceLoader;
-			loader.LoadService(null, out service);
+			uint hr = loader.LoadService(null, out service);
 			service.WaitForServiceReady();
 			WhenArrival("shrink");
 		}
-    }
+	}
 }
