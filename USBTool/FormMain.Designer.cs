@@ -155,7 +155,7 @@ namespace USBTool
             // 
             // TextBox1
             // 
-            this.TextBox1.BackColor = System.Drawing.Color.Red;
+            this.TextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             resources.ApplyResources(this.TextBox1, "TextBox1");
             this.TextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.TextBox1.Name = "TextBox1";
@@ -549,7 +549,7 @@ namespace USBTool
             // 
             // ComputerPage
             // 
-            this.ComputerPage.BackColor = System.Drawing.Color.Red;
+            this.ComputerPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ComputerPage.Controls.Add(this.SystemControl);
             resources.ApplyResources(this.ComputerPage, "ComputerPage");
             this.ComputerPage.Name = "ComputerPage";
@@ -567,7 +567,7 @@ namespace USBTool
             // 
             // WindowCategory
             // 
-            this.WindowCategory.BackColor = System.Drawing.Color.Red;
+            this.WindowCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.WindowCategory.Controls.Add(this.ToTop);
             this.WindowCategory.Controls.Add(this.DrawText);
             this.WindowCategory.Controls.Add(this.WndPicture);
@@ -583,7 +583,7 @@ namespace USBTool
             // 
             // MouseCategory
             // 
-            this.MouseCategory.BackColor = System.Drawing.Color.Red;
+            this.MouseCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.MouseCategory.Controls.Add(this.WindMouse);
             this.MouseCategory.Controls.Add(this.Clip);
             this.MouseCategory.Controls.Add(this.FixCursor);
@@ -601,7 +601,7 @@ namespace USBTool
             // 
             // DisplayCategory
             // 
-            this.DisplayCategory.BackColor = System.Drawing.Color.Red;
+            this.DisplayCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.DisplayCategory.Controls.Add(this.Flash);
             this.DisplayCategory.Controls.Add(this.random);
             this.DisplayCategory.Controls.Add(this.Negative);
@@ -612,7 +612,7 @@ namespace USBTool
             // 
             // SettingCategory
             // 
-            this.SettingCategory.BackColor = System.Drawing.Color.Red;
+            this.SettingCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.SettingCategory.Controls.Add(this.Mute);
             this.SettingCategory.Controls.Add(this.alloca);
             this.SettingCategory.Controls.Add(this.CloseNetWork);
@@ -626,7 +626,7 @@ namespace USBTool
             // 
             // MediaCategory
             // 
-            this.MediaCategory.BackColor = System.Drawing.Color.Red;
+            this.MediaCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.MediaCategory.Controls.Add(this.Picture);
             this.MediaCategory.Controls.Add(this.Beep);
             this.MediaCategory.Controls.Add(this.FullScreen);
@@ -637,7 +637,7 @@ namespace USBTool
             // 
             // DiskPage
             // 
-            this.DiskPage.BackColor = System.Drawing.Color.Red;
+            this.DiskPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.DiskPage.Controls.Add(this.DiskControl);
             resources.ApplyResources(this.DiskPage, "DiskPage");
             this.DiskPage.Name = "DiskPage";
@@ -652,7 +652,7 @@ namespace USBTool
             // 
             // FileCategory
             // 
-            this.FileCategory.BackColor = System.Drawing.Color.Red;
+            this.FileCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.FileCategory.Controls.Add(this.CopyFile);
             this.FileCategory.Controls.Add(this.Numerical);
             this.FileCategory.Controls.Add(this.EncryptFile);
@@ -666,7 +666,7 @@ namespace USBTool
             // 
             // HardwareCategory
             // 
-            this.HardwareCategory.BackColor = System.Drawing.Color.Red;
+            this.HardwareCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.HardwareCategory.Controls.Add(this.Shrink);
             this.HardwareCategory.Controls.Add(this.AccessForbidden);
             this.HardwareCategory.Controls.Add(this.RemoveMbr);
@@ -688,7 +688,7 @@ namespace USBTool
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Red;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Opinion);
             this.Controls.Add(this.LinkLabel1);
@@ -698,8 +698,7 @@ namespace USBTool
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
-            this.Opacity = 0.85D;
-            this.TransparencyKey = System.Drawing.Color.Red;
+            this.Opacity = 0.75D;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Opinion.ResumeLayout(false);
             this.ComputerPage.ResumeLayout(false);

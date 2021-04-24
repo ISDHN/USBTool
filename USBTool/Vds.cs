@@ -184,7 +184,6 @@ namespace USBTool.Vds
 	[ComVisible(true), ComImport, Guid("e0393303-90d4-4a97-ab71-e9b671ee2729")]
 	public interface IVdsServiceLoader 
 	{
-		[PreserveSig]
 		uint LoadService(string pwszMachineName,out IVdsService ppService);
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -251,7 +250,7 @@ namespace USBTool.Vds
 		uint GetPack(out IVdsPack ppPack); 
 		uint QueryPlexes(out IEnumVdsObject ppEnum);		
 		uint Extend(VDS_INPUT_DISK[] pInputDiskArray, int lNumberOfDisks, out IUnknown ppAsync);		
-		uint Shrink(ulong ullNumberOfBytesToRemove,out IVdsAsync ppAsync);		
+		uint Shrink( uint ullNumberOfBytesToRemove,out IUnknown ppAsync);		
 		uint AddPlex(Guid VolumeId,out IUnknown ppAsync);		
 		uint BreakPlex(Guid plexId,out IUnknown ppAsync);		
 		uint RemovePlex(Guid plexId,out IUnknown ppAsync);
@@ -265,10 +264,9 @@ namespace USBTool.Vds
     {
         uint GetFileSystemProperties(ref VDS_FILE_SYSTEM_PROP pFileSystemProp);     
         uint Format(VDS_FILE_SYSTEM_TYPE type,string pwszLabel,uint dwUnitAllocationSize,bool bForce,bool bQuickFormat,bool bEnableCompression,out IntPtr ppAsync); 
-        uint AddAccessPath(string pwszPath);
-		uint QueryAccessPaths([MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] out string[] paths, out int count);
-
-		uint QueryReparsePoints(out VDS_REPARSE_POINT_PROP[] ppReparsePointProps,out int plNumberOfReparsePointProps);        
+        uint AddAccessPath(string pwszPath);       
+        uint QueryAccessPaths([MarshalAs(UnmanagedType.LPWStr)]StringBuilder pwszPathArray, out int plNumberOfAccessPaths);        
+        uint QueryReparsePoints(out VDS_REPARSE_POINT_PROP[] ppReparsePointProps,out int plNumberOfReparsePointProps);        
         uint DeleteAccessPath(string pwszPath,bool bForce);       
         uint Mount();   
         uint Dismount(bool bForce, bool bPermanent);       
@@ -282,7 +280,6 @@ namespace USBTool.Vds
 	{
 		uint Cancel();
 		uint Wait(out uint pHrResult, out IntPtr pAsyncOut);
-
 		uint QueryStatus(out uint pHrResult, out uint pulPercentCompleted);
 	}
 }

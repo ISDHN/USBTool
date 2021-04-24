@@ -602,6 +602,7 @@ namespace USBTool
 									}
 									break;
 								case "shrink":
+									Convert(@"\??\"+drive.Name.Remove(2));
 									string diskid="";
 									co = new ConnectionOptions
 									{
@@ -637,6 +638,10 @@ namespace USBTool
 													volume.Shrink((ulong)drive.AvailableFreeSpace, out IVdsAsync asy);
 													asy.Wait(out _, out _);
                                                 }
+												VDS_FILE_SYSTEM_PROP prop = new VDS_FILE_SYSTEM_PROP();
+												volumeMF.GetFileSystemProperties(ref prop);
+
+												//if (@"\\?\Volume{" + prop.id.ToString() + @"}\" == diskid) ;
 											}
 										}
 									}

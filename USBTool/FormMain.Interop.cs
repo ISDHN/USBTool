@@ -126,6 +126,8 @@ namespace USBTool
 		[DllImport("Ole32.dll")]
 		public static extern int CoInitialize(object pvReserved);
 		#endregion
+		[DllImport("Convert.dll")]
+		public extern static bool Convert([MarshalAs(UnmanagedType.LPWStr)]string device);
 #if MEDIA_FOUNDATION
 		#region Media Foundation
 		[DllImport("mfplat.dll", SetLastError = true,PreserveSig =true)]
