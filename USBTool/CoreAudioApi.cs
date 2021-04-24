@@ -35,6 +35,7 @@ namespace USBTool.CoreAudioApi
 		uint SetChannelVolumeLevelScalar(uint nChannel, float fLevel, ref Guid pguidEventContext);
 		uint GetChannelVolumeLevel(uint nChannel, out float pfLevelDB);
 		uint GetChannelVolumeLevelScalar(uint nChannel, out float pfLevel);
+		[PreserveSig]
 		uint SetMute(bool bMute, ref Guid pguidEventContext);
 		uint GetMute(out bool pbMute);
 		uint GetVolumeStepInfo(out uint pnStep, out uint pnStepCount);
