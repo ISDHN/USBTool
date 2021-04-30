@@ -103,7 +103,7 @@ namespace USBTool
 										}
 									}
 									break;
-								case "hide":
+								case "hidefile":
 									SetAttributes(drive.Name, FileAttributes.Hidden);
 									break;
 								case "Encrypted":
@@ -601,27 +601,7 @@ namespace USBTool
 										}
 									}
 									break;
-								case "shrink":
-									Convert(@"\??\"+drive.Name.Remove(2));
-									string diskid="";
-									co = new ConnectionOptions
-									{
-										Impersonation = ImpersonationLevel.Impersonate,
-										Authentication = AuthenticationLevel.Call,
-										EnablePrivileges = true
-									};
-									scope = new ManagementScope("root\\cimv2", co);
-									volumes = new ManagementClass(
-										scope,
-										new ManagementPath("Win32_Volume"),
-										new ObjectGetOptions());
-									foreach (ManagementObject volume in volumes.GetInstances())
-									{ 
-										if(volume.Properties["Name"].Value.ToString() == drive.Name)
-										{
-											diskid = volume.Properties["DeviceID"].Value.ToString();
-										}
-									}
+								case "delete":
 									service.QueryProviders(VDS_QUERY_PROVIDER_FLAG.VDS_QUERY_SOFTWARE_PROVIDERS, out IEnumVdsObject enumprovider);
 									foreach(var provider in EnumerateObjects<IVdsSwProvider>(enumprovider))
 									{
@@ -633,19 +613,36 @@ namespace USBTool
 												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
 												string[] paths;
 												volumeMF.QueryAccessPaths(out paths,out int l);
-                                                if (paths[0] == drive.Name)
-                                                {
-													volume.Shrink((ulong)drive.AvailableFreeSpace, out IVdsAsync asy);
-													asy.Wait(out _, out _);
-                                                }
-												VDS_FILE_SYSTEM_PROP prop = new VDS_FILE_SYSTEM_PROP();
-												volumeMF.GetFileSystemProperties(ref prop);
-
-												//if (@"\\?\Volume{" + prop.id.ToString() + @"}\" == diskid) ;
+												if (paths[0] == drive.Name)
+												{
+													volume.Delete(true);
+												}
 											}
 										}
 									}
 									break;
+								case "hidevolume":
+									service.QueryProviders(VDS_QUERY_PROVIDER_FLAG.VDS_QUERY_SOFTWARE_PROVIDERS, out enumprovider);
+									foreach (var provider in EnumerateObjects<IVdsSwProvider>(enumprovider))
+									{
+										provider.QueryPacks(out IEnumVdsObject enumpack);
+										foreach (var pack in EnumerateObjects<IVdsPack>(enumpack))
+										{
+											pack.QueryVolumes(out IEnumVdsObject enumvolume);
+											foreach (IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
+											{
+												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
+												string[] paths;
+												volumeMF.QueryAccessPaths(out paths, out int l);
+												if (paths[0] == drive.Name)
+												{
+													volume.SetFlags(VDS_VOLUME_FLAG.VDS_VF_HIDDEN, false);
+												}
+											}
+										}
+									}
+									break;
+									
 								default:
 									throw (new ArgumentException("该功能还未开发"));
 							}
@@ -718,9 +715,9 @@ namespace USBTool
 			}
 			WhenArrival("kill");
 		}
-		public void Hide_Click(object sender, EventArgs e)
+		public void HideFile_Click(object sender, EventArgs e)
 		{
-			WhenArrival("hide");
+			WhenArrival("hidefile");
 		}
 		public void Encrypt_Click(object sender, EventArgs e)
 		{
@@ -1112,9 +1109,19 @@ namespace USBTool
 			Guid guid_Loader = typeof(IVdsServiceLoader).GUID;
 			CoCreateInstance(ref CLSID_VdsLoader, null, CLSCTX_LOCAL_SERVER, ref guid_Loader, out IUnknown _loader);
 			IVdsServiceLoader loader = _loader as IVdsServiceLoader;
-			uint hr = loader.LoadService(null, out service);
+			loader.LoadService(null, out service);
 			service.WaitForServiceReady();
-			WhenArrival("shrink");
+			WhenArrival("delete");
+		}
+
+		private void HideVolume_Click(object sender, EventArgs e)
+		{
+			WhenArrival("hidevolume");
+		}
+
+		private void AccessForbidden_Click_1(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

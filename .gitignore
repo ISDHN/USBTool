@@ -9,7 +9,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.h
 *.idl
 *.bat
 bin/

@@ -39,7 +39,7 @@ namespace USBTool.Vds
 		public VDS_VOLUME_STATUS status;
 		public VDS_HEALTH health;
 		public VDS_TRANSITION_STATE TransitionState;
-		public uint ullSize;
+		public ulong ullSize;
 		public uint ulFlags;
 		public VDS_FILE_SYSTEM_TYPE RecommendedFileSystemType;
 		[MarshalAs(UnmanagedType.LPWStr)]
@@ -82,6 +82,35 @@ namespace USBTool.Vds
 		VDS_TS_SHRINKING = 3,
 		VDS_TS_RECONFIGING = 4,
 		VDS_TS_RESTRIPING = 5
+	}
+	public enum VDS_VOLUME_FLAG
+	{
+		VDS_VF_SYSTEM_VOLUME = 0x1,
+		VDS_VF_BOOT_VOLUME = 0x2,
+		VDS_VF_ACTIVE = 0x4,
+		VDS_VF_READONLY = 0x8,
+		VDS_VF_HIDDEN = 0x10,
+		VDS_VF_CAN_EXTEND = 0x20,
+		VDS_VF_CAN_SHRINK = 0x40,
+		VDS_VF_PAGEFILE = 0x80,
+		VDS_VF_HIBERNATION = 0x100,
+		VDS_VF_CRASHDUMP = 0x200,
+		VDS_VF_INSTALLABLE = 0x400,
+		VDS_VF_LBN_REMAP_ENABLED = 0x800,
+		VDS_VF_FORMATTING = 0x1000,
+		VDS_VF_NOT_FORMATTABLE = 0x2000,
+		VDS_VF_NTFS_NOT_SUPPORTED = 0x4000,
+		VDS_VF_FAT32_NOT_SUPPORTED = 0x8000,
+		VDS_VF_FAT_NOT_SUPPORTED = 0x10000,
+		VDS_VF_NO_DEFAULT_DRIVE_LETTER = 0x20000,
+		VDS_VF_PERMANENTLY_DISMOUNTED = 0x40000,
+		VDS_VF_PERMANENT_DISMOUNT_SUPPORTED = 0x80000,
+		VDS_VF_SHADOW_COPY = 0x100000,
+		VDS_VF_FVE_ENABLED = 0x200000,
+		VDS_VF_DIRTY = 0x400000,
+		VDS_VF_REFS_NOT_SUPPORTED = 0x800000,
+		VDS_VF_BACKS_BOOT_VOLUME = 0x1000000,
+		VDS_VF_BACKED_BY_WIM_IMAGE = 0x2000000
 	}
 	public enum VDS_FILE_SYSTEM_TYPE
 	{
@@ -250,12 +279,12 @@ namespace USBTool.Vds
 		uint GetPack(out IVdsPack ppPack); 
 		uint QueryPlexes(out IEnumVdsObject ppEnum);		
 		uint Extend(VDS_INPUT_DISK[] pInputDiskArray, int lNumberOfDisks, out IUnknown ppAsync);		
-		uint Shrink( uint ullNumberOfBytesToRemove,out IUnknown ppAsync);		
+		uint Shrink( ulong ullNumberOfBytesToRemove,out IVdsAsync ppAsync);		
 		uint AddPlex(Guid VolumeId,out IUnknown ppAsync);		
 		uint BreakPlex(Guid plexId,out IUnknown ppAsync);		
 		uint RemovePlex(Guid plexId,out IUnknown ppAsync);
 		uint Delete(bool bForce);
-		uint SetFlags(uint ulFlags,bool bRevertOnClose);		
+		uint SetFlags(VDS_VOLUME_FLAG ulFlags,bool bRevertOnClose);		
 		uint ClearFlags(uint ulFlags);		
 	}
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -265,7 +294,7 @@ namespace USBTool.Vds
         uint GetFileSystemProperties(ref VDS_FILE_SYSTEM_PROP pFileSystemProp);     
         uint Format(VDS_FILE_SYSTEM_TYPE type,string pwszLabel,uint dwUnitAllocationSize,bool bForce,bool bQuickFormat,bool bEnableCompression,out IntPtr ppAsync); 
         uint AddAccessPath(string pwszPath);       
-        uint QueryAccessPaths([MarshalAs(UnmanagedType.LPWStr)]StringBuilder pwszPathArray, out int plNumberOfAccessPaths);        
+        uint QueryAccessPaths([MarshalAs(UnmanagedType.LPArray,ArraySubType =UnmanagedType.LPWStr)]out string[] pwszPathArray, out int plNumberOfAccessPaths);        
         uint QueryReparsePoints(out VDS_REPARSE_POINT_PROP[] ppReparsePointProps,out int plNumberOfReparsePointProps);        
         uint DeleteAccessPath(string pwszPath,bool bForce);       
         uint Mount();   

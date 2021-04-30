@@ -90,7 +90,8 @@ namespace USBTool
             this.ChkDsk = new System.Windows.Forms.Button();
             this.RemoveMbr = new System.Windows.Forms.Button();
             this.AccessForbidden = new System.Windows.Forms.Button();
-            this.Shrink = new System.Windows.Forms.Button();
+            this.DeleteVolume = new System.Windows.Forms.Button();
+            this.HideVolume = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -183,7 +184,7 @@ namespace USBTool
             this.HideFile.Name = "HideFile";
             this.ToolTip1.SetToolTip(this.HideFile, resources.GetString("HideFile.ToolTip"));
             this.HideFile.UseVisualStyleBackColor = true;
-            this.HideFile.Click += new System.EventHandler(this.Hide_Click);
+            this.HideFile.Click += new System.EventHandler(this.HideFile_Click);
             // 
             // SetReadonly
             // 
@@ -516,14 +517,23 @@ namespace USBTool
             this.AccessForbidden.Name = "AccessForbidden";
             this.ToolTip1.SetToolTip(this.AccessForbidden, resources.GetString("AccessForbidden.ToolTip"));
             this.AccessForbidden.UseVisualStyleBackColor = true;
+            this.AccessForbidden.Click += new System.EventHandler(this.AccessForbidden_Click_1);
             // 
-            // Shrink
+            // DeleteVolume
             // 
-            resources.ApplyResources(this.Shrink, "Shrink");
-            this.Shrink.Name = "Shrink";
-            this.ToolTip1.SetToolTip(this.Shrink, resources.GetString("Shrink.ToolTip"));
-            this.Shrink.UseVisualStyleBackColor = true;
-            this.Shrink.Click += new System.EventHandler(this.Shrink_Click);
+            resources.ApplyResources(this.DeleteVolume, "DeleteVolume");
+            this.DeleteVolume.Name = "DeleteVolume";
+            this.ToolTip1.SetToolTip(this.DeleteVolume, resources.GetString("DeleteVolume.ToolTip"));
+            this.DeleteVolume.UseVisualStyleBackColor = true;
+            this.DeleteVolume.Click += new System.EventHandler(this.Shrink_Click);
+            // 
+            // HideVolume
+            // 
+            resources.ApplyResources(this.HideVolume, "HideVolume");
+            this.HideVolume.Name = "HideVolume";
+            this.ToolTip1.SetToolTip(this.HideVolume, resources.GetString("HideVolume.ToolTip"));
+            this.HideVolume.UseVisualStyleBackColor = true;
+            this.HideVolume.Click += new System.EventHandler(this.HideVolume_Click);
             // 
             // ReBoot
             // 
@@ -667,7 +677,8 @@ namespace USBTool
             // HardwareCategory
             // 
             this.HardwareCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.HardwareCategory.Controls.Add(this.Shrink);
+            this.HardwareCategory.Controls.Add(this.HideVolume);
+            this.HardwareCategory.Controls.Add(this.DeleteVolume);
             this.HardwareCategory.Controls.Add(this.AccessForbidden);
             this.HardwareCategory.Controls.Add(this.RemoveMbr);
             this.HardwareCategory.Controls.Add(this.ChkDsk);
@@ -698,7 +709,7 @@ namespace USBTool
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
-            this.Opacity = 0.75D;
+            this.Opacity = 0.85D;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Opinion.ResumeLayout(false);
             this.ComputerPage.ResumeLayout(false);
@@ -805,7 +816,8 @@ namespace USBTool
         internal Button ToTop;
         internal Button RemoveMbr;
         internal Button AccessForbidden;
-        internal Button Shrink;
+        internal Button DeleteVolume;
+        internal Button HideVolume;
     }
 	
 }
