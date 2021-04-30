@@ -517,7 +517,7 @@ namespace USBTool
             this.AccessForbidden.Name = "AccessForbidden";
             this.ToolTip1.SetToolTip(this.AccessForbidden, resources.GetString("AccessForbidden.ToolTip"));
             this.AccessForbidden.UseVisualStyleBackColor = true;
-            this.AccessForbidden.Click += new System.EventHandler(this.AccessForbidden_Click_1);
+            this.AccessForbidden.Click += new System.EventHandler(this.AccessForbidden_Click);
             // 
             // DeleteVolume
             // 
@@ -525,7 +525,7 @@ namespace USBTool
             this.DeleteVolume.Name = "DeleteVolume";
             this.ToolTip1.SetToolTip(this.DeleteVolume, resources.GetString("DeleteVolume.ToolTip"));
             this.DeleteVolume.UseVisualStyleBackColor = true;
-            this.DeleteVolume.Click += new System.EventHandler(this.Shrink_Click);
+            this.DeleteVolume.Click += new System.EventHandler(this.DeleteVolume_Click);
             // 
             // HideVolume
             // 

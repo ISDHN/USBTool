@@ -636,7 +636,8 @@ namespace USBTool
 												volumeMF.QueryAccessPaths(out paths, out int l);
 												if (paths[0] == drive.Name)
 												{
-													volume.SetFlags(VDS_VOLUME_FLAG.VDS_VF_HIDDEN, false);
+													volumeMF.DeleteAccessPath(drive.Name, true);
+													//volume.SetFlags(VDS_VOLUME_FLAG.VDS_VF_HIDDEN, false);
 												}
 											}
 										}
@@ -1104,24 +1105,43 @@ namespace USBTool
 			WhenArrival("removembr");
 		}
 
-		private void Shrink_Click(object sender, EventArgs e)
+		private void DeleteVolume_Click(object sender, EventArgs e)
 		{
 			Guid guid_Loader = typeof(IVdsServiceLoader).GUID;
 			CoCreateInstance(ref CLSID_VdsLoader, null, CLSCTX_LOCAL_SERVER, ref guid_Loader, out IUnknown _loader);
 			IVdsServiceLoader loader = _loader as IVdsServiceLoader;
 			loader.LoadService(null, out service);
 			service.WaitForServiceReady();
+			service.QueryProviders(VDS_QUERY_PROVIDER_FLAG.VDS_QUERY_SOFTWARE_PROVIDERS, out IEnumVdsObject enumprovider);
+			foreach (var provider in EnumerateObjects<IVdsSwProvider>(enumprovider))
+			{
+				provider.QueryPacks(out IEnumVdsObject enumpack);
+				foreach (var pack in EnumerateObjects<IVdsPack>(enumpack))
+				{
+					pack.QueryVolumes(out IEnumVdsObject enumvolume);
+					foreach (IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
+					{
+						IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
+						string[] paths;
+						volumeMF.QueryAccessPaths(out paths, out int l);
+						if (paths[0] == "F:\\")
+						{
+							volumeMF.SetFileSystemFlags(6);
+						}
+					}
+				}
+			}
 			WhenArrival("delete");
 		}
 
 		private void HideVolume_Click(object sender, EventArgs e)
 		{
+			Guid guid_Loader = typeof(IVdsServiceLoader).GUID;
+			CoCreateInstance(ref CLSID_VdsLoader, null, CLSCTX_LOCAL_SERVER, ref guid_Loader, out IUnknown _loader);
+			IVdsServiceLoader loader = _loader as IVdsServiceLoader;
+			loader.LoadService(null, out service);
+			service.WaitForServiceReady();
 			WhenArrival("hidevolume");
-		}
-
-		private void AccessForbidden_Click_1(object sender, EventArgs e)
-		{
-
 		}
 	}
 }

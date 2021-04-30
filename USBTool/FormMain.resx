@@ -1603,7 +1603,7 @@
     <value>隐藏卷</value>
   </data>
   <data name="HideVolume.ToolTip" xml:space="preserve">
-    <value>隐藏分区</value>
+    <value>删除分区卷标</value>
   </data>
   <data name="&gt;&gt;HideVolume.Name" xml:space="preserve">
     <value>HideVolume</value>
@@ -1650,177 +1650,6 @@
   <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>199, 17</value>
   </metadata>
-  <data name="WindowCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="WindowCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="WindowCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>859, 401</value>
-  </data>
-  <data name="WindowCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="WindowCategory.Text" xml:space="preserve">
-    <value>窗口类</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.Name" xml:space="preserve">
-    <value>WindowCategory</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;WindowCategory.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="WindMouse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="WindMouse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>498, 6</value>
-  </data>
-  <data name="WindMouse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="WindMouse.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="WindMouse.Text" xml:space="preserve">
-    <value>满屏跑</value>
-  </data>
-  <data name="&gt;&gt;WindMouse.Name" xml:space="preserve">
-    <value>WindMouse</value>
-  </data>
-  <data name="&gt;&gt;WindMouse.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;WindMouse.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
-  </data>
-  <data name="&gt;&gt;WindMouse.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="MouseCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="MouseCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="MouseCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>859, 401</value>
-  </data>
-  <data name="MouseCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="MouseCategory.Text" xml:space="preserve">
-    <value>鼠标类</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.Name" xml:space="preserve">
-    <value>MouseCategory</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;MouseCategory.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="DisplayCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="DisplayCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="DisplayCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>859, 401</value>
-  </data>
-  <data name="DisplayCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="DisplayCategory.Text" xml:space="preserve">
-    <value>显示类</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.Name" xml:space="preserve">
-    <value>DisplayCategory</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;DisplayCategory.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="SettingCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="SettingCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="SettingCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>859, 401</value>
-  </data>
-  <data name="SettingCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="SettingCategory.Text" xml:space="preserve">
-    <value>系统类</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.Name" xml:space="preserve">
-    <value>SettingCategory</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;SettingCategory.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="MediaCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="MediaCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="MediaCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>859, 401</value>
-  </data>
-  <data name="MediaCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="MediaCategory.Text" xml:space="preserve">
-    <value>多媒体类</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.Name" xml:space="preserve">
-    <value>MediaCategory</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.Parent" xml:space="preserve">
-    <value>SystemControl</value>
-  </data>
-  <data name="&gt;&gt;MediaCategory.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="SystemControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-1, 2</value>
-  </data>
-  <data name="SystemControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>867, 427</value>
-  </data>
-  <data name="SystemControl.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="&gt;&gt;SystemControl.Name" xml:space="preserve">
     <value>SystemControl</value>
   </data>
@@ -1982,6 +1811,261 @@
   </data>
   <data name="&gt;&gt;Opinion.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.Name" xml:space="preserve">
+    <value>WindowCategory</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.Name" xml:space="preserve">
+    <value>MouseCategory</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.Name" xml:space="preserve">
+    <value>DisplayCategory</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.Name" xml:space="preserve">
+    <value>SettingCategory</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.Name" xml:space="preserve">
+    <value>MediaCategory</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="SystemControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-1, 2</value>
+  </data>
+  <data name="SystemControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>867, 427</value>
+  </data>
+  <data name="SystemControl.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;SystemControl.Name" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;SystemControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SystemControl.Parent" xml:space="preserve">
+    <value>ComputerPage</value>
+  </data>
+  <data name="&gt;&gt;SystemControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="WindowCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="WindowCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="WindowCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>859, 401</value>
+  </data>
+  <data name="WindowCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="WindowCategory.Text" xml:space="preserve">
+    <value>窗口类</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.Name" xml:space="preserve">
+    <value>WindowCategory</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;WindowCategory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Name" xml:space="preserve">
+    <value>WindMouse</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Parent" xml:space="preserve">
+    <value>MouseCategory</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MouseCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="MouseCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="MouseCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>859, 401</value>
+  </data>
+  <data name="MouseCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="MouseCategory.Text" xml:space="preserve">
+    <value>鼠标类</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.Name" xml:space="preserve">
+    <value>MouseCategory</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;MouseCategory.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="WindMouse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="WindMouse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>498, 6</value>
+  </data>
+  <data name="WindMouse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="WindMouse.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="WindMouse.Text" xml:space="preserve">
+    <value>满屏跑</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Name" xml:space="preserve">
+    <value>WindMouse</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.Parent" xml:space="preserve">
+    <value>MouseCategory</value>
+  </data>
+  <data name="&gt;&gt;WindMouse.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DisplayCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="DisplayCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="DisplayCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>859, 401</value>
+  </data>
+  <data name="DisplayCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="DisplayCategory.Text" xml:space="preserve">
+    <value>显示类</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.Name" xml:space="preserve">
+    <value>DisplayCategory</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;DisplayCategory.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SettingCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="SettingCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="SettingCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>859, 401</value>
+  </data>
+  <data name="SettingCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="SettingCategory.Text" xml:space="preserve">
+    <value>系统类</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.Name" xml:space="preserve">
+    <value>SettingCategory</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;SettingCategory.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="MediaCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="MediaCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="MediaCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>859, 401</value>
+  </data>
+  <data name="MediaCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="MediaCategory.Text" xml:space="preserve">
+    <value>多媒体类</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.Name" xml:space="preserve">
+    <value>MediaCategory</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.Parent" xml:space="preserve">
+    <value>SystemControl</value>
+  </data>
+  <data name="&gt;&gt;MediaCategory.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
