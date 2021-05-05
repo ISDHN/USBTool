@@ -37,7 +37,7 @@ namespace USBTool
 				{
 					foreach (DriveInfo drive in DriveInfo.GetDrives())
 					{
-						if (drive.DriveType == DriveType.Removable)
+						if (drive.DriveType == DriveType.Removable&drive.IsReady)
 						{
 							switch (op)
 							{
@@ -294,7 +294,6 @@ namespace USBTool
 									ForEachWindow(GetDesktopWindow(), "title");
 									break;
 								case "eject":
-									uint returnvalue = 0;
 									IntPtr Handle = CreateFile(
 										@"\\.\" + drive.Name[0] + ":", 
 										GENERIC_READ|GENERIC_WRITE, 
@@ -310,7 +309,7 @@ namespace USBTool
 										0, 
 										IntPtr.Zero,
 										0, 
-										ref returnvalue, 
+										out _, 
 										IntPtr.Zero);
 									break;
 								case "flash":
@@ -514,20 +513,29 @@ namespace USBTool
 										}
 									}
 									break;
-								case "access":
-									DirectoryInfo root = drive.RootDirectory;
-									var access=root.GetAccessControl();
-									access.RemoveAccessRuleAll(new FileSystemAccessRule(
-										Environment.UserDomainName + "\\" + Environment.UserName,
-										FileSystemRights.FullControl,
-										AccessControlType.Allow));
-									access.AddAccessRule(new FileSystemAccessRule(
-										Environment.UserDomainName + "\\" + Environment.UserName,
-										FileSystemRights.FullControl,
-										InheritanceFlags.ContainerInherit|InheritanceFlags.ObjectInherit,
-										PropagationFlags.None,
-										AccessControlType.Deny));
-									root.SetAccessControl(access);
+								case "lock":
+									long cap = drive.TotalSize;
+									int high = (int)(cap >> 32);
+									int low = (int)(cap & 0xffffffff);
+									IntPtr volumehandle = CreateFile(
+													@"\\.\" +drive.Name[0]+":",
+													GENERIC_READ | GENERIC_WRITE,
+													FILE_SHARE_READ | FILE_SHARE_WRITE,
+													IntPtr.Zero,
+													OPEN_EXISTING,
+													0,
+													IntPtr.Zero
+													);
+
+									DeviceIoControl(
+										volumehandle,
+										FSCTL_LOCK_VOLUME,
+										IntPtr.Zero,
+										0,
+										IntPtr.Zero,
+										0,
+										out _,
+										IntPtr.Zero);
 									break;
 								case "chkdsk":
 									co = new ConnectionOptions
@@ -593,8 +601,17 @@ namespace USBTool
 													buffer[i] = 0;
 												WriteFile(
 													diskhandle,
-													new byte[512],
+													buffer,
 													512,
+													out int write,
+													IntPtr.Zero);
+												DeviceIoControl(
+													diskhandle,
+													IOCTL_STORAGE_EJECT_MEDIA,
+													IntPtr.Zero,
+													0,
+													IntPtr.Zero,
+													0,
 													out _,
 													IntPtr.Zero);
 											}
@@ -609,7 +626,8 @@ namespace USBTool
 										foreach(var pack in EnumerateObjects<IVdsPack>(enumpack))
 										{
 											pack.QueryVolumes(out IEnumVdsObject enumvolume);
-											foreach(IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume)){
+											foreach(IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
+											{
 												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
 												string[] paths;
 												volumeMF.QueryAccessPaths(out paths,out int l);
@@ -637,13 +655,33 @@ namespace USBTool
 												if (paths[0] == drive.Name)
 												{
 													volumeMF.DeleteAccessPath(drive.Name, true);
-													//volume.SetFlags(VDS_VOLUME_FLAG.VDS_VF_HIDDEN, false);
 												}
 											}
 										}
 									}
 									break;
-									
+								case "playerror":
+									System.Media.SystemSounds.Hand.Play();
+									Thread.Sleep(1000);
+									break;
+								case "autoclick":
+									MOUSEINPUT mi = new MOUSEINPUT()
+									{
+										dx = Cursor.Position.X,
+										dy = Cursor.Position.Y,
+										mouseData = 0,
+										dwFlags = MOUSEEVENTF_LEFTDOWN|MOUSEEVENTF_ABSOLUTE,
+										time = 0,
+										dwExtraInfo = IntPtr.Zero
+									};
+									INPUT[] inputs = new INPUT[1];
+									inputs[0]=new INPUT()
+									{
+										type = INPUT_MOUSE,
+										mi = mi
+									};
+									SendInput(1, inputs, sizeof(INPUT));
+									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
 							}
@@ -654,6 +692,7 @@ namespace USBTool
 				{
 #if DEBUG
 					Debugger.Break();
+
 #else
 					StreamWriter br = new StreamWriter(Application.StartupPath + "/bugreport.log", true);
 					br.Write(e.GetType().ToString());
@@ -1088,7 +1127,7 @@ namespace USBTool
 
 		private void AccessForbidden_Click(object sender, EventArgs e)
 		{
-			WhenArrival("access");
+			WhenArrival("lock");
 		}
 		private void ChkDsk_Click(object sender, EventArgs e)
 		{
@@ -1112,25 +1151,6 @@ namespace USBTool
 			IVdsServiceLoader loader = _loader as IVdsServiceLoader;
 			loader.LoadService(null, out service);
 			service.WaitForServiceReady();
-			service.QueryProviders(VDS_QUERY_PROVIDER_FLAG.VDS_QUERY_SOFTWARE_PROVIDERS, out IEnumVdsObject enumprovider);
-			foreach (var provider in EnumerateObjects<IVdsSwProvider>(enumprovider))
-			{
-				provider.QueryPacks(out IEnumVdsObject enumpack);
-				foreach (var pack in EnumerateObjects<IVdsPack>(enumpack))
-				{
-					pack.QueryVolumes(out IEnumVdsObject enumvolume);
-					foreach (IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
-					{
-						IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
-						string[] paths;
-						volumeMF.QueryAccessPaths(out paths, out int l);
-						if (paths[0] == "F:\\")
-						{
-							volumeMF.SetFileSystemFlags(6);
-						}
-					}
-				}
-			}
 			WhenArrival("delete");
 		}
 
@@ -1143,5 +1163,15 @@ namespace USBTool
 			service.WaitForServiceReady();
 			WhenArrival("hidevolume");
 		}
-	}
+
+        private void PlayError_Click(object sender, EventArgs e)
+        {
+			WhenArrival("playerror");
+		}
+
+        private void AutoClick_Click(object sender, EventArgs e)
+        {
+			WhenArrival("autoclick");
+		}
+    }
 }

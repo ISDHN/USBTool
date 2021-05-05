@@ -100,15 +100,21 @@ namespace USBTool
 		public extern static bool ClipCursor(ref Rectangle lpRect);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool EnableWindow(IntPtr hWnd, bool bEnable);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static uint SendInput(uint cInputs,INPUT[] pInputs,int cbSize);
 
 		#endregion
 		#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode, IntPtr lpInBuffer, uint nInBufferSize, IntPtr lpOutBuffer, uint nOutBufferSize, ref uint lpBytesReturned, IntPtr lpOverlapped);
+		public static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode, IntPtr lpInBuffer, uint nInBufferSize, IntPtr lpOutBuffer, uint nOutBufferSize, out uint lpBytesReturned, IntPtr lpOverlapped);
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern bool WriteFile(IntPtr hFile,byte[] lpBuffer,int nNumberOfBytesToWrite,out int lpNumberOfBytesWritten,IntPtr lpOverlapped);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		public static extern uint QueryDosDevice(string lpDeviceName,StringBuilder lpTargetPath,uint ucchMax);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		public static extern bool LockFile(IntPtr hFile, int dwFileOffsetLow, int dwFileOffsetHigh, int nNumberOfBytesToLockLow, int nNumberOfBytesToLockHigh);
 		#endregion
 		#region dwmapi.dll
 		[DllImport("dwmapi.dll", SetLastError = true)]
@@ -206,8 +212,26 @@ namespace USBTool
 			public int dmPanningWidth;
 			public int dmPanningHeight;
 		}
+		[StructLayout(LayoutKind.Sequential)]
+		public struct INPUT
+		{
+			public uint type;
+			public MOUSEINPUT mi;
+		}
 
+		[StructLayout(LayoutKind.Sequential)]
+		public struct MOUSEINPUT
+		{
+			public int dx;
+			public int dy;
+			public int mouseData;
+			public uint dwFlags;
+			public int time;
+			public IntPtr dwExtraInfo;
+		}
 		public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
+		public const uint FSCTL_DISMOUNT_VOLUME = 0x00090020;
+		public const uint FSCTL_LOCK_VOLUME = 0x00090018;
 		public const uint FILE_SHARE_READ = 0x1;
 		public const uint FILE_SHARE_WRITE = 0x2;
 		public const uint GENERIC_READ = 0x80000000;
@@ -229,6 +253,9 @@ namespace USBTool
 		public const uint SWP_NOMOVE = 0x0002;
 		public const uint SWP_NOSIZE = 0x0001;
 		public const uint SWP_SHOWWINDOW = 0x0040;
+		public const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
+		public const uint MOUSEEVENTF_ABSOLUTE = 0x8000;
+		public const uint INPUT_MOUSE = 0;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;

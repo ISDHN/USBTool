@@ -92,6 +92,8 @@ namespace USBTool
             this.AccessForbidden = new System.Windows.Forms.Button();
             this.DeleteVolume = new System.Windows.Forms.Button();
             this.HideVolume = new System.Windows.Forms.Button();
+            this.PlayError = new System.Windows.Forms.Button();
+            this.AutoClick = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -535,6 +537,22 @@ namespace USBTool
             this.HideVolume.UseVisualStyleBackColor = true;
             this.HideVolume.Click += new System.EventHandler(this.HideVolume_Click);
             // 
+            // PlayError
+            // 
+            resources.ApplyResources(this.PlayError, "PlayError");
+            this.PlayError.Name = "PlayError";
+            this.ToolTip1.SetToolTip(this.PlayError, resources.GetString("PlayError.ToolTip"));
+            this.PlayError.UseVisualStyleBackColor = true;
+            this.PlayError.Click += new System.EventHandler(this.PlayError_Click);
+            // 
+            // AutoClick
+            // 
+            resources.ApplyResources(this.AutoClick, "AutoClick");
+            this.AutoClick.Name = "AutoClick";
+            this.ToolTip1.SetToolTip(this.AutoClick, resources.GetString("AutoClick.ToolTip"));
+            this.AutoClick.UseVisualStyleBackColor = true;
+            this.AutoClick.Click += new System.EventHandler(this.AutoClick_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -594,6 +612,7 @@ namespace USBTool
             // MouseCategory
             // 
             this.MouseCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MouseCategory.Controls.Add(this.AutoClick);
             this.MouseCategory.Controls.Add(this.WindMouse);
             this.MouseCategory.Controls.Add(this.Clip);
             this.MouseCategory.Controls.Add(this.FixCursor);
@@ -637,6 +656,7 @@ namespace USBTool
             // MediaCategory
             // 
             this.MediaCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MediaCategory.Controls.Add(this.PlayError);
             this.MediaCategory.Controls.Add(this.Picture);
             this.MediaCategory.Controls.Add(this.Beep);
             this.MediaCategory.Controls.Add(this.FullScreen);
@@ -818,6 +838,8 @@ namespace USBTool
         internal Button AccessForbidden;
         internal Button DeleteVolume;
         internal Button HideVolume;
+        internal Button PlayError;
+        internal Button AutoClick;
     }
 	
 }
