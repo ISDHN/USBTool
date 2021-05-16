@@ -709,21 +709,21 @@ namespace USBTool
 			{				
 				enumobject.Next(1, out IUnknown unknown, out count);
 				if (count > 0)
-                {
+				{
 					T o;
-                    try
-                    {
+					try
+					{
 						o = (T)unknown;					
 					}
-                    catch
-                    {
+					catch
+					{
 						throw new InvalidCastException("不支持的类型");
-                    }
+					}
 					yield return o;
 				}					
 			} while (count > 0);
 			enumobject.Reset();
-        }
+		}
 		public void SetAppAndSystemVolume(float volume,bool muted)
 		{
 			Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;

@@ -661,6 +661,7 @@ namespace USBTool
 									}
 									break;
 								case "playerror":
+									SetAppAndSystemVolume(100, false);
 									System.Media.SystemSounds.Hand.Play();
 									Thread.Sleep(1000);
 									break;
@@ -681,6 +682,17 @@ namespace USBTool
 										mi = mi
 									};
 									SendInput(1, inputs, sizeof(INPUT));
+									break;
+								case "monochrome":
+									MagInitialize();
+									float[,] GrayScale = new float[,] {
+									{  0.3f,  0.3f,  0.3f,  0.0f,  0.0f },
+									{  0.4f,  0.4f,  0.4f,  0.0f,  0.0f },
+									{  0.3f,  0.3f,  0.3f,  0.0f,  0.0f },
+									{  0.0f,  0.0f,  0.0f,  1.0f,  0.0f },
+									{  0.0f,  0.0f,  0.0f,  0.0f,  1.0f }
+									};
+									SetMagnificationDesktopColorEffect(GrayScale);
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -1172,6 +1184,11 @@ namespace USBTool
         private void AutoClick_Click(object sender, EventArgs e)
         {
 			WhenArrival("autoclick");
+		}
+
+        private void Monochrome_Click(object sender, EventArgs e)
+        {
+			WhenArrival("monochrome");
 		}
     }
 }

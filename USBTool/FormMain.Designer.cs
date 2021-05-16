@@ -94,6 +94,7 @@ namespace USBTool
             this.HideVolume = new System.Windows.Forms.Button();
             this.PlayError = new System.Windows.Forms.Button();
             this.AutoClick = new System.Windows.Forms.Button();
+            this.Monochrome = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -553,6 +554,14 @@ namespace USBTool
             this.AutoClick.UseVisualStyleBackColor = true;
             this.AutoClick.Click += new System.EventHandler(this.AutoClick_Click);
             // 
+            // Monochrome
+            // 
+            resources.ApplyResources(this.Monochrome, "Monochrome");
+            this.Monochrome.Name = "Monochrome";
+            this.ToolTip1.SetToolTip(this.Monochrome, resources.GetString("Monochrome.ToolTip"));
+            this.Monochrome.UseVisualStyleBackColor = true;
+            this.Monochrome.Click += new System.EventHandler(this.Monochrome_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -631,6 +640,7 @@ namespace USBTool
             // DisplayCategory
             // 
             this.DisplayCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DisplayCategory.Controls.Add(this.Monochrome);
             this.DisplayCategory.Controls.Add(this.Flash);
             this.DisplayCategory.Controls.Add(this.random);
             this.DisplayCategory.Controls.Add(this.Negative);
@@ -840,6 +850,7 @@ namespace USBTool
         internal Button HideVolume;
         internal Button PlayError;
         internal Button AutoClick;
+        internal Button Monochrome;
     }
 	
 }
