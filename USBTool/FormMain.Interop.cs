@@ -51,7 +51,6 @@ namespace USBTool
 		private List<IntPtr> lhwnd;
 		private DEVMODE DEVMODE1;
 		private IVdsService service;
-
 		public delegate bool EnumWindowsCallBack(IntPtr hwnd, string lpPatam);
 #if MEDIA_MCI
 		[DllImport("Msvfw32.dll", SetLastError = true)]
@@ -131,6 +130,16 @@ namespace USBTool
 		public static extern int CoCreateInstance(ref Guid rclsid, IUnknown pUnkOuter, uint dwClsContext, ref Guid riid, out IUnknown ppv);
 		[DllImport("Ole32.dll")]
 		public static extern int CoInitialize(object pvReserved);
+		#endregion
+		#region setupapi.dll
+		[DllImport("SetupAPI.dll", SetLastError =true)]
+		public static extern IntPtr SetupDiGetClassDevs(ref Guid ClassGuid, [MarshalAs(UnmanagedType.LPTStr)] string Enumerator,IntPtr hwndParent,uint Flags);
+		[DllImport("SetupAPI.dll", SetLastError = true)]
+		public static extern bool SetupDiEnumDeviceInfo(IntPtr DeviceInfoSet, uint MemberIndex, ref SP_DEVINFO_DATA DeviceInfoData);
+		[DllImport("SetupAPI.dll", SetLastError = true)]
+		public static extern bool SetupDiGetDeviceRegistryProperty(IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData, uint Property, out uint PropertyRegDataType, StringBuilder PropertyBuffer, int PropertyBufferSize, out int RequiredSize);
+		[DllImport("SetupAPI.dll", SetLastError = true)]
+		public static extern bool SetupDiSetClassInstallParams(IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData, ref SP_PROPCHANGE_PARAMS ClassInstallParams, int ClassInstallParamsSize);
 		#endregion
 #if MEDIA_FOUNDATION
 		#region Media Foundation
@@ -229,6 +238,25 @@ namespace USBTool
 			public int time;
 			public IntPtr dwExtraInfo;
 		}
+		public struct SP_DEVINFO_DATA
+		{
+			public uint cbSize;
+			public Guid ClassGuid;
+			public uint DevInst;
+			public uint Reserved;
+		}
+		public struct SP_PROPCHANGE_PARAMS
+		{
+			public SP_CLASSINSTALL_HEADER ClassInstallHeader;
+			public uint StateChange;
+			public uint Scope;
+			public uint HwProfile;
+		}
+		public struct SP_CLASSINSTALL_HEADER
+		{
+			public int cbSize;
+			public uint InstallFunction;
+		}
 		public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
 		public const uint FSCTL_DISMOUNT_VOLUME = 0x00090020;
 		public const uint FSCTL_LOCK_VOLUME = 0x00090018;
@@ -259,6 +287,14 @@ namespace USBTool
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
+
+		public const uint DIGCF_ALLCLASSES = 0x00000004;
+		public const uint DIGCF_PRESENT = 0x00000002;
+		public const uint SPDRP_FRIENDLYNAME = 0x0000000C;
+		public const uint SPDRP_LOCATION_PATHS = 0x00000023;
+		public const uint DICS_DISABLE = 0x00000002;
+		public const uint DIF_PROPERTYCHANGE = 0x00000012;
+		public const uint DICS_FLAG_CONFIGSPECIFIC = 0x00000002;
 
 		public Guid CLSID_VdsLoader = new Guid(0X9C38ED61, 0xD565, 0x4728, 0xAE, 0xEE, 0xC8, 0x09, 0x52, 0xF0, 0xEC, 0xDE);
 		public const uint CLSCTX_ALL = 1 | 2 | 4 | 16;

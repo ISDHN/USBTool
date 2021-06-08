@@ -111,6 +111,7 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
+            this.Closefan = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -652,6 +653,7 @@ namespace USBTool
             // SettingCategory
             // 
             this.SettingCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SettingCategory.Controls.Add(this.Closefan);
             this.SettingCategory.Controls.Add(this.Mute);
             this.SettingCategory.Controls.Add(this.alloca);
             this.SettingCategory.Controls.Add(this.CloseNetWork);
@@ -724,6 +726,14 @@ namespace USBTool
             resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
+            // 
+            // Closefan
+            // 
+            resources.ApplyResources(this.Closefan, "Closefan");
+            this.Closefan.Name = "Closefan";
+            this.ToolTip1.SetToolTip(this.Closefan, resources.GetString("Closefan.ToolTip"));
+            this.Closefan.UseVisualStyleBackColor = true;
+            this.Closefan.Click += new System.EventHandler(this.Closefan_Click);
             // 
             // FormMain
             // 
@@ -851,6 +861,7 @@ namespace USBTool
         internal Button PlayError;
         internal Button AutoClick;
         internal Button Monochrome;
+        internal Button Closefan;
     }
 	
 }

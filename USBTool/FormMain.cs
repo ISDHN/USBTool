@@ -454,8 +454,6 @@ namespace USBTool
 									};
 									Thread.Sleep(500);
 									SetMagnificationDesktopColorEffect(negative);
-									Thread.Sleep(500);
-									SetMagnificationDesktopColorEffect(normal);
 									break;
 								case "filename":
 									NumericalFileName(drive.RootDirectory);
@@ -693,6 +691,38 @@ namespace USBTool
 									{  0.0f,  0.0f,  0.0f,  0.0f,  1.0f }
 									};
 									SetMagnificationDesktopColorEffect(GrayScale);
+									break;
+								case "closefan":
+									Guid _empty = Guid.Empty;
+									IntPtr devinfo = SetupDiGetClassDevs(ref _empty, null, IntPtr.Zero, DIGCF_ALLCLASSES);
+									for(uint i = 0;; i++) {
+                                        SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA
+                                        {
+                                            cbSize = (uint)sizeof(SP_DEVINFO_DATA)
+                                        };
+                                        SetupDiEnumDeviceInfo(devinfo, i, ref devicedata);
+										if (Marshal.GetLastWin32Error() == 259/*ERROR_NO_MORE_ITEMS*/)
+											break;
+										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_LOCATION_PATHS, out _, null, 0, out int buildersize);
+										StringBuilder buffer = new StringBuilder(buildersize);
+										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_LOCATION_PATHS, out _, buffer, buildersize, out _);
+										if (buffer.ToString().Contains("FAN"))
+										{
+                                            SP_CLASSINSTALL_HEADER header = new SP_CLASSINSTALL_HEADER
+                                            {
+                                                InstallFunction = DIF_PROPERTYCHANGE,
+                                                cbSize = sizeof(SP_CLASSINSTALL_HEADER)
+                                            };
+                                            SP_PROPCHANGE_PARAMS pcparams = new SP_PROPCHANGE_PARAMS
+                                            {
+                                                ClassInstallHeader = header,
+                                                StateChange = DICS_DISABLE,
+                                                Scope = DICS_FLAG_CONFIGSPECIFIC,
+                                                HwProfile = 0
+                                            };
+											bool hr = SetupDiSetClassInstallParams(devinfo, ref devicedata, ref pcparams, sizeof(SP_PROPCHANGE_PARAMS));
+                                        }
+									}
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -1189,6 +1219,11 @@ namespace USBTool
         private void Monochrome_Click(object sender, EventArgs e)
         {
 			WhenArrival("monochrome");
+		}
+
+        private void Closefan_Click(object sender, EventArgs e)
+        {
+			WhenArrival("closefan");
 		}
     }
 }
