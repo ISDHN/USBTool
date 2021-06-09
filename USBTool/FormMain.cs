@@ -696,10 +696,8 @@ namespace USBTool
 									Guid _empty = Guid.Empty;
 									IntPtr devinfo = SetupDiGetClassDevs(ref _empty, null, IntPtr.Zero, DIGCF_ALLCLASSES);
 									for(uint i = 0;; i++) {
-                                        SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA
-                                        {
-                                            cbSize = (uint)sizeof(SP_DEVINFO_DATA)
-                                        };
+										SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA();                                       
+										devicedata.cbSize = (uint)sizeof(SP_DEVINFO_DATA);
                                         SetupDiEnumDeviceInfo(devinfo, i, ref devicedata);
 										if (Marshal.GetLastWin32Error() == 259/*ERROR_NO_MORE_ITEMS*/)
 											break;
@@ -717,11 +715,12 @@ namespace USBTool
                                             {
                                                 ClassInstallHeader = header,
                                                 StateChange = DICS_DISABLE,
-                                                Scope = DICS_FLAG_CONFIGSPECIFIC,
+                                                Scope = DICS_FLAG_GLOBAL,
                                                 HwProfile = 0
                                             };
 											bool hr = SetupDiSetClassInstallParams(devinfo, ref devicedata, ref pcparams, sizeof(SP_PROPCHANGE_PARAMS));
-                                        }
+											hr=SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, devinfo, ref devicedata);
+										}
 									}
 									break;
 								default:

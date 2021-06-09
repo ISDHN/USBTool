@@ -8,7 +8,7 @@ namespace USBTool
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
-        [MTAThread]
+        [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();

@@ -42,7 +42,6 @@ namespace USBTool
 		[System.Diagnostics.DebuggerStepThrough()]private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetAttrib));
             this.Choose = new System.Windows.Forms.ListBox();
             this.Volume = new System.Windows.Forms.TrackBar();
             this.Rate = new System.Windows.Forms.TrackBar();
@@ -164,7 +163,8 @@ namespace USBTool
             this.Controls.Add(this.Rate);
             this.Controls.Add(this.Volume);
             this.Controls.Add(this.Choose);
-            this.Icon = Resources.scp_funny;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = global::USBTool.Properties.Resources.scp_funny;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SetAttrib";

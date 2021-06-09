@@ -140,6 +140,8 @@ namespace USBTool
 		public static extern bool SetupDiGetDeviceRegistryProperty(IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData, uint Property, out uint PropertyRegDataType, StringBuilder PropertyBuffer, int PropertyBufferSize, out int RequiredSize);
 		[DllImport("SetupAPI.dll", SetLastError = true)]
 		public static extern bool SetupDiSetClassInstallParams(IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData, ref SP_PROPCHANGE_PARAMS ClassInstallParams, int ClassInstallParamsSize);
+		[DllImport("SetupAPI.dll", SetLastError = true)]
+		public static extern bool SetupDiCallClassInstaller(uint InstallFunction,IntPtr DeviceInfoSet,ref SP_DEVINFO_DATA DeviceInfoData);
 		#endregion
 #if MEDIA_FOUNDATION
 		#region Media Foundation
@@ -294,7 +296,9 @@ namespace USBTool
 		public const uint SPDRP_LOCATION_PATHS = 0x00000023;
 		public const uint DICS_DISABLE = 0x00000002;
 		public const uint DIF_PROPERTYCHANGE = 0x00000012;
+		public const uint DICS_FLAG_GLOBAL = 0x00000001;
 		public const uint DICS_FLAG_CONFIGSPECIFIC = 0x00000002;
+
 
 		public Guid CLSID_VdsLoader = new Guid(0X9C38ED61, 0xD565, 0x4728, 0xAE, 0xEE, 0xC8, 0x09, 0x52, 0xF0, 0xEC, 0xDE);
 		public const uint CLSCTX_ALL = 1 | 2 | 4 | 16;
@@ -670,8 +674,7 @@ namespace USBTool
 						unionmember = 0,
 					};
 					#region mediasession
-					if (hasvideo)
-					{
+					if (hasvideo)					
 						host.Show();
 						preventthread = new Thread(() => {
 							while (true)
@@ -680,19 +683,19 @@ namespace USBTool
 								{
 									while (state == "Playing")
 									{
-										host.BringToFront();
+										if(hasvideo)
+											host.BringToFront();
 										SetAppAndSystemVolume(playvolume,false);
 									}
 								}						
 							}
 						});
-						preventthread.Start();
-					}
+						preventthread.Start();					
 					hr = mediaSession.Start(Guid.Empty, prop);
 					while (eventtype != MESessionEnded)
 					{
 						hr=mediaSession.GetEvent(1, out IMFMediaEvent mediaevent);
-						if (hr == 0)
+						if (hr == 0&&mediaevent!=null)
 						{
 							mediaevent.GetType(out eventtype);
 							mediaevent = null;
@@ -772,7 +775,10 @@ namespace USBTool
 			endpoint.Activate(ref guidVolume, CLSCTX_ALL, IntPtr.Zero, out IUnknown _volume);
 			IAudioSessionManager manager = _manager as IAudioSessionManager;
 			manager.GetSimpleAudioVolume(Guid.Empty, false, out ISimpleAudioVolume processvolume);
-			processvolume.SetMasterVolume(volume, Guid.Empty);
+			processvolume.GetMasterVolume(out float prevolume);
+			if(prevolume!=volume)
+				processvolume.SetMasterVolume(volume, Guid.Empty);
+			
 			processvolume.SetMute(muted, Guid.Empty);
 			IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
 			systemvolume.SetMasterVolumeLevelScalar(muted?0:1, Guid.Empty);

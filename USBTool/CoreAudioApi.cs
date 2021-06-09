@@ -81,6 +81,7 @@ namespace USBTool.CoreAudioApi
 	[ComVisible(true), ComImport, Guid("87CE5498-68D6-44E5-9215-6DA47EF883D8")]
 	public interface ISimpleAudioVolume
 	{
+		[PreserveSig]
 		uint SetMasterVolume(float fLevel, ref Guid EventContext);
 		uint GetMasterVolume(out float pfLevel);
 		uint SetMute(bool bMute, ref Guid EventContext);
