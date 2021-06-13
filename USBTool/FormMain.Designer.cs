@@ -95,6 +95,7 @@ namespace USBTool
             this.PlayError = new System.Windows.Forms.Button();
             this.AutoClick = new System.Windows.Forms.Button();
             this.Monochrome = new System.Windows.Forms.Button();
+            this.CloseMouse = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -111,7 +112,6 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.Closefan = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -563,6 +563,14 @@ namespace USBTool
             this.Monochrome.UseVisualStyleBackColor = true;
             this.Monochrome.Click += new System.EventHandler(this.Monochrome_Click);
             // 
+            // CloseMouse
+            // 
+            resources.ApplyResources(this.CloseMouse, "CloseMouse");
+            this.CloseMouse.Name = "CloseMouse";
+            this.ToolTip1.SetToolTip(this.CloseMouse, resources.GetString("CloseMouse.ToolTip"));
+            this.CloseMouse.UseVisualStyleBackColor = true;
+            this.CloseMouse.Click += new System.EventHandler(this.CloseMouse_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -622,6 +630,7 @@ namespace USBTool
             // MouseCategory
             // 
             this.MouseCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MouseCategory.Controls.Add(this.CloseMouse);
             this.MouseCategory.Controls.Add(this.AutoClick);
             this.MouseCategory.Controls.Add(this.WindMouse);
             this.MouseCategory.Controls.Add(this.Clip);
@@ -653,7 +662,6 @@ namespace USBTool
             // SettingCategory
             // 
             this.SettingCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SettingCategory.Controls.Add(this.Closefan);
             this.SettingCategory.Controls.Add(this.Mute);
             this.SettingCategory.Controls.Add(this.alloca);
             this.SettingCategory.Controls.Add(this.CloseNetWork);
@@ -726,14 +734,6 @@ namespace USBTool
             resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
-            // 
-            // Closefan
-            // 
-            resources.ApplyResources(this.Closefan, "Closefan");
-            this.Closefan.Name = "Closefan";
-            this.ToolTip1.SetToolTip(this.Closefan, resources.GetString("Closefan.ToolTip"));
-            this.Closefan.UseVisualStyleBackColor = true;
-            this.Closefan.Click += new System.EventHandler(this.Closefan_Click);
             // 
             // FormMain
             // 
@@ -861,7 +861,7 @@ namespace USBTool
         internal Button PlayError;
         internal Button AutoClick;
         internal Button Monochrome;
-        internal Button Closefan;
+        internal Button CloseMouse;
     }
 	
 }

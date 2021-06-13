@@ -242,10 +242,10 @@ namespace USBTool
 		}
 		public struct SP_DEVINFO_DATA
 		{
-			public uint cbSize;
+			public int cbSize;
 			public Guid ClassGuid;
-			public uint DevInst;
-			public uint Reserved;
+			public int DevInst;
+			public UIntPtr Reserved;
 		}
 		public struct SP_PROPCHANGE_PARAMS
 		{
@@ -292,8 +292,8 @@ namespace USBTool
 
 		public const uint DIGCF_ALLCLASSES = 0x00000004;
 		public const uint DIGCF_PRESENT = 0x00000002;
-		public const uint SPDRP_FRIENDLYNAME = 0x0000000C;
 		public const uint SPDRP_LOCATION_PATHS = 0x00000023;
+		public const uint SPDRP_CLASS = 0x00000007;
 		public const uint DICS_DISABLE = 0x00000002;
 		public const uint DIF_PROPERTYCHANGE = 0x00000012;
 		public const uint DICS_FLAG_GLOBAL = 0x00000001;

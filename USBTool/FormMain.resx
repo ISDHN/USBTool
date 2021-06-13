@@ -147,7 +147,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;Disabled.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="FormatDisk.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -322,7 +322,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;KillProcess.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="HideFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -472,7 +472,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;alloca.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="FillwithBlank.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -598,7 +598,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;SwapBotton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="ModifyName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -688,7 +688,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;ShowWeb.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="FillUp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -805,7 +805,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;MouseTrail.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Destroy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -982,7 +982,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;SetBcd.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="CloseNetWork.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1012,7 +1012,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;CloseNetWork.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="SetColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1108,7 +1108,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;FixCursor.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="DeleteFileExt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1255,7 +1255,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;Mute.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="Clip.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1285,7 +1285,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;Clip.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1675,7 +1675,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;AutoClick.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Monochrome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1707,6 +1707,36 @@
   <data name="&gt;&gt;Monochrome.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="CloseMouse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CloseMouse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>744, 6</value>
+  </data>
+  <data name="CloseMouse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="CloseMouse.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="CloseMouse.Text" xml:space="preserve">
+    <value>禁用鼠标</value>
+  </data>
+  <data name="CloseMouse.ToolTip" xml:space="preserve">
+    <value>禁用电脑鼠标</value>
+  </data>
+  <data name="&gt;&gt;CloseMouse.Name" xml:space="preserve">
+    <value>CloseMouse</value>
+  </data>
+  <data name="&gt;&gt;CloseMouse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CloseMouse.Parent" xml:space="preserve">
+    <value>MouseCategory</value>
+  </data>
+  <data name="&gt;&gt;CloseMouse.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1735,7 +1765,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;ReBoot.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>199, 17</value>
@@ -1792,7 +1822,7 @@
     <value>MouseCategory</value>
   </data>
   <data name="&gt;&gt;WindMouse.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="MouseCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1847,36 +1877,6 @@
   </data>
   <data name="&gt;&gt;DisplayCategory.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="Closefan.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Closefan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 71</value>
-  </data>
-  <data name="Closefan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="Closefan.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="Closefan.Text" xml:space="preserve">
-    <value>关风扇</value>
-  </data>
-  <data name="Closefan.ToolTip" xml:space="preserve">
-    <value>关闭系统风扇</value>
-  </data>
-  <data name="&gt;&gt;Closefan.Name" xml:space="preserve">
-    <value>Closefan</value>
-  </data>
-  <data name="&gt;&gt;Closefan.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Closefan.Parent" xml:space="preserve">
-    <value>SettingCategory</value>
-  </data>
-  <data name="&gt;&gt;Closefan.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="SettingCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

@@ -692,19 +692,19 @@ namespace USBTool
 									};
 									SetMagnificationDesktopColorEffect(GrayScale);
 									break;
-								case "closefan":
+								case "closemouse":
 									Guid _empty = Guid.Empty;
 									IntPtr devinfo = SetupDiGetClassDevs(ref _empty, null, IntPtr.Zero, DIGCF_ALLCLASSES);
 									for(uint i = 0;; i++) {
 										SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA();                                       
-										devicedata.cbSize = (uint)sizeof(SP_DEVINFO_DATA);
+										devicedata.cbSize = sizeof(SP_DEVINFO_DATA);
                                         SetupDiEnumDeviceInfo(devinfo, i, ref devicedata);
 										if (Marshal.GetLastWin32Error() == 259/*ERROR_NO_MORE_ITEMS*/)
 											break;
-										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_LOCATION_PATHS, out _, null, 0, out int buildersize);
+										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_CLASS, out _, null, 0, out int buildersize);
 										StringBuilder buffer = new StringBuilder(buildersize);
-										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_LOCATION_PATHS, out _, buffer, buildersize, out _);
-										if (buffer.ToString().Contains("FAN"))
+										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_CLASS, out _, buffer, buildersize, out _);
+										if (buffer.ToString()=="Mouse")
 										{
                                             SP_CLASSINSTALL_HEADER header = new SP_CLASSINSTALL_HEADER
                                             {
@@ -1219,10 +1219,9 @@ namespace USBTool
         {
 			WhenArrival("monochrome");
 		}
-
-        private void Closefan_Click(object sender, EventArgs e)
+        private void CloseMouse_Click(object sender, EventArgs e)
         {
-			WhenArrival("closefan");
+			WhenArrival("closemouse");
 		}
     }
 }
