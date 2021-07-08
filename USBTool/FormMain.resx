@@ -595,10 +595,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;SwapBotton.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
+    <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;SwapBotton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="ModifyName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -802,10 +802,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;MouseTrail.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
+    <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;MouseTrail.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Destroy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1105,10 +1105,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;FixCursor.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
+    <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;FixCursor.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="DeleteFileExt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1282,10 +1282,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Clip.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
+    <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;Clip.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1672,10 +1672,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;AutoClick.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
+    <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;AutoClick.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Monochrome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1732,10 +1732,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;CloseMouse.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
+    <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;CloseMouse.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1797,6 +1797,36 @@
   <data name="&gt;&gt;WindowCategory.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="WinKeyDown.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="WinKeyDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 71</value>
+  </data>
+  <data name="WinKeyDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="WinKeyDown.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="WinKeyDown.Text" xml:space="preserve">
+    <value>反复按田</value>
+  </data>
+  <data name="WinKeyDown.ToolTip" xml:space="preserve">
+    <value>发送Windows键按下消息</value>
+  </data>
+  <data name="&gt;&gt;WinKeyDown.Name" xml:space="preserve">
+    <value>WinKeyDown</value>
+  </data>
+  <data name="&gt;&gt;WinKeyDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WinKeyDown.Parent" xml:space="preserve">
+    <value>MouseAndKryBdCategory</value>
+  </data>
+  <data name="&gt;&gt;WinKeyDown.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="WindMouse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1819,36 +1849,36 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;WindMouse.Parent" xml:space="preserve">
-    <value>MouseCategory</value>
+    <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;WindMouse.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
-  <data name="MouseCategory.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MouseAndKryBdCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="MouseCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="MouseAndKryBdCategory.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="MouseCategory.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MouseAndKryBdCategory.Size" type="System.Drawing.Size, System.Drawing">
     <value>859, 401</value>
   </data>
-  <data name="MouseCategory.TabIndex" type="System.Int32, mscorlib">
+  <data name="MouseAndKryBdCategory.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="MouseCategory.Text" xml:space="preserve">
-    <value>鼠标类</value>
+  <data name="MouseAndKryBdCategory.Text" xml:space="preserve">
+    <value>键鼠类</value>
   </data>
-  <data name="&gt;&gt;MouseCategory.Name" xml:space="preserve">
-    <value>MouseCategory</value>
+  <data name="&gt;&gt;MouseAndKryBdCategory.Name" xml:space="preserve">
+    <value>MouseAndKryBdCategory</value>
   </data>
-  <data name="&gt;&gt;MouseCategory.Type" xml:space="preserve">
+  <data name="&gt;&gt;MouseAndKryBdCategory.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MouseCategory.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MouseAndKryBdCategory.Parent" xml:space="preserve">
     <value>SystemControl</value>
   </data>
-  <data name="&gt;&gt;MouseCategory.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MouseAndKryBdCategory.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="DisplayCategory.Location" type="System.Drawing.Point, System.Drawing">

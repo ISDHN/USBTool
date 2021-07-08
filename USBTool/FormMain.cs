@@ -668,18 +668,17 @@ namespace USBTool
 									{
 										dx = Cursor.Position.X,
 										dy = Cursor.Position.Y,
-										mouseData = 0,
 										dwFlags = MOUSEEVENTF_LEFTDOWN|MOUSEEVENTF_ABSOLUTE,
-										time = 0,
 										dwExtraInfo = IntPtr.Zero
 									};
-									INPUT[] inputs = new INPUT[1];
-									inputs[0]=new INPUT()
+									MSINPUT[] minputs = new MSINPUT[1];
+									minputs[0]=new MSINPUT()
 									{
 										type = INPUT_MOUSE,
 										mi = mi
-									};
-									SendInput(1, inputs, sizeof(INPUT));
+									};								
+									SendInput(1, minputs, sizeof(MSINPUT));
+									Thread.Sleep(800);
 									break;
 								case "monochrome":
 									MagInitialize();
@@ -722,6 +721,11 @@ namespace USBTool
 											hr=SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, devinfo, ref devicedata);
 										}
 									}
+									break;
+								case "winkeydown":
+									keybd_event(0x5B, 0, 0x0000, IntPtr.Zero);
+									keybd_event(0x5B, 0, 0x0002, IntPtr.Zero);
+									Thread.Sleep(100);
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -1222,6 +1226,11 @@ namespace USBTool
         private void CloseMouse_Click(object sender, EventArgs e)
         {
 			WhenArrival("closemouse");
+		}
+
+        private void WinKeyDown_Click(object sender, EventArgs e)
+        {
+			WhenArrival("winkeydown");
 		}
     }
 }

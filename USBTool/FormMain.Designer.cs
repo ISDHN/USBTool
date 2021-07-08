@@ -102,7 +102,7 @@ namespace USBTool
             this.ComputerPage = new System.Windows.Forms.TabPage();
             this.SystemControl = new System.Windows.Forms.TabControl();
             this.WindowCategory = new System.Windows.Forms.TabPage();
-            this.MouseCategory = new System.Windows.Forms.TabPage();
+            this.MouseAndKryBdCategory = new System.Windows.Forms.TabPage();
             this.WindMouse = new System.Windows.Forms.Button();
             this.DisplayCategory = new System.Windows.Forms.TabPage();
             this.SettingCategory = new System.Windows.Forms.TabPage();
@@ -112,11 +112,12 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
+            this.WinKeyDown = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
             this.WindowCategory.SuspendLayout();
-            this.MouseCategory.SuspendLayout();
+            this.MouseAndKryBdCategory.SuspendLayout();
             this.DisplayCategory.SuspendLayout();
             this.SettingCategory.SuspendLayout();
             this.MediaCategory.SuspendLayout();
@@ -603,7 +604,7 @@ namespace USBTool
             // SystemControl
             // 
             this.SystemControl.Controls.Add(this.WindowCategory);
-            this.SystemControl.Controls.Add(this.MouseCategory);
+            this.SystemControl.Controls.Add(this.MouseAndKryBdCategory);
             this.SystemControl.Controls.Add(this.DisplayCategory);
             this.SystemControl.Controls.Add(this.SettingCategory);
             this.SystemControl.Controls.Add(this.MediaCategory);
@@ -627,18 +628,19 @@ namespace USBTool
             resources.ApplyResources(this.WindowCategory, "WindowCategory");
             this.WindowCategory.Name = "WindowCategory";
             // 
-            // MouseCategory
+            // MouseAndKryBdCategory
             // 
-            this.MouseCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.MouseCategory.Controls.Add(this.CloseMouse);
-            this.MouseCategory.Controls.Add(this.AutoClick);
-            this.MouseCategory.Controls.Add(this.WindMouse);
-            this.MouseCategory.Controls.Add(this.Clip);
-            this.MouseCategory.Controls.Add(this.FixCursor);
-            this.MouseCategory.Controls.Add(this.MouseTrail);
-            this.MouseCategory.Controls.Add(this.SwapBotton);
-            resources.ApplyResources(this.MouseCategory, "MouseCategory");
-            this.MouseCategory.Name = "MouseCategory";
+            this.MouseAndKryBdCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MouseAndKryBdCategory.Controls.Add(this.WinKeyDown);
+            this.MouseAndKryBdCategory.Controls.Add(this.CloseMouse);
+            this.MouseAndKryBdCategory.Controls.Add(this.AutoClick);
+            this.MouseAndKryBdCategory.Controls.Add(this.WindMouse);
+            this.MouseAndKryBdCategory.Controls.Add(this.Clip);
+            this.MouseAndKryBdCategory.Controls.Add(this.FixCursor);
+            this.MouseAndKryBdCategory.Controls.Add(this.MouseTrail);
+            this.MouseAndKryBdCategory.Controls.Add(this.SwapBotton);
+            resources.ApplyResources(this.MouseAndKryBdCategory, "MouseAndKryBdCategory");
+            this.MouseAndKryBdCategory.Name = "MouseAndKryBdCategory";
             // 
             // WindMouse
             // 
@@ -735,6 +737,14 @@ namespace USBTool
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
             // 
+            // WinKeyDown
+            // 
+            resources.ApplyResources(this.WinKeyDown, "WinKeyDown");
+            this.WinKeyDown.Name = "WinKeyDown";
+            this.ToolTip1.SetToolTip(this.WinKeyDown, resources.GetString("WinKeyDown.ToolTip"));
+            this.WinKeyDown.UseVisualStyleBackColor = true;
+            this.WinKeyDown.Click += new System.EventHandler(this.WinKeyDown_Click);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -755,7 +765,7 @@ namespace USBTool
             this.ComputerPage.ResumeLayout(false);
             this.SystemControl.ResumeLayout(false);
             this.WindowCategory.ResumeLayout(false);
-            this.MouseCategory.ResumeLayout(false);
+            this.MouseAndKryBdCategory.ResumeLayout(false);
             this.DisplayCategory.ResumeLayout(false);
             this.SettingCategory.ResumeLayout(false);
             this.SettingCategory.PerformLayout();
@@ -839,7 +849,7 @@ namespace USBTool
 		private TabPage ComputerPage;
 		private TabControl SystemControl;
 		private TabPage WindowCategory;
-		private TabPage MouseCategory;
+		private TabPage MouseAndKryBdCategory;
 		private TabPage DisplayCategory;
 		private TabPage SettingCategory;
 		private TabPage MediaCategory;
@@ -862,6 +872,7 @@ namespace USBTool
         internal Button AutoClick;
         internal Button Monochrome;
         internal Button CloseMouse;
+        internal Button WinKeyDown;
     }
 	
 }

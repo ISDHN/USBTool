@@ -94,13 +94,15 @@ namespace USBTool
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool EnumChildWindows(IntPtr hWndParent,EnumWindowsCallBack lpEnumFunc,string lParam);
 		[DllImport("user32.dll", SetLastError = true)]
-		public extern static bool BringWindowToTop(IntPtr hWnd);
-		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool ClipCursor(ref Rectangle lpRect);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool EnableWindow(IntPtr hWnd, bool bEnable);
 		[DllImport("user32.dll", SetLastError = true)]
-		public extern static uint SendInput(uint cInputs,INPUT[] pInputs,int cbSize);
+		public extern static int SendInput(uint cInputs,MSINPUT[] pInputs,int cbSize);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static void keybd_event(byte bVk, byte bScan, uint dwFlags, IntPtr dwExtraInfo);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
 
 		#endregion
 		#region kernel32.dll
@@ -224,12 +226,11 @@ namespace USBTool
 			public int dmPanningHeight;
 		}
 		[StructLayout(LayoutKind.Sequential)]
-		public struct INPUT
+		public struct MSINPUT
 		{
 			public uint type;
 			public MOUSEINPUT mi;
 		}
-
 		[StructLayout(LayoutKind.Sequential)]
 		public struct MOUSEINPUT
 		{
@@ -285,7 +286,10 @@ namespace USBTool
 		public const uint SWP_SHOWWINDOW = 0x0040;
 		public const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
 		public const uint MOUSEEVENTF_ABSOLUTE = 0x8000;
+		public const uint KEYEVENTF_SCANCODE = 0x0008;
+		public const uint KEYEVENTF_KEYUP = 0x0002;
 		public const uint INPUT_MOUSE = 0;
+		public const uint INPUT_KEYBOARD = 1;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
