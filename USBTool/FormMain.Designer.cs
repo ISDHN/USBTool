@@ -96,6 +96,9 @@ namespace USBTool
             this.AutoClick = new System.Windows.Forms.Button();
             this.Monochrome = new System.Windows.Forms.Button();
             this.CloseMouse = new System.Windows.Forms.Button();
+            this.WinKeyDown = new System.Windows.Forms.Button();
+            this.SingleColor = new System.Windows.Forms.Button();
+            this.NewDesktop = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -112,7 +115,7 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.WinKeyDown = new System.Windows.Forms.Button();
+            this.Sleep = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -572,6 +575,30 @@ namespace USBTool
             this.CloseMouse.UseVisualStyleBackColor = true;
             this.CloseMouse.Click += new System.EventHandler(this.CloseMouse_Click);
             // 
+            // WinKeyDown
+            // 
+            resources.ApplyResources(this.WinKeyDown, "WinKeyDown");
+            this.WinKeyDown.Name = "WinKeyDown";
+            this.ToolTip1.SetToolTip(this.WinKeyDown, resources.GetString("WinKeyDown.ToolTip"));
+            this.WinKeyDown.UseVisualStyleBackColor = true;
+            this.WinKeyDown.Click += new System.EventHandler(this.WinKeyDown_Click);
+            // 
+            // SingleColor
+            // 
+            resources.ApplyResources(this.SingleColor, "SingleColor");
+            this.SingleColor.Name = "SingleColor";
+            this.ToolTip1.SetToolTip(this.SingleColor, resources.GetString("SingleColor.ToolTip"));
+            this.SingleColor.UseVisualStyleBackColor = true;
+            this.SingleColor.Click += new System.EventHandler(this.SingleColor_Click);
+            // 
+            // NewDesktop
+            // 
+            resources.ApplyResources(this.NewDesktop, "NewDesktop");
+            this.NewDesktop.Name = "NewDesktop";
+            this.ToolTip1.SetToolTip(this.NewDesktop, resources.GetString("NewDesktop.ToolTip"));
+            this.NewDesktop.UseVisualStyleBackColor = true;
+            this.NewDesktop.Click += new System.EventHandler(this.NewDesktop_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -652,6 +679,7 @@ namespace USBTool
             // DisplayCategory
             // 
             this.DisplayCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DisplayCategory.Controls.Add(this.SingleColor);
             this.DisplayCategory.Controls.Add(this.Monochrome);
             this.DisplayCategory.Controls.Add(this.Flash);
             this.DisplayCategory.Controls.Add(this.random);
@@ -664,6 +692,8 @@ namespace USBTool
             // SettingCategory
             // 
             this.SettingCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SettingCategory.Controls.Add(this.Sleep);
+            this.SettingCategory.Controls.Add(this.NewDesktop);
             this.SettingCategory.Controls.Add(this.Mute);
             this.SettingCategory.Controls.Add(this.alloca);
             this.SettingCategory.Controls.Add(this.CloseNetWork);
@@ -737,13 +767,13 @@ namespace USBTool
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
             // 
-            // WinKeyDown
+            // Sleep
             // 
-            resources.ApplyResources(this.WinKeyDown, "WinKeyDown");
-            this.WinKeyDown.Name = "WinKeyDown";
-            this.ToolTip1.SetToolTip(this.WinKeyDown, resources.GetString("WinKeyDown.ToolTip"));
-            this.WinKeyDown.UseVisualStyleBackColor = true;
-            this.WinKeyDown.Click += new System.EventHandler(this.WinKeyDown_Click);
+            resources.ApplyResources(this.Sleep, "Sleep");
+            this.Sleep.Name = "Sleep";
+            this.ToolTip1.SetToolTip(this.Sleep, resources.GetString("Sleep.ToolTip"));
+            this.Sleep.UseVisualStyleBackColor = true;
+            this.Sleep.Click += new System.EventHandler(this.Sleep_Click);
             // 
             // FormMain
             // 
@@ -873,6 +903,9 @@ namespace USBTool
         internal Button Monochrome;
         internal Button CloseMouse;
         internal Button WinKeyDown;
+        internal Button SingleColor;
+        internal Button NewDesktop;
+        internal Button Sleep;
     }
 	
 }

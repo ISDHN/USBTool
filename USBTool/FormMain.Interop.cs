@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Speech.Synthesis;
 using System.Threading;
@@ -10,9 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using USBTool.CoreAudioApi;
-using System.ComponentModel;
-using System.Security.AccessControl;
 using USBTool.Vds;
+using static USBTool.FormMain;
+using System.Security.Cryptography;
+using System.Windows.Documents;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
 #endif
@@ -37,20 +37,20 @@ namespace USBTool
 		private string mediafilename;
 		private IntPtr hMCIWnd;
 #elif MEDIA_FOUNDATION
-		public bool hasvideo=false;
+		public bool hasvideo = false;
 		private float playvolume;
-		public string state = "";		
+		private IMFMediaSession mediaSession;
 #endif
 		private string sentence;
 		private SpeechSynthesizer Voice;
 		private WndVideo host;
-		private Random rand ;
 		private TaskFactory tf;
 		private Thread preventthread;
-		private Thread mediathread;
 		private List<IntPtr> lhwnd;
 		private DEVMODE DEVMODE1;
 		private IVdsService service;
+		private IntPtr defaultdesktop;
+		private IntPtr newdesktop;
 		public delegate bool EnumWindowsCallBack(IntPtr hwnd, string lpPatam);
 #if MEDIA_MCI
 		[DllImport("Msvfw32.dll", SetLastError = true)]
@@ -73,12 +73,12 @@ namespace USBTool
 		public static extern bool IsWindowVisible(IntPtr hWnd);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool CloseWindow(IntPtr hWnd);
-		[DllImport("user32.dll",SetLastError = true)]
+		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern int SendMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern int SendMessage(IntPtr hWnd, uint msg, uint wParam, [MarshalAs (UnmanagedType.LPWStr)]string lParam);
+		public static extern int SendMessage(IntPtr hWnd, uint msg, uint wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern int ChangeDisplaySettings(ref DEVMODE devMode, int flags);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -87,23 +87,30 @@ namespace USBTool
 		public static extern int GetClientRect(IntPtr hWnd, ref Rectangle lpRECT);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
-		[DllImport("user32.dll",  SetLastError = true)]
+		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr GetParent(IntPtr hwnd);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern int SetWindowPos(IntPtr hWnd,IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+		public static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern bool EnumChildWindows(IntPtr hWndParent,EnumWindowsCallBack lpEnumFunc,string lParam);
+		public static extern bool EnumChildWindows(IntPtr hWndParent, EnumWindowsCallBack lpEnumFunc, string lParam);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool ClipCursor(ref Rectangle lpRect);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool EnableWindow(IntPtr hWnd, bool bEnable);
 		[DllImport("user32.dll", SetLastError = true)]
-		public extern static int SendInput(uint cInputs,MSINPUT[] pInputs,int cbSize);
+		public extern static int SendInput(uint cInputs, MSINPUT[] pInputs, int cbSize);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static void keybd_event(byte bVk, byte bScan, uint dwFlags, IntPtr dwExtraInfo);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
-
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static IntPtr CreateDesktop(string lpszDesktop, string lpszDevice, IntPtr pDevmode,uint dwFlags,uint dwDesiredAccess,IntPtr lpsa);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static bool SwitchDesktop(IntPtr hDesktop);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static IntPtr GetThreadDesktop(uint dwThreadId);
+		[DllImport("user32.dll", SetLastError = true)]
+		public extern static bool SetThreadDesktop(IntPtr hDesktop);
 		#endregion
 		#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -111,11 +118,13 @@ namespace USBTool
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern bool WriteFile(IntPtr hFile,byte[] lpBuffer,int nNumberOfBytesToWrite,out int lpNumberOfBytesWritten,IntPtr lpOverlapped);
+		public static extern bool WriteFile(IntPtr hFile, byte[] lpBuffer, int nNumberOfBytesToWrite, out int lpNumberOfBytesWritten, IntPtr lpOverlapped);
 		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern uint QueryDosDevice(string lpDeviceName,StringBuilder lpTargetPath,uint ucchMax);
+		public static extern uint GetCurrentThreadId();
 		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern bool LockFile(IntPtr hFile, int dwFileOffsetLow, int dwFileOffsetHigh, int nNumberOfBytesToLockLow, int nNumberOfBytesToLockHigh);
+		public static extern bool CreateProcess(string lpApplicationName, StringBuilder lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO lpStartupInfo,out PROCESS_INFORMATION lpProcessInformation);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		public static extern bool CloseHandle(IntPtr hObject);
 		#endregion
 		#region dwmapi.dll
 		[DllImport("dwmapi.dll", SetLastError = true)]
@@ -134,8 +143,8 @@ namespace USBTool
 		public static extern int CoInitialize(object pvReserved);
 		#endregion
 		#region setupapi.dll
-		[DllImport("SetupAPI.dll", SetLastError =true)]
-		public static extern IntPtr SetupDiGetClassDevs(ref Guid ClassGuid, [MarshalAs(UnmanagedType.LPTStr)] string Enumerator,IntPtr hwndParent,uint Flags);
+		[DllImport("SetupAPI.dll", SetLastError = true)]
+		public static extern IntPtr SetupDiGetClassDevs(ref Guid ClassGuid, [MarshalAs(UnmanagedType.LPTStr)] string Enumerator, IntPtr hwndParent, uint Flags);
 		[DllImport("SetupAPI.dll", SetLastError = true)]
 		public static extern bool SetupDiEnumDeviceInfo(IntPtr DeviceInfoSet, uint MemberIndex, ref SP_DEVINFO_DATA DeviceInfoData);
 		[DllImport("SetupAPI.dll", SetLastError = true)]
@@ -143,24 +152,24 @@ namespace USBTool
 		[DllImport("SetupAPI.dll", SetLastError = true)]
 		public static extern bool SetupDiSetClassInstallParams(IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData, ref SP_PROPCHANGE_PARAMS ClassInstallParams, int ClassInstallParamsSize);
 		[DllImport("SetupAPI.dll", SetLastError = true)]
-		public static extern bool SetupDiCallClassInstaller(uint InstallFunction,IntPtr DeviceInfoSet,ref SP_DEVINFO_DATA DeviceInfoData);
+		public static extern bool SetupDiCallClassInstaller(uint InstallFunction, IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData);
 		#endregion
 #if MEDIA_FOUNDATION
 		#region Media Foundation
-		[DllImport("mfplat.dll", SetLastError = true,PreserveSig =true)]
-		public static extern int MFStartup( uint Version,uint flags);
+		[DllImport("mfplat.dll", SetLastError = true, PreserveSig = true)]
+		public static extern int MFStartup(uint Version, uint flags);
 		[DllImport("mfplat.dll")]
 		public static extern int MFShutdown();
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
-		public static extern int MFCreateMediaSession(IntPtr pConfiguration,out IMFMediaSession ppMediaSession);
-		[DllImport("mf.dll",SetLastError =true,PreserveSig =true)]
+		public static extern int MFCreateMediaSession(IntPtr pConfiguration, out IMFMediaSession ppMediaSession);
+		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFCreateSourceResolver(out IMFSourceResolver ppISourceResolver);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFCreateTopology(out IMFTopology ppTopo);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
-		public static extern int MFCreateTopologyNode(uint NodeType,out IMFTopologyNode ppNode);
+		public static extern int MFCreateTopologyNode(uint NodeType, out IMFTopologyNode ppNode);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
-		public static extern int MFCreateVideoRendererActivate(IntPtr hwndVideo,out IMFActivate ppActivate);
+		public static extern int MFCreateVideoRendererActivate(IntPtr hwndVideo, out IMFActivate ppActivate);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFCreateAudioRendererActivate(out IMFActivate ppActivate);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
@@ -260,6 +269,36 @@ namespace USBTool
 			public int cbSize;
 			public uint InstallFunction;
 		}
+		[StructLayout(LayoutKind.Sequential)]
+		public struct STARTUPINFO
+		{
+			public int cb;
+			public string lpReserved;
+			public string lpDesktop;
+			public string lpTitle;
+			public uint dwX;
+			public uint dwY;
+			public uint dwXSize;
+			public uint dwYSize;
+			public uint dwXCountChars;
+			public uint dwYCountChars;
+			public uint dwFillAttribute;
+			public uint dwFlags;
+			public short wShowWindow;
+			public short cbReserved2;
+			public IntPtr lpReserved2;
+			public IntPtr hStdInput;
+			public IntPtr hStdOutput;
+			public IntPtr hStdError;
+		}
+		[StructLayout(LayoutKind.Sequential)]
+		public struct PROCESS_INFORMATION
+		{
+			public IntPtr hProcess;
+			public IntPtr hThread;
+			public uint dwProcessId;
+			public uint dwThreadId;
+		}
 		public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
 		public const uint FSCTL_DISMOUNT_VOLUME = 0x00090020;
 		public const uint FSCTL_LOCK_VOLUME = 0x00090018;
@@ -267,6 +306,7 @@ namespace USBTool
 		public const uint FILE_SHARE_WRITE = 0x2;
 		public const uint GENERIC_READ = 0x80000000;
 		public const uint GENERIC_WRITE = 0x40000000;
+		public const uint GENERIC_ALL = 0x10000000;
 		public const uint OPEN_EXISTING = 3;
 
 		public const uint SPI_SETMOUSETRAILS = 0x5D;
@@ -317,13 +357,13 @@ namespace USBTool
 		public readonly Guid MF_TOPONODE_STREAM_DESCRIPTOR = Guid.Parse("835c58ee-e075-4bc7-bcba-4de000df9ae6");
 		public readonly Guid MFMediaType_Audio = Guid.Parse("73647561-0000-0010-8000-00AA00389B71");
 		public readonly Guid MFMediaType_Video = Guid.Parse("73646976-0000-0010-8000-00AA00389B71");
-		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c,0xab1a,0x459a,0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
+		public Guid MR_VIDEO_RENDER_SERVICE = new Guid(0x1092a86c, 0xab1a, 0x459a, 0xa3, 0x36, 0x83, 0x1f, 0xbc, 0x4d, 0x11, 0xff);
 		public Guid MF_RATE_CONTROL_SERVICE = Guid.Parse("866fa297-b802-4bf8-9dc9-5e3b6a9f53c9");
 		public Guid MR_AUDIO_POLICY_SERVICE = new Guid(0x911fd737, 0x6775, 0x4ab0, 0xa6, 0x14, 0x29, 0x78, 0x62, 0xfd, 0xac, 0x88);
 		public Guid MMDeviceEnumerator = Guid.Parse("BCDE0395-E52F-467C-8E3D-C4579291692E");
 		public const uint MF_SDK_VERSION = 0x0001;
 		public const uint MF_API_VERSION = 0x0070;
-		public const uint MF_VERSION = (MF_SDK_VERSION << 16)| MF_API_VERSION;
+		public const uint MF_VERSION = (MF_SDK_VERSION << 16) | MF_API_VERSION;
 		public const uint MFSTARTUP_NOSOCKET = 0x1;
 		public const uint MFSTARTUP_FULL = 0x0;
 		public const uint MF_RESOLUTION_MEDIASOURCE = 0x00000001;
@@ -334,7 +374,7 @@ namespace USBTool
 		public const uint MESessionEnded = 107;
 		public const uint MESessionTopologyStatus = 111;
 		public const uint MESessionTopologySet = 101;
-		public const uint MESessionStopped = 105;	
+		public const uint MESessionStopped = 105;
 #endif
 		//public const uint FMIFS_HARDDISK = 0xC;
 #if MEDIA_MCI
@@ -422,7 +462,7 @@ namespace USBTool
 								lhwnd.Clear();
 						}
 						lhwnd.Add(hwnd);
-						SetParent(hwnd, IntPtr.Zero);					
+						SetParent(hwnd, IntPtr.Zero);
 						break;
 					case "disable":
 						EnableWindow(hwnd, false);
@@ -436,7 +476,7 @@ namespace USBTool
 						int ph = 0;
 						try
 						{
-							Font f = new Font(FontFamily.GenericSansSerif,fh , FontStyle.Bold, GraphicsUnit.Pixel);
+							Font f = new Font(FontFamily.GenericSansSerif, fh, FontStyle.Bold, GraphicsUnit.Pixel);
 							do
 							{
 								g.DrawString(sentence, f, Brushes.Black, 0, ph);
@@ -565,159 +605,11 @@ namespace USBTool
 					continue;
 				}
 		}
-#if MEDIA_FOUNDATION
-		public void InitializeMedia(string MediaFile,int dwrate ,float dwvolume)
-		{
-			int hr;
-			MFStartup(MF_VERSION, MFSTARTUP_FULL);
-			MFCreateMediaSession(IntPtr.Zero, out IMFMediaSession mediaSession);
-			MFCreateTopology(out IMFTopology topo);
-			MFCreateSourceResolver(out IMFSourceResolver resolver);
-			IUnknown unknown;
-			try
-			{
-				resolver.CreateObjectFromURL(MediaFile, MF_RESOLUTION_MEDIASOURCE | MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE,
-					null, out uint objtype, out unknown);
-			}
-			catch
-			{
-				MessageBox.Show("不支持的媒体格式。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
-			IMFMediaSource source = unknown as IMFMediaSource;
-			source.CreatePresentationDescriptor(out IMFPresentationDescriptor descriptor);
-			if (MFRequireProtectedEnvironment(descriptor) == 0)
-			{
-				MessageBox.Show("媒体受保护,无法播放。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
-			descriptor.GetStreamDescriptorCount(out uint sdcount);
-			for (uint i = 0; i < sdcount; i++)
-			{
-				descriptor.GetStreamDescriptorByIndex(i, out bool IsSelected, out IMFStreamDescriptor sd);
-				if (!IsSelected)
-					descriptor.SelectStream(i);
-				sd.GetMediaTypeHandler(out IMFMediaTypeHandler typeHandler);
-				typeHandler.GetMajorType(out Guid streamtype);
-				IMFActivate renderer;
-				if (streamtype == MFMediaType_Audio)
-				{
-					hr = MFCreateAudioRendererActivate(out renderer);
-				}
-				else if (streamtype == MFMediaType_Video)
-				{
-					hr = MFCreateVideoRendererActivate(host.Handle, out renderer);
-					hasvideo = true;
-				}
-				else
-				{
-					continue;
-				}
-				hr = MFCreateTopologyNode(MF_TOPOLOGY_SOURCESTREAM_NODE, out IMFTopologyNode sourcenode);
-				sourcenode.SetUnknown(MF_TOPONODE_SOURCE, source as IUnknown);
-				sourcenode.SetUnknown(MF_TOPONODE_PRESENTATION_DESCRIPTOR, descriptor as IUnknown);
-				sourcenode.SetUnknown(MF_TOPONODE_STREAM_DESCRIPTOR, sd as IUnknown);
-				topo.AddNode(sourcenode);
-				MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, out IMFTopologyNode outputnode);
-				outputnode.SetObject(renderer as IUnknown);
-				topo.AddNode(outputnode);
-				hr = sourcenode.ConnectOutput(0, outputnode, 0);
-			}
-			mediaSession.SetTopology(0, topo);
-			Hide();
-			uint eventtype = 0;
-			while (eventtype != MESessionTopologyStatus)
-			{
-				mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
-				mediaevent.GetType(out eventtype);
-				mediaevent = null;
-			}
-			Guid guid_ratecontrol = typeof(IMFRateControl).GUID;
-			MFGetService(mediaSession as IUnknown, ref MF_RATE_CONTROL_SERVICE, ref guid_ratecontrol, out IUnknown _ratecontrol);
-			IMFRateControl ratecontrol = _ratecontrol as IMFRateControl;
-			hr=ratecontrol.SetRate(false, dwrate >= 0 ? dwrate * 7 / 10 + 1 : 1 / (1 + dwrate / -10 * 7));
-			try
-			{			
-				Guid guid_audiopolicy = typeof(IMFAudioPolicy).GUID;
-				hr = MFGetService(mediaSession as IUnknown, ref MR_AUDIO_POLICY_SERVICE, ref guid_audiopolicy, out IUnknown _policy);
-				IMFAudioPolicy policy = _policy as IMFAudioPolicy;
-				policy.SetDisplayName(" ");
-				playvolume = dwvolume;
-			}
-			catch
-			{
-			}
-			try
-			{
-				Guid guid_videocontrol = typeof(IMFVideoDisplayControl).GUID;
-				hr = MFGetService(mediaSession as IUnknown, ref MR_VIDEO_RENDER_SERVICE, ref guid_videocontrol, out IUnknown _videocontrol);
-				IMFVideoDisplayControl videocontrol = _videocontrol as IMFVideoDisplayControl;
-				if (FullScreen.Checked)
-				{
-					host.Top = 0;
-					host.Left = 0;
-					host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-					host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
-				}
-				Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
-				host.videocontrol = videocontrol;
-				videocontrol.SetVideoPosition(null, ref videopos);
-			}
-			catch
-			{
-			}
-			state = "Prepared";
-			while (true)
-			{		
-				if (state == "Playing")
-				{
-					eventtype = 0;
-					PropVariant prop = new PropVariant()
-					{
-						vt = (ushort)VarEnum.VT_I8,
-						unionmember = 0,
-					};
-					#region mediasession
-					if (hasvideo)					
-						host.Show();
-						preventthread = new Thread(() => {
-							while (true)
-							{
-								if (state == "Playing")
-								{
-									while (state == "Playing")
-									{
-										if(hasvideo)
-											host.BringToFront();
-										SetAppAndSystemVolume(playvolume,false);
-									}
-								}						
-							}
-						});
-						preventthread.Start();					
-					hr = mediaSession.Start(Guid.Empty, prop);
-					while (eventtype != MESessionEnded)
-					{
-						hr=mediaSession.GetEvent(1, out IMFMediaEvent mediaevent);
-						if (hr == 0&&mediaevent!=null)
-						{
-							mediaevent.GetType(out eventtype);
-							mediaevent = null;
-						}
-						Application.DoEvents();
-					}
-					host.Hide();
-					state = "Ended";
-					#endregion
-				}
-			}
-		}
-#endif
 		public void NumericalFileName(DirectoryInfo directory)
 		{
 			int filenumber = 0;
 			int dirnumber = 0;
-			foreach(var f in directory.GetFiles())
+			foreach (var f in directory.GetFiles())
 			{
 				string newname = f.DirectoryName + "\\#" + filenumber + f.Extension;
 				try
@@ -730,7 +622,7 @@ namespace USBTool
 				}
 				filenumber += 1;
 			}
-			foreach(var d in directory.GetDirectories())
+			foreach (var d in directory.GetDirectories())
 			{
 				NumericalFileName(d);
 				string newname = d.Parent.FullName + "\\#" + dirnumber;
@@ -749,25 +641,25 @@ namespace USBTool
 		{
 			uint count;
 			do
-			{				
+			{
 				enumobject.Next(1, out IUnknown unknown, out count);
 				if (count > 0)
 				{
 					T o;
 					try
 					{
-						o = (T)unknown;					
+						o = (T)unknown;
 					}
 					catch
 					{
 						throw new InvalidCastException("不支持的类型");
 					}
 					yield return o;
-				}					
+				}
 			} while (count > 0);
 			enumobject.Reset();
 		}
-		public void SetAppAndSystemVolume(float volume,bool muted)
+		public void SetAppAndSystemVolume(float volume, bool muted)
 		{
 			Guid guidEnumetator = typeof(IMMDeviceEnumerator).GUID;
 			Guid guidManager = typeof(IAudioSessionManager).GUID;
@@ -780,13 +672,12 @@ namespace USBTool
 			IAudioSessionManager manager = _manager as IAudioSessionManager;
 			manager.GetSimpleAudioVolume(Guid.Empty, false, out ISimpleAudioVolume processvolume);
 			processvolume.GetMasterVolume(out float prevolume);
-			if(prevolume!=volume)
+			if (prevolume != volume)
 				processvolume.SetMasterVolume(volume, Guid.Empty);
-			
 			processvolume.SetMute(muted, Guid.Empty);
 			IAudioEndpointVolume systemvolume = _volume as IAudioEndpointVolume;
-			systemvolume.SetMasterVolumeLevelScalar(muted?0:1, Guid.Empty);
+			systemvolume.SetMasterVolumeLevelScalar(muted ? 0 : 1, Guid.Empty);
 			systemvolume.SetMute(muted, Guid.Empty);
-		}		
+		}
 	}
 }

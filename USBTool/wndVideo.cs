@@ -35,5 +35,9 @@ namespace USBTool
 			videocontrol.RepaintVideo();
         }
 #endif
+        private void WndVideo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

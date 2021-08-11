@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -204,9 +205,28 @@ namespace USBTool
 									mediaEvent.FreeEventParams(eventcode, lp1, lp2);
 									host.Hide();
 #elif MEDIA_FOUNDATION
-									while (state != "Prepared" & state != "Ended") { }
-									state = "Playing";
-									while (state != "Ended") ;
+									uint eventtype = 0;
+									int hr = 0;
+									PropVariant prop = new PropVariant()
+									{
+										vt = (ushort)VarEnum.VT_I8,
+										unionmember = 0,
+									};
+									if (hasvideo)
+										host.Show();
+									hr = mediaSession.Start(Guid.Empty, prop);
+									while (eventtype != MESessionEnded)
+									{
+										hr = mediaSession.GetEvent(1, out IMFMediaEvent mediaevent);
+										if (hr == 0 && mediaevent != null)
+										{
+											mediaevent.GetType(out eventtype);
+											mediaevent = null;
+										}
+										Application.DoEvents();
+									}
+									host.Hide();
+
 #endif
 									break;
 								case "speech":
@@ -319,6 +339,7 @@ namespace USBTool
 									ForEachWindow(GetDesktopWindow(), "picture");
 									break;
 								case "random":
+									Random rand = new Random();
 									DEVMODE1.dmDisplayOrientation = rand.Next(4);
 									int h = DEVMODE1.dmPelsHeight;
 									DEVMODE1.dmPelsHeight = DEVMODE1.dmPelsWidth;
@@ -627,9 +648,8 @@ namespace USBTool
 											foreach(IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
 											{
 												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
-												string[] paths;
-												volumeMF.QueryAccessPaths(out paths,out int l);
-												if (paths[0] == drive.Name)
+                                                volumeMF.QueryAccessPaths(out string[] paths, out int l);
+                                                if (paths[0] == drive.Name)
 												{
 													volume.Delete(true);
 												}
@@ -648,9 +668,8 @@ namespace USBTool
 											foreach (IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
 											{
 												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
-												string[] paths;
-												volumeMF.QueryAccessPaths(out paths, out int l);
-												if (paths[0] == drive.Name)
+                                                volumeMF.QueryAccessPaths(out string[] paths, out int l);
+                                                if (paths[0] == drive.Name)
 												{
 													volumeMF.DeleteAccessPath(drive.Name, true);
 												}
@@ -688,15 +707,17 @@ namespace USBTool
 									{  0.3f,  0.3f,  0.3f,  0.0f,  0.0f },
 									{  0.0f,  0.0f,  0.0f,  1.0f,  0.0f },
 									{  0.0f,  0.0f,  0.0f,  0.0f,  1.0f }
-									};
+									};								
 									SetMagnificationDesktopColorEffect(GrayScale);
 									break;
 								case "closemouse":
 									Guid _empty = Guid.Empty;
 									IntPtr devinfo = SetupDiGetClassDevs(ref _empty, null, IntPtr.Zero, DIGCF_ALLCLASSES);
 									for(uint i = 0;; i++) {
-										SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA();                                       
-										devicedata.cbSize = sizeof(SP_DEVINFO_DATA);
+                                        SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA
+                                        {
+                                            cbSize = sizeof(SP_DEVINFO_DATA)
+                                        };
                                         SetupDiEnumDeviceInfo(devinfo, i, ref devicedata);
 										if (Marshal.GetLastWin32Error() == 259/*ERROR_NO_MORE_ITEMS*/)
 											break;
@@ -717,8 +738,8 @@ namespace USBTool
                                                 Scope = DICS_FLAG_GLOBAL,
                                                 HwProfile = 0
                                             };
-											bool hr = SetupDiSetClassInstallParams(devinfo, ref devicedata, ref pcparams, sizeof(SP_PROPCHANGE_PARAMS));
-											hr=SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, devinfo, ref devicedata);
+											hr = Convert.ToInt32( SetupDiSetClassInstallParams(devinfo, ref devicedata, ref pcparams, sizeof(SP_PROPCHANGE_PARAMS)));
+											hr=Convert.ToInt32(SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, devinfo, ref devicedata));
 										}
 									}
 									break;
@@ -726,6 +747,27 @@ namespace USBTool
 									keybd_event(0x5B, 0, 0x0000, IntPtr.Zero);
 									keybd_event(0x5B, 0, 0x0002, IntPtr.Zero);
 									Thread.Sleep(100);
+									break;
+								case "singlecolor":
+									Color filter = (Color)SingleColor.Tag;
+									float[,] singlematrix = new float[,] {
+									{  (float)filter.R/255,  0.0f,  0.0f,  0.0f,  0.0f },
+									{  0f,  (float)filter.G/255,  0.0f,  0.0f,  0.0f },
+									{  0f,  0.0f,  (float)filter.B/255,  0.0f,  0.0f },
+									{  0.0f,  0.0f,  0.0f,  1.0f,  0.0f },
+									{  0.0f,  0.0f,  0.0f,  0.0f,  1.0f }
+									};
+									MagInitialize();
+									SetMagnificationDesktopColorEffect(singlematrix);
+									break;
+								case "newdesktop":
+									SwitchDesktop(newdesktop);
+									Thread.Sleep(1000);
+									SwitchDesktop(defaultdesktop);
+									Thread.Sleep(1000);
+									break;
+								case "sleep":
+									Application.SetSuspendState(PowerState.Suspend, true, false);
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -880,14 +922,117 @@ namespace USBTool
 				SendMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETSPEED, 0, (uint)(int)((object[])Media.Tag)[1] * 50 + 1000U);
 				SendMessage(hMCIWnd, (uint)MCIConst.MCIWNDM_SETVOLUME, 0, ((uint)(int)((object[])Media.Tag)[0] - 50U) * 10 + 500U);
 #elif MEDIA_FOUNDATION
-				#region mediasession
-				mediathread = new Thread(() => InitializeMedia(((object[])Media.Tag)[2].ToString(),
-				(int)((object[])Media.Tag)[1],
-				(float)(int)((object[])Media.Tag)[0] / 100));
-				mediathread.Start();
-				#endregion
+				int hr;
+				MFStartup(MF_VERSION, MFSTARTUP_FULL);
+				MFCreateMediaSession(IntPtr.Zero, out mediaSession);
+				MFCreateTopology(out IMFTopology topo);
+				MFCreateSourceResolver(out IMFSourceResolver resolver);
+				IUnknown unknown;
+				try
+				{
+					resolver.CreateObjectFromURL(((object[])Media.Tag)[2].ToString(), MF_RESOLUTION_MEDIASOURCE | MF_RESOLUTION_CONTENT_DOES_NOT_HAVE_TO_MATCH_EXTENSION_OR_MIME_TYPE,
+						null, out uint objtype, out unknown);
+				}
+				catch
+				{
+					MessageBox.Show("不支持的媒体格式。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+				IMFMediaSource source = unknown as IMFMediaSource;
+				source.CreatePresentationDescriptor(out IMFPresentationDescriptor descriptor);
+				if (MFRequireProtectedEnvironment(descriptor) == 0)
+				{
+					MessageBox.Show("媒体受保护,无法播放。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+				descriptor.GetStreamDescriptorCount(out uint sdcount);
+				for (uint i = 0; i < sdcount; i++)
+				{
+					descriptor.GetStreamDescriptorByIndex(i, out bool IsSelected, out IMFStreamDescriptor sd);
+					if (!IsSelected)
+						descriptor.SelectStream(i);
+					sd.GetMediaTypeHandler(out IMFMediaTypeHandler typeHandler);
+					typeHandler.GetMajorType(out Guid streamtype);
+					IMFActivate renderer;
+					if (streamtype == MFMediaType_Audio)
+					{
+						hr = MFCreateAudioRendererActivate(out renderer);
+					}
+					else if (streamtype == MFMediaType_Video)
+					{
+						hr = MFCreateVideoRendererActivate(host.Handle, out renderer);
+						hasvideo = true;
+					}
+					else
+					{
+						continue;
+					}
+					hr = MFCreateTopologyNode(MF_TOPOLOGY_SOURCESTREAM_NODE, out IMFTopologyNode sourcenode);
+					sourcenode.SetUnknown(MF_TOPONODE_SOURCE, source as IUnknown);
+					sourcenode.SetUnknown(MF_TOPONODE_PRESENTATION_DESCRIPTOR, descriptor as IUnknown);
+					sourcenode.SetUnknown(MF_TOPONODE_STREAM_DESCRIPTOR, sd as IUnknown);
+					topo.AddNode(sourcenode);
+					MFCreateTopologyNode(MF_TOPOLOGY_OUTPUT_NODE, out IMFTopologyNode outputnode);
+					outputnode.SetObject(renderer as IUnknown);
+					topo.AddNode(outputnode);
+					hr = sourcenode.ConnectOutput(0, outputnode, 0);
+				}
+				mediaSession.SetTopology(0, topo);
+				int dwrate = (int)((object[])Media.Tag)[1];
+				float dwvolume = (float)(int)((object[])Media.Tag)[0] / 100;
+				uint eventtype = 0;
+				while (eventtype != MESessionTopologyStatus)
+				{
+					mediaSession.GetEvent(0, out IMFMediaEvent mediaevent);
+					mediaevent.GetType(out eventtype);
+					mediaevent = null;
+				}
+				Guid guid_ratecontrol = typeof(IMFRateControl).GUID;
+				MFGetService(mediaSession as IUnknown, ref MF_RATE_CONTROL_SERVICE, ref guid_ratecontrol, out IUnknown _ratecontrol);
+				IMFRateControl ratecontrol = _ratecontrol as IMFRateControl;
+				hr = ratecontrol.SetRate(false, dwrate >= 0 ? dwrate * 7 / 10 + 1 : 1 / (1 + dwrate / -10 * 7));
+				try
+				{
+					Guid guid_audiopolicy = typeof(IMFAudioPolicy).GUID;
+					hr = MFGetService(mediaSession as IUnknown, ref MR_AUDIO_POLICY_SERVICE, ref guid_audiopolicy, out IUnknown _policy);
+					IMFAudioPolicy policy = _policy as IMFAudioPolicy;
+					policy.SetDisplayName(" ");
+					playvolume = dwvolume;
+				}
+				catch
+				{
+				}
+				try
+				{
+					Guid guid_videocontrol = typeof(IMFVideoDisplayControl).GUID;
+					hr = MFGetService(mediaSession as IUnknown, ref MR_VIDEO_RENDER_SERVICE, ref guid_videocontrol, out IUnknown _videocontrol);
+					IMFVideoDisplayControl videocontrol = _videocontrol as IMFVideoDisplayControl;
+					if (FullScreen.Checked)
+					{
+						host.Top = 0;
+						host.Left = 0;
+						host.Width = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+						host.Height = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+						videocontrol.SetFullscreen(true);
+						Rectangle videopos = new Rectangle(0, 0, host.Width, host.Height);
+						videocontrol.SetVideoPosition(null, ref videopos);
+					}
+					host.videocontrol = videocontrol;
+				}
+				catch
+				{
+				}
+				preventthread = new Thread(() =>
+				{
+					while (true)
+					{					
+						if (hasvideo)
+							host.BringToFront();
+						SetAppAndSystemVolume(playvolume, false);					
+					}
+				});
+				preventthread.Start();
 #endif
-				Hide();
 				WhenArrival("media");
 			}
 		}
@@ -1024,7 +1169,6 @@ namespace USBTool
 				dmFormName = new string(new char[33]),
 				dmSize = (short)(Marshal.SizeOf(DEVMODE1))
 			};
-			rand = new Random();
 			EnumDisplaySettings(null, -1, ref DEVMODE1);
 			WhenArrival("random");
 		}
@@ -1231,6 +1375,37 @@ namespace USBTool
         private void WinKeyDown_Click(object sender, EventArgs e)
         {
 			WhenArrival("winkeydown");
+		}
+
+        private void SingleColor_Click(object sender, EventArgs e)
+        {
+			if (GetColor.ShowDialog() == DialogResult.OK)
+			{
+				SingleColor.Tag = GetColor.Color;
+				WhenArrival("singlecolor");
+			}
+		}
+
+        private void NewDesktop_Click(object sender, EventArgs e)
+        {
+			defaultdesktop = GetThreadDesktop(GetCurrentThreadId());
+			newdesktop = CreateDesktop("mydesktop", null, IntPtr.Zero, 0, GENERIC_ALL, IntPtr.Zero);
+			STARTUPINFO sui = new STARTUPINFO()
+			{
+				lpDesktop="mydesktop",
+			};
+			sui.cb = Marshal.SizeOf(sui);
+			StringBuilder s = new StringBuilder("explorer.exe");
+			CreateProcess(null, s, IntPtr.Zero, IntPtr.Zero, false, 0, IntPtr.Zero, Environment.CurrentDirectory, ref sui, out PROCESS_INFORMATION pi);
+			CloseHandle(pi.hProcess);
+			CloseHandle(pi.hThread);
+			WhenArrival("newdesktop");	
+			
+		}
+
+        private void Sleep_Click(object sender, EventArgs e)
+        {
+			WhenArrival("sleep");
 		}
     }
 }

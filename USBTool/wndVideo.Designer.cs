@@ -32,7 +32,7 @@ namespace USBTool
         {
             this.SuspendLayout();
             // 
-            // wndVideo
+            // WndVideo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -41,11 +41,12 @@ namespace USBTool
             this.Icon = global::USBTool.Properties.Resources.scp_funny;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "wndVideo";
+            this.Name = "WndVideo";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WndVideo_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.WndVideo_Paint);
             this.ResumeLayout(false);
 
