@@ -598,7 +598,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;SwapBotton.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="ModifyName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -658,7 +658,7 @@
     <value>DisplayCategory</value>
   </data>
   <data name="&gt;&gt;RotateScreen.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="ShowWeb.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -805,7 +805,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;MouseTrail.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="Destroy.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -925,7 +925,7 @@
     <value>DisplayCategory</value>
   </data>
   <data name="&gt;&gt;random.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="BeUncle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1042,7 +1042,7 @@
     <value>DisplayCategory</value>
   </data>
   <data name="&gt;&gt;SetColor.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="FullScreen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1108,7 +1108,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;FixCursor.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="DeleteFileExt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1195,7 +1195,7 @@
     <value>DisplayCategory</value>
   </data>
   <data name="&gt;&gt;Flash.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Negative.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1225,7 +1225,7 @@
     <value>DisplayCategory</value>
   </data>
   <data name="&gt;&gt;Negative.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Mute.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1285,7 +1285,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;Clip.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Beep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1675,7 +1675,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;AutoClick.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Monochrome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1705,7 +1705,7 @@
     <value>DisplayCategory</value>
   </data>
   <data name="&gt;&gt;Monochrome.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="CloseMouse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1735,7 +1735,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;CloseMouse.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="WinKeyDown.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1765,7 +1765,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;WinKeyDown.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="SingleColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1780,7 +1780,7 @@
     <value>47</value>
   </data>
   <data name="SingleColor.Text" xml:space="preserve">
-    <value>单色</value>
+    <value>颜色滤镜</value>
   </data>
   <data name="SingleColor.ToolTip" xml:space="preserve">
     <value>颜色滤镜</value>
@@ -1795,7 +1795,7 @@
     <value>DisplayCategory</value>
   </data>
   <data name="&gt;&gt;SingleColor.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="NewDesktop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1826,6 +1826,66 @@
   </data>
   <data name="&gt;&gt;NewDesktop.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="Sleep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Sleep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 71</value>
+  </data>
+  <data name="Sleep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Sleep.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="Sleep.Text" xml:space="preserve">
+    <value>睡眠</value>
+  </data>
+  <data name="Sleep.ToolTip" xml:space="preserve">
+    <value>系统睡眠</value>
+  </data>
+  <data name="&gt;&gt;Sleep.Name" xml:space="preserve">
+    <value>Sleep</value>
+  </data>
+  <data name="&gt;&gt;Sleep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Sleep.Parent" xml:space="preserve">
+    <value>SettingCategory</value>
+  </data>
+  <data name="&gt;&gt;Sleep.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Block.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Block.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 71</value>
+  </data>
+  <data name="Block.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Block.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="Block.Text" xml:space="preserve">
+    <value>阻塞消息</value>
+  </data>
+  <data name="Block.ToolTip" xml:space="preserve">
+    <value>阻塞一切键鼠消息</value>
+  </data>
+  <data name="&gt;&gt;Block.Name" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="&gt;&gt;Block.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Block.Parent" xml:space="preserve">
+    <value>MouseAndKryBdCategory</value>
+  </data>
+  <data name="&gt;&gt;Block.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1912,7 +1972,7 @@
     <value>MouseAndKryBdCategory</value>
   </data>
   <data name="&gt;&gt;WindMouse.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="MouseAndKryBdCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1941,6 +2001,36 @@
   <data name="&gt;&gt;MouseAndKryBdCategory.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="Mirror.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Mirror.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 71</value>
+  </data>
+  <data name="Mirror.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Mirror.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="Mirror.Text" xml:space="preserve">
+    <value>镜像</value>
+  </data>
+  <data name="Mirror.ToolTip" xml:space="preserve">
+    <value>左右反转</value>
+  </data>
+  <data name="&gt;&gt;Mirror.Name" xml:space="preserve">
+    <value>Mirror</value>
+  </data>
+  <data name="&gt;&gt;Mirror.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Mirror.Parent" xml:space="preserve">
+    <value>DisplayCategory</value>
+  </data>
+  <data name="&gt;&gt;Mirror.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="DisplayCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -1967,36 +2057,6 @@
   </data>
   <data name="&gt;&gt;DisplayCategory.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="Sleep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Sleep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 71</value>
-  </data>
-  <data name="Sleep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="Sleep.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
-  <data name="Sleep.Text" xml:space="preserve">
-    <value>睡眠</value>
-  </data>
-  <data name="Sleep.ToolTip" xml:space="preserve">
-    <value>系统睡眠</value>
-  </data>
-  <data name="&gt;&gt;Sleep.Name" xml:space="preserve">
-    <value>Sleep</value>
-  </data>
-  <data name="&gt;&gt;Sleep.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Sleep.Parent" xml:space="preserve">
-    <value>SettingCategory</value>
-  </data>
-  <data name="&gt;&gt;Sleep.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="SettingCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

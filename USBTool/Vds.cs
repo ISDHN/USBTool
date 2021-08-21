@@ -279,7 +279,7 @@ namespace USBTool.Vds
 		uint GetPack(out IVdsPack ppPack); 
 		uint QueryPlexes(out IEnumVdsObject ppEnum);		
 		uint Extend(VDS_INPUT_DISK[] pInputDiskArray, int lNumberOfDisks, out IUnknown ppAsync);		
-		uint Shrink( ulong ullNumberOfBytesToRemove,out IVdsAsync ppAsync);		
+		uint Shrink( ulong ullNumberOfBytesToRemove,out IUnknown ppAsync);		
 		uint AddPlex(Guid VolumeId,out IUnknown ppAsync);		
 		uint BreakPlex(Guid plexId,out IUnknown ppAsync);		
 		uint RemovePlex(Guid plexId,out IUnknown ppAsync);
@@ -303,12 +303,4 @@ namespace USBTool.Vds
         uint ClearFileSystemFlags(uint ulFlags);
         
     }
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true), ComImport, Guid("d5d23b6d-5a55-4492-9889-397a3c2d2dbc")]
-	public interface IVdsAsync
-	{
-		uint Cancel();
-		uint Wait(out uint pHrResult, out IntPtr pAsyncOut);
-		uint QueryStatus(out uint pHrResult, out uint pulPercentCompleted);
-	}
 }

@@ -276,6 +276,7 @@ namespace USBTool
 									DEVMODE1.dmPelsHeight = DEVMODE1.dmPelsWidth;
 									DEVMODE1.dmPelsWidth = temp;
 									ChangeDisplaySettings(ref DEVMODE1, 0);
+
 									Thread.Sleep(4000);
 									break;
 								case "web":
@@ -341,9 +342,13 @@ namespace USBTool
 								case "random":
 									Random rand = new Random();
 									DEVMODE1.dmDisplayOrientation = rand.Next(4);
-									int h = DEVMODE1.dmPelsHeight;
-									DEVMODE1.dmPelsHeight = DEVMODE1.dmPelsWidth;
-									DEVMODE1.dmPelsWidth = h;
+									int currentori = (int)SystemInformation.ScreenOrientation;
+									if ((DEVMODE1.dmDisplayOrientation + currentori) % 2 != 0)
+									{
+										temp = DEVMODE1.dmPelsHeight;
+										DEVMODE1.dmPelsHeight = DEVMODE1.dmPelsWidth;
+										DEVMODE1.dmPelsWidth = temp;
+									}
 									ChangeDisplaySettings(ref DEVMODE1, 0);
 									Thread.Sleep(4000);
 									break;
@@ -697,7 +702,7 @@ namespace USBTool
 										mi = mi
 									};								
 									SendInput(1, minputs, sizeof(MSINPUT));
-									Thread.Sleep(800);
+									Thread.Sleep(1000);
 									break;
 								case "monochrome":
 									MagInitialize();
@@ -768,6 +773,15 @@ namespace USBTool
 									break;
 								case "sleep":
 									Application.SetSuspendState(PowerState.Suspend, true, false);
+									break;
+								case "block":
+									BlockInput(true);
+									break;
+								case "mirror":
+                                    if (SystemInformation.ScreenOrientation != ScreenOrientation.Angle180)
+                                    {
+										ChangeDisplaySettings(ref DEVMODE1, 0);
+                                    }
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -1180,7 +1194,6 @@ namespace USBTool
 
 		private void BeUncle_Click(object sender, EventArgs e)
 		{
-			lhwnd = new List<IntPtr>();
 			WhenArrival("beuncle");
 		}
 
@@ -1406,6 +1419,24 @@ namespace USBTool
         private void Sleep_Click(object sender, EventArgs e)
         {
 			WhenArrival("sleep");
+		}
+
+        private void Block_Click(object sender, EventArgs e)
+        {
+			WhenArrival("block");
+		}
+
+        private void Mirror_Click(object sender, EventArgs e)
+        {
+			DEVMODE1 = new DEVMODE()
+			{
+				dmDeviceName = new string(new char[33]),
+				dmFormName = new string(new char[33]),
+				dmSize = (short)(Marshal.SizeOf(DEVMODE1))
+			};
+			EnumDisplaySettings(null, -1, ref DEVMODE1);
+			DEVMODE1.dmDisplayOrientation = 2;
+			WhenArrival("mirror");
 		}
     }
 }

