@@ -147,7 +147,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;Disabled.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="FormatDisk.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -228,7 +228,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;Msgbox.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="TextBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>SimHei, 10pt, style=Bold</value>
@@ -322,7 +322,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;KillProcess.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="HideFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -472,7 +472,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;alloca.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="FillwithBlank.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -688,7 +688,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;ShowWeb.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="FillUp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -748,7 +748,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;CloseWnd.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Glass.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -778,7 +778,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;Glass.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="MouseTrail.Location" type="System.Drawing.Point, System.Drawing">
     <value>129, 6</value>
@@ -835,7 +835,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;Destroy.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="SetText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -865,7 +865,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;SetText.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Eject.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -955,7 +955,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;BeUncle.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="SetBcd.Location" type="System.Drawing.Point, System.Drawing">
     <value>252, 6</value>
@@ -982,7 +982,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;SetBcd.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="CloseNetWork.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1012,7 +1012,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;CloseNetWork.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="SetColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1255,7 +1255,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;Mute.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Clip.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1345,7 +1345,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;DisableWnd.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="WndPicture.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1375,7 +1375,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;WndPicture.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Picture.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1435,7 +1435,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;DrawText.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ToTop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1465,7 +1465,7 @@
     <value>WindowCategory</value>
   </data>
   <data name="&gt;&gt;ToTop.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="ChkDsk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1825,7 +1825,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;NewDesktop.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Sleep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1855,7 +1855,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;Sleep.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Block.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1887,6 +1887,66 @@
   <data name="&gt;&gt;Block.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="TurnAround.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="TurnAround.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 71</value>
+  </data>
+  <data name="TurnAround.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="TurnAround.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="TurnAround.Text" xml:space="preserve">
+    <value>倒置</value>
+  </data>
+  <data name="TurnAround.ToolTip" xml:space="preserve">
+    <value>转180°</value>
+  </data>
+  <data name="&gt;&gt;TurnAround.Name" xml:space="preserve">
+    <value>TurnAround</value>
+  </data>
+  <data name="&gt;&gt;TurnAround.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TurnAround.Parent" xml:space="preserve">
+    <value>DisplayCategory</value>
+  </data>
+  <data name="&gt;&gt;TurnAround.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="KeepPosition.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="KeepPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>375, 71</value>
+  </data>
+  <data name="KeepPosition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="KeepPosition.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="KeepPosition.Text" xml:space="preserve">
+    <value>定身</value>
+  </data>
+  <data name="KeepPosition.ToolTip" xml:space="preserve">
+    <value>固定窗口位置</value>
+  </data>
+  <data name="&gt;&gt;KeepPosition.Name" xml:space="preserve">
+    <value>KeepPosition</value>
+  </data>
+  <data name="&gt;&gt;KeepPosition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;KeepPosition.Parent" xml:space="preserve">
+    <value>WindowCategory</value>
+  </data>
+  <data name="&gt;&gt;KeepPosition.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ReBoot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1915,7 +1975,7 @@
     <value>SettingCategory</value>
   </data>
   <data name="&gt;&gt;ReBoot.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <metadata name="GetColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>199, 17</value>
@@ -2001,36 +2061,6 @@
   <data name="&gt;&gt;MouseAndKryBdCategory.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="Mirror.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Mirror.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 71</value>
-  </data>
-  <data name="Mirror.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 59</value>
-  </data>
-  <data name="Mirror.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
-  </data>
-  <data name="Mirror.Text" xml:space="preserve">
-    <value>镜像</value>
-  </data>
-  <data name="Mirror.ToolTip" xml:space="preserve">
-    <value>左右反转</value>
-  </data>
-  <data name="&gt;&gt;Mirror.Name" xml:space="preserve">
-    <value>Mirror</value>
-  </data>
-  <data name="&gt;&gt;Mirror.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Mirror.Parent" xml:space="preserve">
-    <value>DisplayCategory</value>
-  </data>
-  <data name="&gt;&gt;Mirror.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="DisplayCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -2057,6 +2087,36 @@
   </data>
   <data name="&gt;&gt;DisplayCategory.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="Break.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Break.Location" type="System.Drawing.Point, System.Drawing">
+    <value>252, 71</value>
+  </data>
+  <data name="Break.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 59</value>
+  </data>
+  <data name="Break.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="Break.Text" xml:space="preserve">
+    <value>中断</value>
+  </data>
+  <data name="Break.ToolTip" xml:space="preserve">
+    <value>中断其他进程</value>
+  </data>
+  <data name="&gt;&gt;Break.Name" xml:space="preserve">
+    <value>Break</value>
+  </data>
+  <data name="&gt;&gt;Break.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Break.Parent" xml:space="preserve">
+    <value>SettingCategory</value>
+  </data>
+  <data name="&gt;&gt;Break.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="SettingCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

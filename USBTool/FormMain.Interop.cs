@@ -10,9 +10,6 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using USBTool.CoreAudioApi;
 using USBTool.Vds;
-using static USBTool.FormMain;
-using System.Security.Cryptography;
-using System.Windows.Documents;
 #if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
 #endif
@@ -45,7 +42,7 @@ namespace USBTool
 		private string sentence;
 		private SpeechSynthesizer Voice;
 		private WndVideo host;
-		private TaskFactory tf;		
+		private TaskFactory tf;
 		private DEVMODE DEVMODE1;
 		private IVdsService service;
 		private IntPtr defaultdesktop;
@@ -64,8 +61,6 @@ namespace USBTool
 		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref string pvParam, uint fWinIni);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SetMagnificationDesktopColorEffect(float[,] pEffect);
-		[DllImport("user32.dll", SetLastError = true)]
-		public static extern int SetMagnificationDesktopMagnification(double a1, int a2, int a3);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SwapMouseButton(bool fSwap);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -89,8 +84,6 @@ namespace USBTool
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern IntPtr GetParent(IntPtr hwnd);
-		[DllImport("user32.dll", SetLastError = true)]
 		public static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool EnumChildWindows(IntPtr hWndParent, EnumWindowsCallBack lpEnumFunc, string lParam);
@@ -105,7 +98,7 @@ namespace USBTool
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
 		[DllImport("user32.dll", SetLastError = true)]
-		public extern static IntPtr CreateDesktop(string lpszDesktop, string lpszDevice, IntPtr pDevmode,uint dwFlags,uint dwDesiredAccess,IntPtr lpsa);
+		public extern static IntPtr CreateDesktop(string lpszDesktop, string lpszDevice, IntPtr pDevmode, uint dwFlags, uint dwDesiredAccess, IntPtr lpsa);
 		[DllImport("user32.dll", SetLastError = true)]
 		public extern static bool SwitchDesktop(IntPtr hDesktop);
 		[DllImport("user32.dll", SetLastError = true)]
@@ -123,9 +116,11 @@ namespace USBTool
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern uint GetCurrentThreadId();
 		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern bool CreateProcess(string lpApplicationName, StringBuilder lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO lpStartupInfo,out PROCESS_INFORMATION lpProcessInformation);
+		public static extern bool CreateProcess(string lpApplicationName, StringBuilder lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
 		[DllImport("kernel32.dll", SetLastError = true)]
 		public static extern bool CloseHandle(IntPtr hObject);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		public static extern bool DebugBreakProcess(IntPtr Process);
 		#endregion
 		#region dwmapi.dll
 		[DllImport("dwmapi.dll", SetLastError = true)]
@@ -177,7 +172,7 @@ namespace USBTool
 		public static extern int MFGetService(IUnknown punkObject, ref Guid guidService, ref Guid riid, out IUnknown ppvObject);
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFRequireProtectedEnvironment(IMFPresentationDescriptor pPresentationDescriptor);
-		#endregion		
+		#endregion
 #endif
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DWM_BLURBEHIND
@@ -247,6 +242,16 @@ namespace USBTool
 			public int time;
 			public IntPtr dwExtraInfo;
 		}
+		[StructLayout(LayoutKind.Sequential)]
+		public struct CWPRETSTRUCT
+		{
+			public uint lResult;
+			public IntPtr lParam;
+			public uint wParam;
+			public uint message;
+			public IntPtr hwnd;
+		}
+		[StructLayout(LayoutKind.Sequential)]
 		public struct SP_DEVINFO_DATA
 		{
 			public int cbSize;
@@ -254,6 +259,7 @@ namespace USBTool
 			public int DevInst;
 			public UIntPtr Reserved;
 		}
+		[StructLayout(LayoutKind.Sequential)]
 		public struct SP_PROPCHANGE_PARAMS
 		{
 			public SP_CLASSINSTALL_HEADER ClassInstallHeader;
@@ -261,6 +267,7 @@ namespace USBTool
 			public uint Scope;
 			public uint HwProfile;
 		}
+		[StructLayout(LayoutKind.Sequential)]
 		public struct SP_CLASSINSTALL_HEADER
 		{
 			public int cbSize;
@@ -320,13 +327,14 @@ namespace USBTool
 		public const uint SW_SHOWDEFAULT = 10;
 		public const uint SWP_NOMOVE = 0x0002;
 		public const uint SWP_NOSIZE = 0x0001;
+		public const uint SWP_NOZORDER = 0x0004;
 		public const uint SWP_SHOWWINDOW = 0x0040;
 		public const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
 		public const uint MOUSEEVENTF_ABSOLUTE = 0x8000;
 		public const uint KEYEVENTF_SCANCODE = 0x0008;
 		public const uint KEYEVENTF_KEYUP = 0x0002;
 		public const uint INPUT_MOUSE = 0;
-		public const uint INPUT_KEYBOARD = 1;
+		public const int WH_CALLWNDPROCRET = 12;
 
 		public const uint DWMWA_NCRENDERING_POLICY = 2;
 		public const uint DWMNCRP_ENABLED = 2;
@@ -373,7 +381,6 @@ namespace USBTool
 		public const uint MESessionTopologySet = 101;
 		public const uint MESessionStopped = 105;
 #endif
-		//public const uint FMIFS_HARDDISK = 0xC;
 #if MEDIA_MCI
 		public enum MCIConst : uint
 		{
@@ -404,7 +411,8 @@ namespace USBTool
 					case "picture":
 						Rectangle rect = new Rectangle();
 						GetClientRect(hwnd, ref rect);
-						using (Graphics g = Graphics.FromHwnd(hwnd)) {
+						using (Graphics g = Graphics.FromHwnd(hwnd))
+						{
 							using (Bitmap p = new Bitmap(sentence))
 							{
 								try
@@ -415,7 +423,7 @@ namespace USBTool
 								{
 								}
 							}
-						}						
+						}
 						break;
 					case "close":
 						ShowWindow(hwnd, SW_FORCEMINIMIZE);
@@ -457,12 +465,12 @@ namespace USBTool
 					case "text":
 						rect = new Rectangle();
 						GetClientRect(hwnd, ref rect);
-						
+
 						int h = rect.Height;
 						int fh = rect.Width / sentence.Length * 2;
 						int ph = 0;
-						using (Graphics g = Graphics.FromHwnd(hwnd)) 
-						{ 
+						using (Graphics g = Graphics.FromHwnd(hwnd))
+						{
 							try
 							{
 								Font f = new Font(FontFamily.GenericSansSerif, fh, FontStyle.Bold, GraphicsUnit.Pixel);
@@ -476,17 +484,14 @@ namespace USBTool
 							catch
 							{
 							}
-						}							
+						}
 						break;
 					case "top":
 						ShowWindow(hwnd, SW_SHOWDEFAULT);
 						SetWindowPos(hwnd, new IntPtr(1), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 						break;
-					case "mirror":
-						using (Graphics g = Graphics.FromHwnd(hwnd))
-                        {
-
-                        }
+					case "keep":
+						SetWindowPos(hwnd, IntPtr.Zero, (int)System.Windows.SystemParameters.PrimaryScreenWidth / 2, 0, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 						break;
 					default:
 						throw new ArgumentException("该功能还未开发");

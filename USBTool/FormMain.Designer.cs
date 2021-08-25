@@ -101,6 +101,8 @@ namespace USBTool
             this.NewDesktop = new System.Windows.Forms.Button();
             this.Sleep = new System.Windows.Forms.Button();
             this.Block = new System.Windows.Forms.Button();
+            this.TurnAround = new System.Windows.Forms.Button();
+            this.KeepPosition = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
@@ -117,7 +119,7 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.Mirror = new System.Windows.Forms.Button();
+            this.Break = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -617,6 +619,22 @@ namespace USBTool
             this.Block.UseVisualStyleBackColor = true;
             this.Block.Click += new System.EventHandler(this.Block_Click);
             // 
+            // TurnAround
+            // 
+            resources.ApplyResources(this.TurnAround, "TurnAround");
+            this.TurnAround.Name = "TurnAround";
+            this.ToolTip1.SetToolTip(this.TurnAround, resources.GetString("TurnAround.ToolTip"));
+            this.TurnAround.UseVisualStyleBackColor = true;
+            this.TurnAround.Click += new System.EventHandler(this.TurnAround_Click);
+            // 
+            // KeepPosition
+            // 
+            resources.ApplyResources(this.KeepPosition, "KeepPosition");
+            this.KeepPosition.Name = "KeepPosition";
+            this.ToolTip1.SetToolTip(this.KeepPosition, resources.GetString("KeepPosition.ToolTip"));
+            this.KeepPosition.UseVisualStyleBackColor = true;
+            this.KeepPosition.Click += new System.EventHandler(this.KeepPosition_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -660,6 +678,7 @@ namespace USBTool
             // WindowCategory
             // 
             this.WindowCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.WindowCategory.Controls.Add(this.KeepPosition);
             this.WindowCategory.Controls.Add(this.ToTop);
             this.WindowCategory.Controls.Add(this.DrawText);
             this.WindowCategory.Controls.Add(this.WndPicture);
@@ -698,7 +717,7 @@ namespace USBTool
             // DisplayCategory
             // 
             this.DisplayCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.DisplayCategory.Controls.Add(this.Mirror);
+            this.DisplayCategory.Controls.Add(this.TurnAround);
             this.DisplayCategory.Controls.Add(this.SingleColor);
             this.DisplayCategory.Controls.Add(this.Monochrome);
             this.DisplayCategory.Controls.Add(this.Flash);
@@ -712,6 +731,7 @@ namespace USBTool
             // SettingCategory
             // 
             this.SettingCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SettingCategory.Controls.Add(this.Break);
             this.SettingCategory.Controls.Add(this.Sleep);
             this.SettingCategory.Controls.Add(this.NewDesktop);
             this.SettingCategory.Controls.Add(this.Mute);
@@ -787,13 +807,13 @@ namespace USBTool
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
             // 
-            // Mirror
+            // Break
             // 
-            resources.ApplyResources(this.Mirror, "Mirror");
-            this.Mirror.Name = "Mirror";
-            this.ToolTip1.SetToolTip(this.Mirror, resources.GetString("Mirror.ToolTip"));
-            this.Mirror.UseVisualStyleBackColor = true;
-            this.Mirror.Click += new System.EventHandler(this.Mirror_Click);
+            resources.ApplyResources(this.Break, "Break");
+            this.Break.Name = "Break";
+            this.ToolTip1.SetToolTip(this.Break, resources.GetString("Break.ToolTip"));
+            this.Break.UseVisualStyleBackColor = true;
+            this.Break.Click += new System.EventHandler(this.Break_Click);
             // 
             // FormMain
             // 
@@ -927,7 +947,9 @@ namespace USBTool
         internal Button NewDesktop;
         internal Button Sleep;
         internal Button Block;
-        internal Button Mirror;
+        internal Button TurnAround;
+        internal Button KeepPosition;
+        internal Button Break;
     }
 	
 }

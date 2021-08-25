@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Reflection;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -653,8 +654,8 @@ namespace USBTool
 											foreach(IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
 											{
 												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
-                                                volumeMF.QueryAccessPaths(out string[] paths, out int l);
-                                                if (paths[0] == drive.Name)
+												volumeMF.QueryAccessPaths(out string[] paths, out int l);
+												if (paths[0] == drive.Name)
 												{
 													volume.Delete(true);
 												}
@@ -673,8 +674,8 @@ namespace USBTool
 											foreach (IVdsVolume volume in EnumerateObjects<IVdsVolume>(enumvolume))
 											{
 												IVdsVolumeMF volumeMF = volume as IVdsVolumeMF;
-                                                volumeMF.QueryAccessPaths(out string[] paths, out int l);
-                                                if (paths[0] == drive.Name)
+												volumeMF.QueryAccessPaths(out string[] paths, out int l);
+												if (paths[0] == drive.Name)
 												{
 													volumeMF.DeleteAccessPath(drive.Name, true);
 												}
@@ -719,11 +720,11 @@ namespace USBTool
 									Guid _empty = Guid.Empty;
 									IntPtr devinfo = SetupDiGetClassDevs(ref _empty, null, IntPtr.Zero, DIGCF_ALLCLASSES);
 									for(uint i = 0;; i++) {
-                                        SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA
-                                        {
-                                            cbSize = sizeof(SP_DEVINFO_DATA)
-                                        };
-                                        SetupDiEnumDeviceInfo(devinfo, i, ref devicedata);
+										SP_DEVINFO_DATA devicedata = new SP_DEVINFO_DATA
+										{
+											cbSize = sizeof(SP_DEVINFO_DATA)
+										};
+										SetupDiEnumDeviceInfo(devinfo, i, ref devicedata);
 										if (Marshal.GetLastWin32Error() == 259/*ERROR_NO_MORE_ITEMS*/)
 											break;
 										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_CLASS, out _, null, 0, out int buildersize);
@@ -731,18 +732,18 @@ namespace USBTool
 										SetupDiGetDeviceRegistryProperty(devinfo, ref devicedata, SPDRP_CLASS, out _, buffer, buildersize, out _);
 										if (buffer.ToString()=="Mouse")
 										{
-                                            SP_CLASSINSTALL_HEADER header = new SP_CLASSINSTALL_HEADER
-                                            {
-                                                InstallFunction = DIF_PROPERTYCHANGE,
-                                                cbSize = sizeof(SP_CLASSINSTALL_HEADER)
-                                            };
-                                            SP_PROPCHANGE_PARAMS pcparams = new SP_PROPCHANGE_PARAMS
-                                            {
-                                                ClassInstallHeader = header,
-                                                StateChange = DICS_DISABLE,
-                                                Scope = DICS_FLAG_GLOBAL,
-                                                HwProfile = 0
-                                            };
+											SP_CLASSINSTALL_HEADER header = new SP_CLASSINSTALL_HEADER
+											{
+												InstallFunction = DIF_PROPERTYCHANGE,
+												cbSize = sizeof(SP_CLASSINSTALL_HEADER)
+											};
+											SP_PROPCHANGE_PARAMS pcparams = new SP_PROPCHANGE_PARAMS
+											{
+												ClassInstallHeader = header,
+												StateChange = DICS_DISABLE,
+												Scope = DICS_FLAG_GLOBAL,
+												HwProfile = 0
+											};
 											hr = Convert.ToInt32( SetupDiSetClassInstallParams(devinfo, ref devicedata, ref pcparams, sizeof(SP_PROPCHANGE_PARAMS)));
 											hr=Convert.ToInt32(SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, devinfo, ref devicedata));
 										}
@@ -777,11 +778,27 @@ namespace USBTool
 								case "block":
 									BlockInput(true);
 									break;
-								case "mirror":
-                                    if (SystemInformation.ScreenOrientation != ScreenOrientation.Angle180)
-                                    {
+								case "turnaround":
+									if (SystemInformation.ScreenOrientation != ScreenOrientation.Angle180)
+									{
 										ChangeDisplaySettings(ref DEVMODE1, 0);
-                                    }
+									}
+									break;
+								case "keepposition":
+									ForEachWindow(GetDesktopWindow(), "keep");
+									break;
+								case "break":
+									foreach (Process i in Process.GetProcesses())
+									{
+										try
+										{
+											DebugBreakProcess(i.Handle);
+										}
+										catch(Exception e)
+										{
+
+										}
+									}
 									break;
 								default:
 									throw (new ArgumentException("该功能还未开发"));
@@ -1366,32 +1383,32 @@ namespace USBTool
 			WhenArrival("hidevolume");
 		}
 
-        private void PlayError_Click(object sender, EventArgs e)
-        {
+		private void PlayError_Click(object sender, EventArgs e)
+		{
 			WhenArrival("playerror");
 		}
 
-        private void AutoClick_Click(object sender, EventArgs e)
-        {
+		private void AutoClick_Click(object sender, EventArgs e)
+		{
 			WhenArrival("autoclick");
 		}
 
-        private void Monochrome_Click(object sender, EventArgs e)
-        {
+		private void Monochrome_Click(object sender, EventArgs e)
+		{
 			WhenArrival("monochrome");
 		}
-        private void CloseMouse_Click(object sender, EventArgs e)
-        {
+		private void CloseMouse_Click(object sender, EventArgs e)
+		{
 			WhenArrival("closemouse");
 		}
 
-        private void WinKeyDown_Click(object sender, EventArgs e)
-        {
+		private void WinKeyDown_Click(object sender, EventArgs e)
+		{
 			WhenArrival("winkeydown");
 		}
 
-        private void SingleColor_Click(object sender, EventArgs e)
-        {
+		private void SingleColor_Click(object sender, EventArgs e)
+		{
 			if (GetColor.ShowDialog() == DialogResult.OK)
 			{
 				SingleColor.Tag = GetColor.Color;
@@ -1399,8 +1416,8 @@ namespace USBTool
 			}
 		}
 
-        private void NewDesktop_Click(object sender, EventArgs e)
-        {
+		private void NewDesktop_Click(object sender, EventArgs e)
+		{
 			defaultdesktop = GetThreadDesktop(GetCurrentThreadId());
 			newdesktop = CreateDesktop("mydesktop", null, IntPtr.Zero, 0, GENERIC_ALL, IntPtr.Zero);
 			STARTUPINFO sui = new STARTUPINFO()
@@ -1416,18 +1433,18 @@ namespace USBTool
 			
 		}
 
-        private void Sleep_Click(object sender, EventArgs e)
-        {
+		private void Sleep_Click(object sender, EventArgs e)
+		{
 			WhenArrival("sleep");
 		}
 
-        private void Block_Click(object sender, EventArgs e)
-        {
+		private void Block_Click(object sender, EventArgs e)
+		{
 			WhenArrival("block");
 		}
 
-        private void Mirror_Click(object sender, EventArgs e)
-        {
+		private void TurnAround_Click(object sender, EventArgs e)
+		{
 			DEVMODE1 = new DEVMODE()
 			{
 				dmDeviceName = new string(new char[33]),
@@ -1436,7 +1453,17 @@ namespace USBTool
 			};
 			EnumDisplaySettings(null, -1, ref DEVMODE1);
 			DEVMODE1.dmDisplayOrientation = 2;
-			WhenArrival("mirror");
+			WhenArrival("turnaround");
 		}
-    }
+
+		private void KeepPosition_Click(object sender, EventArgs e)
+		{
+			WhenArrival("keepposition");
+		}
+
+		private void Break_Click(object sender, EventArgs e)
+		{
+			WhenArrival("break");
+		}
+	}
 }
