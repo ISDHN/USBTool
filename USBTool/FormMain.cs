@@ -744,8 +744,8 @@ namespace USBTool
 												Scope = DICS_FLAG_GLOBAL,
 												HwProfile = 0
 											};
-											hr = Convert.ToInt32( SetupDiSetClassInstallParams(devinfo, ref devicedata, ref pcparams, sizeof(SP_PROPCHANGE_PARAMS)));
-											hr=Convert.ToInt32(SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, devinfo, ref devicedata));
+											SetupDiSetClassInstallParams(devinfo, ref devicedata, ref pcparams, sizeof(SP_PROPCHANGE_PARAMS));
+											SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, devinfo, ref devicedata);
 										}
 									}
 									break;

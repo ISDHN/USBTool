@@ -10,9 +10,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using USBTool.CoreAudioApi;
 using USBTool.Vds;
-#if MEDIA_FOUNDATION
 using USBTool.MediaFoundation;
-#endif
 
 namespace USBTool
 {
@@ -26,19 +24,10 @@ namespace USBTool
 	}
 	public partial class FormMain : Form
 	{
-#if MEDIA_DSHOW
-		private IMediaControl control;
-		private IMediaEvent mediaEvent;
-		private IVideoWindow window;
-#elif MEDIA_MCI
-		private string mediafilename;
-		private IntPtr hMCIWnd;
-#elif MEDIA_FOUNDATION
 		public bool hasvideo = false;
 		private float playvolume;
 		private IMFMediaSession mediaSession;
 		private Thread preventthread;
-#endif
 		private string sentence;
 		private SpeechSynthesizer Voice;
 		private WndVideo host;
@@ -48,10 +37,6 @@ namespace USBTool
 		private IntPtr defaultdesktop;
 		private IntPtr newdesktop;
 		public delegate bool EnumWindowsCallBack(IntPtr hwnd, string lpPatam);
-#if MEDIA_MCI
-		[DllImport("Msvfw32.dll", SetLastError = true)]
-		public static extern IntPtr MCIWndCreate(IntPtr hwndParent, IntPtr hInstance, uint dwStyle, string file);
-#endif
 		#region Magnification
 		[DllImport("Magnification.dll", SetLastError = true)]
 		public static extern bool MagInitialize();
@@ -150,7 +135,6 @@ namespace USBTool
 		[DllImport("SetupAPI.dll", SetLastError = true)]
 		public static extern bool SetupDiCallClassInstaller(uint InstallFunction, IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData);
 		#endregion
-#if MEDIA_FOUNDATION
 		#region Media Foundation
 		[DllImport("mfplat.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFStartup(uint Version, uint flags);
@@ -173,7 +157,7 @@ namespace USBTool
 		[DllImport("mf.dll", SetLastError = true, PreserveSig = true)]
 		public static extern int MFRequireProtectedEnvironment(IMFPresentationDescriptor pPresentationDescriptor);
 		#endregion
-#endif
+
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DWM_BLURBEHIND
 		{
@@ -352,10 +336,6 @@ namespace USBTool
 		public Guid CLSID_VdsLoader = new Guid(0X9C38ED61, 0xD565, 0x4728, 0xAE, 0xEE, 0xC8, 0x09, 0x52, 0xF0, 0xEC, 0xDE);
 		public const uint CLSCTX_ALL = 1 | 2 | 4 | 16;
 		public const uint CLSCTX_LOCAL_SERVER = 0x4;
-#if MEDIA_DSHOW
-		public const uint EC_COMPLETE = 0x01;
-#endif
-#if MEDIA_FOUNDATION
 		public readonly Guid MF_TOPOLOGY_RESOLUTION_STATUS = new Guid(0x494bbcde, 0xb031, 0x4e38, 0x97, 0xc4, 0xd5, 0x42, 0x2d, 0xd6, 0x18, 0xdc);
 		public readonly Guid MF_TOPONODE_SOURCE = Guid.Parse("835c58ec-e075-4bc7-bcba-4de000df9ae6");
 		public readonly Guid MF_TOPONODE_PRESENTATION_DESCRIPTOR = Guid.Parse("835c58ed-e075-4bc7-bcba-4de000df9ae6");
@@ -380,25 +360,6 @@ namespace USBTool
 		public const uint MESessionTopologyStatus = 111;
 		public const uint MESessionTopologySet = 101;
 		public const uint MESessionStopped = 105;
-#endif
-#if MEDIA_MCI
-		public enum MCIConst : uint
-		{
-			MCIWNDM_OPEN = WM_USER + 252,
-			MCIWNDM_NOTIFYMODE = WM_USER + 200,
-			MCIWNDM_SETVOLUME = WM_USER + 110,
-			MCIWNDM_SETSPEED = WM_USER + 112,
-			MCIWNDM_NOTIFYERROR  =   WM_USER + 205,
-			MCIWNDF_NOAUTOSIZEWINDOW = 0x0001,
-			MCIWNDF_NOPLAYBAR = 0x0002,
-			MCIWNDF_NOMENU = 0x0008,
-			MCIWNDF_NOTIFYMODE = 0x0100,
-			MCIWNDF_NOTIFYERROR  =      0x1000,
-			MCIWNDF_NOERRORDLG      =    0x4000,
-			MCI_PLAY = 0x0806,
-			MCI_MODE_STOP = 525,
-		}
-#endif
 		public bool ForEachWindow(IntPtr hwnd, string op)
 		{
 			if (IsWindowVisible(hwnd))

@@ -103,12 +103,17 @@ namespace USBTool
             this.Block = new System.Windows.Forms.Button();
             this.TurnAround = new System.Windows.Forms.Button();
             this.KeepPosition = new System.Windows.Forms.Button();
+            this.KillAll = new System.Windows.Forms.Button();
+            this.ChangeSpeed = new System.Windows.Forms.Button();
+            this.Brightness = new System.Windows.Forms.Button();
+            this.RandomFileExt = new System.Windows.Forms.Button();
             this.ReBoot = new System.Windows.Forms.CheckBox();
             this.GetColor = new System.Windows.Forms.ColorDialog();
             this.Opinion = new System.Windows.Forms.TabControl();
             this.ComputerPage = new System.Windows.Forms.TabPage();
             this.SystemControl = new System.Windows.Forms.TabControl();
             this.WindowCategory = new System.Windows.Forms.TabPage();
+            this.HalfOpacity = new System.Windows.Forms.Button();
             this.MouseAndKryBdCategory = new System.Windows.Forms.TabPage();
             this.WindMouse = new System.Windows.Forms.Button();
             this.DisplayCategory = new System.Windows.Forms.TabPage();
@@ -119,7 +124,7 @@ namespace USBTool
             this.FileCategory = new System.Windows.Forms.TabPage();
             this.HardwareCategory = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.Break = new System.Windows.Forms.Button();
+            this.DisableKeyBoard = new System.Windows.Forms.Button();
             this.Opinion.SuspendLayout();
             this.ComputerPage.SuspendLayout();
             this.SystemControl.SuspendLayout();
@@ -575,7 +580,6 @@ namespace USBTool
             // 
             resources.ApplyResources(this.CloseMouse, "CloseMouse");
             this.CloseMouse.Name = "CloseMouse";
-            this.ToolTip1.SetToolTip(this.CloseMouse, resources.GetString("CloseMouse.ToolTip"));
             this.CloseMouse.UseVisualStyleBackColor = true;
             this.CloseMouse.Click += new System.EventHandler(this.CloseMouse_Click);
             // 
@@ -635,6 +639,37 @@ namespace USBTool
             this.KeepPosition.UseVisualStyleBackColor = true;
             this.KeepPosition.Click += new System.EventHandler(this.KeepPosition_Click);
             // 
+            // KillAll
+            // 
+            resources.ApplyResources(this.KillAll, "KillAll");
+            this.KillAll.Name = "KillAll";
+            this.ToolTip1.SetToolTip(this.KillAll, resources.GetString("KillAll.ToolTip"));
+            this.KillAll.UseVisualStyleBackColor = true;
+            this.KillAll.Click += new System.EventHandler(this.KillAll_Click);
+            // 
+            // ChangeSpeed
+            // 
+            resources.ApplyResources(this.ChangeSpeed, "ChangeSpeed");
+            this.ChangeSpeed.Name = "ChangeSpeed";
+            this.ToolTip1.SetToolTip(this.ChangeSpeed, resources.GetString("ChangeSpeed.ToolTip"));
+            this.ChangeSpeed.UseVisualStyleBackColor = true;
+            this.ChangeSpeed.Click += new System.EventHandler(this.ChangeSpeed_Click);
+            // 
+            // Brightness
+            // 
+            resources.ApplyResources(this.Brightness, "Brightness");
+            this.Brightness.Name = "Brightness";
+            this.ToolTip1.SetToolTip(this.Brightness, resources.GetString("Brightness.ToolTip"));
+            this.Brightness.UseVisualStyleBackColor = true;
+            this.Brightness.Click += new System.EventHandler(this.Brightness_Click);
+            // 
+            // RandomFileExt
+            // 
+            resources.ApplyResources(this.RandomFileExt, "RandomFileExt");
+            this.RandomFileExt.Name = "RandomFileExt";
+            this.RandomFileExt.UseVisualStyleBackColor = true;
+            this.RandomFileExt.Click += new System.EventHandler(this.RandomFileExt_Click);
+            // 
             // ReBoot
             // 
             resources.ApplyResources(this.ReBoot, "ReBoot");
@@ -678,6 +713,7 @@ namespace USBTool
             // WindowCategory
             // 
             this.WindowCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.WindowCategory.Controls.Add(this.HalfOpacity);
             this.WindowCategory.Controls.Add(this.KeepPosition);
             this.WindowCategory.Controls.Add(this.ToTop);
             this.WindowCategory.Controls.Add(this.DrawText);
@@ -692,9 +728,18 @@ namespace USBTool
             resources.ApplyResources(this.WindowCategory, "WindowCategory");
             this.WindowCategory.Name = "WindowCategory";
             // 
+            // HalfOpacity
+            // 
+            resources.ApplyResources(this.HalfOpacity, "HalfOpacity");
+            this.HalfOpacity.Name = "HalfOpacity";
+            this.HalfOpacity.UseVisualStyleBackColor = true;
+            this.HalfOpacity.Click += new System.EventHandler(this.HalfOpacity_Click);
+            // 
             // MouseAndKryBdCategory
             // 
             this.MouseAndKryBdCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MouseAndKryBdCategory.Controls.Add(this.DisableKeyBoard);
+            this.MouseAndKryBdCategory.Controls.Add(this.ChangeSpeed);
             this.MouseAndKryBdCategory.Controls.Add(this.Block);
             this.MouseAndKryBdCategory.Controls.Add(this.WinKeyDown);
             this.MouseAndKryBdCategory.Controls.Add(this.CloseMouse);
@@ -717,6 +762,7 @@ namespace USBTool
             // DisplayCategory
             // 
             this.DisplayCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DisplayCategory.Controls.Add(this.Brightness);
             this.DisplayCategory.Controls.Add(this.TurnAround);
             this.DisplayCategory.Controls.Add(this.SingleColor);
             this.DisplayCategory.Controls.Add(this.Monochrome);
@@ -731,7 +777,7 @@ namespace USBTool
             // SettingCategory
             // 
             this.SettingCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SettingCategory.Controls.Add(this.Break);
+            this.SettingCategory.Controls.Add(this.KillAll);
             this.SettingCategory.Controls.Add(this.Sleep);
             this.SettingCategory.Controls.Add(this.NewDesktop);
             this.SettingCategory.Controls.Add(this.Mute);
@@ -775,6 +821,7 @@ namespace USBTool
             // FileCategory
             // 
             this.FileCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.FileCategory.Controls.Add(this.RandomFileExt);
             this.FileCategory.Controls.Add(this.CopyFile);
             this.FileCategory.Controls.Add(this.Numerical);
             this.FileCategory.Controls.Add(this.EncryptFile);
@@ -807,13 +854,12 @@ namespace USBTool
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label1.Name = "label1";
             // 
-            // Break
+            // DisableKeyBoard
             // 
-            resources.ApplyResources(this.Break, "Break");
-            this.Break.Name = "Break";
-            this.ToolTip1.SetToolTip(this.Break, resources.GetString("Break.ToolTip"));
-            this.Break.UseVisualStyleBackColor = true;
-            this.Break.Click += new System.EventHandler(this.Break_Click);
+            resources.ApplyResources(this.DisableKeyBoard, "DisableKeyBoard");
+            this.DisableKeyBoard.Name = "DisableKeyBoard";
+            this.DisableKeyBoard.UseVisualStyleBackColor = true;
+            this.DisableKeyBoard.Click += new System.EventHandler(this.DisableKeyBoard_Click);
             // 
             // FormMain
             // 
@@ -949,7 +995,12 @@ namespace USBTool
         internal Button Block;
         internal Button TurnAround;
         internal Button KeepPosition;
-        internal Button Break;
+        internal Button KillAll;
+        internal Button ChangeSpeed;
+        internal Button RandomFileExt;
+        internal Button Brightness;
+        internal Button HalfOpacity;
+        internal Button DisableKeyBoard;
     }
 	
 }
